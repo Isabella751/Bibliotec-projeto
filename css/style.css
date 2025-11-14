@@ -1,7 +1,8 @@
 /* E9F0EF0 - menta */
 /* FFFFFF - branco */
 /* 2FD6CB - verde água */
-/* 4A67DF -  */
+/* 4A67DF - roxo azulado */
+/* 26333D - azul escuro */
 
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
 
@@ -31,8 +32,8 @@
     --menta: #E9F0EF;
     --branco: #ffffff;
     --verdeAgua: #2fd6cb;
-    --roxo: #4a67df;
-
+    --roxoAzulado: #4a67df;
+    --azulEscuro: #26333d;
 }
 
 body {
@@ -100,7 +101,7 @@ header {
 .main-container .content {
     font-family: 'Montserrat-Bold', sans-serif;
     font-size: 0.8rem;
-    color: #ff0000;
+    color: #000000;
     text-align: center;
     margin-left: 25px;
 }
@@ -115,7 +116,7 @@ header {
     letter-spacing: 0.01em;
 }
 
-.senha{
+.senha {
     display: flex;
     justify-content: flex-start;
     align-items: flex-end;
@@ -123,7 +124,7 @@ header {
     color: black;
 }
 
-#entrar{
+#entrar {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -131,8 +132,8 @@ header {
     border-radius: 9px;
     width: 170px;
     height: 40px;
-    background-color: #2FD6CB;
-    color: white;
+    background-color: var(--verdeAgua);
+    color: var(--branco);
 }
 
 
@@ -140,9 +141,9 @@ header {
 .login input[type="password"] {
     width: 90%;
     padding: 7px;
-    font-size: 1.1rem;   
+    font-size: 1.1rem;
     border-radius: 25px;
-    border: 1px solid #ffffff;
+    border: 1px solid var(--branco);
     margin: 13px 0;
     margin-right: 63px;
 }
@@ -161,12 +162,13 @@ header {
     height: 1px;
 }
 
-html, body {
+html,
+body {
     height: 100vh;
     overflow: hidden;
 }
 
-#container{
+#container {
     background-color: black;
     height: 40vh;
     width: 100%;
@@ -175,16 +177,16 @@ html, body {
     align-items: center;
 }
 
-#caroussel{
+#caroussel {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: aqua;
+    background-color: var(--azulEscuro);
     width: 55%;
     height: 100%;
 }
 
-#caroussel-content{
+#caroussel-content {
     width: 100%;
     height: 100%;
 
@@ -198,7 +200,7 @@ html, body {
     transition: background-image 0.4s ease-in-out, opacity 0.3s ease-in-out;
 }
 
-.botao{
+.botao {
     width: 110px;
     height: 80px;
     margin-top: 50px;
@@ -208,5 +210,5 @@ html, body {
     color: #000000;
     text-align: flex-end;
     letter-spacing: 0.01em;
-    
+
 }
