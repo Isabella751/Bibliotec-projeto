@@ -1,7 +1,5 @@
-// caminho correto das imagens (a partir do HTML)
 const pasta = "../public/images/";
 
-// lista de imagens
 const imagens = [
     "ft biblioteca.jpg",
     "ft biblioteca2.jpg",
@@ -11,7 +9,6 @@ const imagens = [
     "ft livros3.jpg"
 ];
 
-// pega o container
 const container = document.getElementById("carrossel-inner");
 
 // adiciona as imagens no HTML
@@ -21,14 +18,21 @@ imagens.forEach(img => {
     container.appendChild(elemento);
 });
 
-// lógica de animação
 let index = 0;
 
-function mudarImagem() {
-    index++;
-    if (index >= imagens.length) index = 0;
+// pega os slides (imagens) depois de criar
+const slides = container.querySelectorAll('img');
+if (slides.length > 0) slides[0].classList.add('active');
 
-    container.style.transform = `translateX(-${index * 100}%)`;
+function mudarImagem() {
+    // remove classe active do atual
+    slides[index].classList.remove('active');
+
+    // avança índice
+    index = (index + 1) % slides.length;
+
+    // adiciona classe active ao próximo
+    slides[index].classList.add('active');
 }
 
-setInterval(mudarImagem, 3000);
+setInterval(mudarImagem, 3000); // muda a cada 3s

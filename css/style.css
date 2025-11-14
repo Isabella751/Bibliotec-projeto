@@ -40,16 +40,6 @@ body {
     background-color: var(--menta);
 }
 
-/* .biblioteca-image {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 35vw;
-    height: 100vh;
-    object-fit: cover;
-    z-index: -1;
-} */
-
 .senai-image {
     position: fixed;
     bottom: 10px;
@@ -192,12 +182,12 @@ body {
 }
 
 .carrossel {
-    width: 40vw;       
+    width: 28vw;       
     height: 100vh;
     overflow: hidden;
     border-radius: 0px;
-    margin: 40px auto;
-    box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+    margin: 0px;
+    box-shadow: 0px 20px 20px rgba(0,0,0,0.2);
     object-fit: cover;
     z-index: -1;
     position: fixed;
@@ -206,14 +196,22 @@ body {
 }
 
 .carrossel-inner {
-    display: flex;
+    position: relative;
     width: 100%;
     height: 100%;
-    transition: transform 0.6s ease-in-out;
 }
 
 .carrossel-inner img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out; /* duração do degradê */
+}
+
+.carrossel-inner img.active {
+    opacity: 1;
 }
