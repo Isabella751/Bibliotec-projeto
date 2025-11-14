@@ -40,7 +40,7 @@ body {
     background-color: var(--menta);
 }
 
-.biblioteca-image {
+/* .biblioteca-image {
     position: fixed;
     top: 0;
     right: 0;
@@ -48,7 +48,7 @@ body {
     height: 100vh;
     object-fit: cover;
     z-index: -1;
-}
+} */
 
 .senai-image {
     position: fixed;
