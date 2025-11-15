@@ -1,0 +1,105 @@
+:root{
+      --menta:#E9F0EF;
+      --branco:#ffffff;
+      --azulEscuro2:#26333D;
+      --verdeAgua2:#2FD6CB;
+      --cinza:#6b7780;
+      --max-width:900px;
+      --pad:20px;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+html,body{
+    height:80vh;
+    margin:0;
+    padding: 0;
+    background:var(--menta);
+    color:var(--azulEscuro2)
+}
+.wrap{
+    min-height:60vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px
+}
+.card{
+    background:var(--branco);
+    width:100%;
+    max-width:var(--max-width);
+    border-radius:12px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    overflow:auto;
+    max-height:100vh
+}
+header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 22px;
+    border-bottom:1px solid rgba(0,0,0,0.05)
+}
+header h1{
+    font-size:1.05rem;
+    margin:0;
+    color:var(--azulEscuro2)
+}
+header .controls{
+    display:flex;
+    gap:10px;
+    align-items:center
+}
+a.button{
+    display:inline-block;
+    background:var(--verdeAgua2);
+    color:var(--branco);
+    padding:8px 12px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:600;
+    font-size:0.9rem
+}
+a.secondary{
+    background:transparent;
+    color:var(--azulEscuro2);
+    border:1px solid rgba(0,0,0,0.06);
+    padding:7px 10px;
+    border-radius:8px;
+    text-decoration:none
+}
+main{
+    padding:22px;
+    line-height:1.55;
+    color:#222
+}
+h2{
+    margin-top:18px;
+    color:var(--azulEscuro2)
+}
+p{
+    margin:10px 0;
+    color:#333
+}
+ul{
+    margin:8px 0 18px 20px
+}
+small.meta{
+    display:block;
+    color:var(--cinza);
+    font-size:0.85rem;
+    margin-top:6px
+}
+footer{
+    padding:16px 22px;
+    border-top:1px solid rgba(0,0,0,0.04);
+    display:flex;
+    justify-content:space-between;
+    align-items:center
+}
+.print{
+    background:transparent;
+    border:none;
+    color:var(--azulEscuro2);
+    cursor:pointer
+}
+@media (max-width:600px){.wrap{padding:16px}.card{border-radius:8px}.print{font-size:0.9rem}}
