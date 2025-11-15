@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <link rel="shortcut icon" href="../public/images/Group.svg" type="image/x-icon">
     <title>Bibliotec</title>
 
@@ -13,7 +14,6 @@
 <body>
     <header class="main-header">
         <img class="logo-image" src="../public/images/Group 107.svg" width="15%">
-        <p>A imaginação começa nas páginas.</p>
     </header>
 
     <div class="main-container">
@@ -34,15 +34,20 @@
                 <label>
                     <input type="text" placeholder="Email" name="email" id="email">
                 </label>
-                <label>
+                <div class="campo-senha">
                     <input type="password" placeholder="Senha" name="senha" id="senha">
-                </label>
-
-                <div class="senha">
-                    <a href="senha.html" target="_blank">Esqueceu sua senha?</a>
+                    <span class="toggle-senha" onclick="mostrarSenha()"><span class="material-symbols-outlined">
+                            visibility
+                        </span>
+                    </span>
                 </div>
 
-                <div class="entrar">
+
+                <div class="senha">
+                    <a href="senha.html">Esqueceu sua senha?</a>
+                </div>
+
+                <div id="entrar">
                     <button type="submit" id="entrar">Entrar</button>
                 </div>
 
@@ -57,18 +62,21 @@
 
                 </div>
             </div>
-            <div class="carrossel">
-                <div class="carrossel-inner" id="carrossel-inner"></div>
-            </div>
 
-            <script src="../public/js/script.js"></script>
+
 
         </div>
 
     </div>
 
+    <div class="carrossel">
+        <div class="carrossel-inner" id="carrossel-inner"></div>
+    </div>
+
+    <script src="../public/js/script.js"></script>
+
     <img class="senai-image" src="../public/images/SENAI_logo 1.png" width="10%">
-    
+
     <!-- <div>   
         <h4>Sobre</h4> <h4>Contato</h4> <h4>Ajuda</h4>
     </div> -->

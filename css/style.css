@@ -85,14 +85,6 @@ body {
     height: 25px;
 }
 
-.main-container {
-    width: 70vw;
-    height: 80vh;
-    display: flex;
-    justify-content: center;
-    border-right: 1px solid rgba(0, 0, 0, 0.05);
-}
-
 header {
     width: 125%;
     margin: 10px;
@@ -111,7 +103,7 @@ header {
 .main-container .content h2 {
     font-family: 'Montserrat-Regular', sans-serif;
     font-weight: normal;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     color: #000000;
     text-align: center;
     margin: 2px 0 98px 0;
@@ -123,7 +115,7 @@ header {
     display: flex;
     justify-content: flex-start;
     align-items: flex-end;
-    margin-left: 97px;
+    margin-left: 190px;
     color: black;
 }
 
@@ -143,13 +135,13 @@ header {
 
 .login input[type="text"],
 .login input[type="password"] {
-    width: 100%;
+    width: 27vw;
     padding: 7px;
     font-size: 1.1rem;
     border-radius: 25px;
     border: 1px solid var(--branco);
     margin: 13px 0;
-    margin-right: 93px;
+    margin-right: 0;
     box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
     transition: box-shadow 0.2s ease;
     display: flex;
@@ -173,7 +165,19 @@ header {
     justify-content: center;
     align-items: center;
     gap: 0;
-    height: 1px;
+    height: 9px;
+}
+
+.login label,
+.campo-senha {
+    width: 27vw;
+    display: flex;
+    justify-content: center;
+}
+
+.login input {
+    width: 27vw;
+    margin-right: 0;
 }
 
 html,
@@ -204,42 +208,6 @@ body {
 
 }
 
-.carrossel {
-    width: 28vw;       
-    height: 100vh;
-    overflow: hidden;
-    border-radius: 0px;
-    margin: 0px;
-    box-shadow: 0px 20px 20px rgba(0,0,0,0.2);
-    object-fit: cover;
-    z-index: -1;
-    position: fixed;
-    top: 0;
-    right: 0;
-}
-
-.carrossel-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.carrossel-inner img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 1s ease-in-out; /* duração do degradê */
-    animation: fadeSlide 0.8s ease;
-}
-
-.carrossel-inner img.active {
-    opacity: 1;
-}
-
 #entrar button {
     transition: transform 0.2s ease, background-color 0.3s;
 }
@@ -262,11 +230,84 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-top: 101.5px;
+    margin-top: 110px;
     font-family: 'Montserrat-Regular', sans-serif;
     font-weight: normal;
-    font-size: 0.7rem;
+    font-size: 0.9rem;
     color: #000000;
     letter-spacing: 0.01em;
 }
 
+.carrossel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 28vw;       
+    height: 100vh;
+    overflow: hidden;
+    box-shadow: 0px 20px 20px rgba(0,0,0,0.2);
+    z-index: 2;
+    background: transparent;
+}
+
+.carrossel-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.carrossel-inner img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.carrossel-inner img.active {
+    opacity: 1;
+}
+
+.main-container {
+    width: 72vw; 
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+    transform: scale(1.25);
+    position: relative;
+    z-index: 3;
+}
+
+.content {
+    margin-right: 0 !important;
+}
+
+.campo-senha {
+    position: relative;
+    width: 27vw;
+}
+
+.campo-senha input {
+    width: 27vw;
+    padding-right: 40px; /* espaço para o olhinho */
+}
+
+.toggle-senha {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1.1rem;
+    opacity: 0.6;
+    user-select: none;
+    transition: opacity 0.2s ease;
+}
+
+.toggle-senha:hover {
+    opacity: 1;
+}

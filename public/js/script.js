@@ -36,3 +36,8 @@ function mudarImagem() {
 }
 
 setInterval(mudarImagem, 3000); // muda a cada 3s
+
+function mostrarSenha() {
+    const campo = document.getElementById("senha");
+    campo.type = campo.type === "password" ? "text" : "password";
+}
