@@ -1,3 +1,20 @@
+@font-face {
+    font-family: "Montserrat-Bold";
+    src: url("Montserrat-Bold.eot?") format("eot"), url("Montserrat-Bold.woff") format("woff"), url("Montserrat-Bold.ttf") format("truetype"), url("Montserrat-Bold.svg#Montserrat-Bold") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Montserrat-Regular";
+    src: url("Montserrat-Regular.eot?") format("eot"),
+        url("Montserrat-Regular.woff") format("woff"),
+        url("Montserrat-Regular.ttf") format("truetype"),
+        url("Montserrat-Regular.svg#Montserrat-Regular") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
 :root{
       --menta:#E9F0EF;
       --branco:#ffffff;
@@ -6,8 +23,7 @@
       --cinza:#6b7780;
       --max-width:900px;
       --pad:20px;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    }
+ }    /* Colocar a font para funcionar na  tela dos Termos de uso */
 
 html,body{
     height:80vh;

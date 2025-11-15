@@ -4,7 +4,10 @@
 /* 4A67DF - roxo azulado */
 /* 26333D - azul escuro */
 
-@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
+* {
+    margin: 0;
+    padding: 0;
+}
 
 @font-face {
     font-family: "Montserrat-Bold";
@@ -21,11 +24,6 @@
         url("Montserrat-Regular.svg#Montserrat-Regular") format("svg");
     font-weight: normal;
     font-style: normal;
-}
-
-* {
-    margin: 0;
-    padding: 0;
 }
 
 :root {
@@ -50,12 +48,15 @@ body {
 
 .senai-image {
     position: fixed;
-    bottom: 10px;
-    justify-content: center;
-    width: 100px;
-    height: auto;
-    object-fit: cover;
-    z-index: -1;
+    bottom: 0.2px;
+    width: 150px;
+    height: 80px;
+    object-fit: contain;
+    z-index: 10;
+    margin-bottom: 0.2px;
+    margin-left: 809px;
+    padding: 5px;
+    right: auto;
 }
 
 .social-icons {
@@ -104,6 +105,7 @@ header {
     color: #000000;
     text-align: center;
     margin-left: 25px;
+    margin-top: 30px;
 }
 
 .main-container .content h2 {
@@ -114,6 +116,7 @@ header {
     text-align: center;
     margin: 2px 0 98px 0;
     letter-spacing: 0.01em;
+    margin-top: 6px;
 }
 
 .senha {
@@ -128,7 +131,8 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 0.2px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     border-radius: 9px;
     width: 170px;
     height: 40px;
@@ -137,53 +141,21 @@ header {
     
 }
 
-.entrar {
-  position: relative;
-  padding: 12px 26px;
-  /* border: none;
-  background: #4a90e2;      
-  color: white;
-  font-size: 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  overflow: hidden;
-  transition: background 0.3s ease;*/
-} 
-
-/* 
-.entrar::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -120%;
-  width: 120%;
-  height: 100%;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255, 255, 255, 0.6),
-    transparent
-  );
-  transform: skewX(-20deg);
-  transition: 0.6s ease;
-}
-
-.entrar:hover::before {
-  left: 120%;
-} */ */
-
-
 .login input[type="text"],
 .login input[type="password"] {
-    width: 90%;
+    width: 100%;
     padding: 7px;
     font-size: 1.1rem;
     border-radius: 25px;
     border: 1px solid var(--branco);
     margin: 13px 0;
-    margin-right: 63px;
+    margin-right: 93px;
     box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
     transition: box-shadow 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
 .login input:focus {
@@ -274,7 +246,7 @@ body {
 
 #entrar button:hover {
     transform: scale(1.05);
-    background-color: var(--roxoAzulado);
+    background-color: #23b8ad;
 }
 
 /* .logo-image {
@@ -284,3 +256,17 @@ body {
 .logo-image:hover {
     transform: scale(1.03);  ----> Colocar na tela home
 } */
+
+.info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 101.5px;
+    font-family: 'Montserrat-Regular', sans-serif;
+    font-weight: normal;
+    font-size: 0.7rem;
+    color: #000000;
+    letter-spacing: 0.01em;
+}
+
