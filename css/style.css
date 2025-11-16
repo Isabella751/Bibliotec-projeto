@@ -130,7 +130,6 @@ header {
     height: 40px;
     background-color: var(--verdeAgua);
     color: var(--branco);
-    
 }
 
 .login input[type="text"],
@@ -178,6 +177,8 @@ header {
 .login input {
     width: 27vw;
     margin-right: 0;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
 }
 
 html,
@@ -214,7 +215,7 @@ body {
 
 #entrar button:hover {
     transform: scale(1.05);
-    background-color: #23b8ad;
+    background-color: var(--roxoAzulado);
 }
 
 /* .logo-image {

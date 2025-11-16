@@ -18,8 +18,9 @@
 :root{
       --menta:#E9F0EF;
       --branco:#ffffff;
-      --azulEscuro2:#26333D;
-      --verdeAgua2:#2FD6CB;
+      --azulEscuro:#26333D;
+      --roxoAzulado: #4a67df;
+      --verdeAgua:#2FD6CB;
       --cinza:#6b7780;
       --max-width:900px;
       --pad:20px;
@@ -32,6 +33,19 @@ html,body{
     background:var(--menta);
     color:var(--azulEscuro2)
 }
+
+body {
+    font-family: "Montserrat-Regular", sans-serif;
+    font-size: 1rem;
+    background: var(--menta);
+    color: var(--azulEscuro);
+}
+
+h1, h2 {
+    font-family: "Montserrat-Bold", sans-serif;
+}
+
+
 .wrap{
     min-height:60vh;
     display:flex;
@@ -39,15 +53,16 @@ html,body{
     justify-content:center;
     padding:40px
 }
-.card{
-    background:var(--branco);
-    width:100%;
-    max-width:var(--max-width);
-    border-radius:12px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.08);
-    overflow:auto;
-    max-height:100vh
+.card {
+    background: var(--branco);
+    width: 100%;
+    max-width: var(--max-width);
+    border-radius: 12px;
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.07);
+    overflow: auto;
+    max-height: 100vh;
 }
+
 header{
     display:flex;
     align-items:center;
@@ -65,16 +80,21 @@ header .controls{
     gap:10px;
     align-items:center
 }
-a.button{
-    display:inline-block;
-    background:var(--verdeAgua2);
-    color:var(--branco);
-    padding:8px 12px;
-    border-radius:8px;
-    text-decoration:none;
-    font-weight:600;
-    font-size:0.9rem
+a.button {
+    background: var(--verdeAgua);
+    color: var(--branco);
+    padding: 8px 16px;
+    border-radius: 9px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.2s ease, background-color 0.3s;
 }
+
+a.button:hover {
+    transform: scale(1.03);
+    background: var(--roxoAzulado);
+}
+
 a.secondary{
     background:transparent;
     color:var(--azulEscuro2);
@@ -83,13 +103,19 @@ a.secondary{
     border-radius:8px;
     text-decoration:none
 }
+
+a.secondary:hover{
+    transform: scale(1.03);
+    background: #d3d3d3;
+    transition: transform 0.2s ease, background-color 0.3s;
+}
 main{
-    padding:22px;
+    padding: 28px;
     line-height:1.55;
     color:#222
 }
 h2{
-    margin-top:18px;
+    margin-top: 28px;
     color:var(--azulEscuro2)
 }
 p{
