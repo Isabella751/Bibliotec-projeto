@@ -1,0 +1,125 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --menta: #E9F0EF;
+    --branco: #ffffff;
+    --verdeAgua: #2fd6cb;
+    --roxoAzulado: #4a67df;
+    --azulEscuro: #26333d;
+}
+
+body {
+    background-color: var(--menta);
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+    font-family: "Montserrat-Regular", sans-serif;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+html,
+body {
+    height: 100vh;
+    overflow: hidden;
+}
+
+header {
+    width: 100%;
+    margin: 0px;
+    padding: 2px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-header .logo-image {
+    width: 15vw;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.main-header .senai-image{
+    width: 9vw;
+    height: 5vh;
+    margin: 10px;
+    padding: 12px;
+    margin-left: auto;
+}
+
+.busca input[type="text"]{
+    width: 67vw;
+    padding: 7px;
+    font-size: 1.1rem;
+    border-radius: 25px;
+    border: 1px solid var(--branco);
+    margin: 13px 0;
+    margin-right: 0;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
+    transition: box-shadow 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 95px;
+}
+
+.busca input:focus {
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+}
+
+.busca {
+    width: 63vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    height: 9px;
+}
+
+.busca label{
+    width: 47vw;
+    display: flex;
+    justify-content: center;
+}
+
+.buscarLivro {
+    position: relative;
+    width: 47vw; 
+}
+
+.buscarLivro input {
+    width: 100%;
+    padding: 7px 40px 7px 15px;
+    font-size: 1.1rem;
+    border-radius: 25px;
+    border: 1px solid var(--branco);
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
+}
+
+.buscarLivro .lupa {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 22px;
+    pointer-events: none;
+    opacity: 0.4;
+    margin-top: 40px;
+}
+
+
+/* .logo-image {
+    transition: transform 0.2s ease;
+}
+
+.logo-image:hover {
+    transform: scale(1.03);  ----> Colocar nas telas secundárias da home
+} */

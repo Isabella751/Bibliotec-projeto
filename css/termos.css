@@ -24,14 +24,14 @@
       --cinza:#6b7780;
       --max-width:900px;
       --pad:20px;
- }    /* Colocar a font para funcionar na  tela dos Termos de uso */
+ }    
 
 html,body{
     height:80vh;
     margin:0;
     padding: 0;
     background:var(--menta);
-    color:var(--azulEscuro2)
+    color:var(--azulEscuro)
 }
 
 body {
@@ -51,7 +51,7 @@ h1, h2 {
     display:flex;
     align-items:center;
     justify-content:center;
-    padding:40px
+    padding:40px;
 }
 .card {
     background: var(--branco);
@@ -73,7 +73,7 @@ header{
 header h1{
     font-size:1.05rem;
     margin:0;
-    color:var(--azulEscuro2)
+    color:var(--azulEscuro)
 }
 header .controls{
     display:flex;
@@ -97,7 +97,7 @@ a.button:hover {
 
 a.secondary{
     background:transparent;
-    color:var(--azulEscuro2);
+    color:var(--azulEscuro);
     border:1px solid rgba(0,0,0,0.06);
     padding:7px 10px;
     border-radius:8px;
@@ -116,7 +116,7 @@ main{
 }
 h2{
     margin-top: 28px;
-    color:var(--azulEscuro2)
+    color:var(--azulEscuro);
 }
 p{
     margin:10px 0;
@@ -141,7 +141,7 @@ footer{
 .print{
     background:transparent;
     border:none;
-    color:var(--azulEscuro2);
+    color:var(--azulEscuro);
     cursor:pointer
 }
 @media (max-width:600px){.wrap{padding:16px}.card{border-radius:8px}.print{font-size:0.9rem}}

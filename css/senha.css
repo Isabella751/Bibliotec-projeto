@@ -1,0 +1,212 @@
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@font-face {
+    font-family: "Montserrat-Bold";
+    src: url("Montserrat-Bold.eot?") format("eot"), url("Montserrat-Bold.woff") format("woff"), url("Montserrat-Bold.ttf") format("truetype"), url("Montserrat-Bold.svg#Montserrat-Bold") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Montserrat-Regular";
+    src: url("Montserrat-Regular.eot?") format("eot"),
+        url("Montserrat-Regular.woff") format("woff"),
+        url("Montserrat-Regular.ttf") format("truetype"),
+        url("Montserrat-Regular.svg#Montserrat-Regular") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root{
+      --menta:#E9F0EF;
+      --branco:#ffffff;
+      --azulEscuro:#26333D;
+      --roxoAzulado: #4a67df;
+      --verdeAgua:#2FD6CB;
+      --cinza:#6b7780;
+      --max-width:900px;
+      --pad:20px;
+ }    
+
+html,body{
+    height:80vh;
+    margin:0;
+    padding: 0;
+    background:var(--menta);
+    color:var(--azulEscuro)
+}
+
+body {
+    font-family: "Montserrat-Regular", sans-serif;
+    font-size: 1rem;
+    background: var(--menta);
+    color: var(--azulEscuro);
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+}
+
+h1, h2 {
+    font-family: "Montserrat-Bold", sans-serif;
+}
+
+
+.recuperacao{
+    min-height:60vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px;
+}
+
+#enviar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 9px;
+    width: 6vw;
+    height: 6vh;
+    background-color: var(--verdeAgua);
+    color: var(--branco);
+    font-family: "Montserrat-Bold", sans-serif;
+    font-weight: bold;
+    border: none;
+    transition: transform 0.2s ease, background-color 0.3s;
+    font-size: 0.9rem;
+}
+
+#enviar button {
+    transition: transform 0.2s ease, background-color 0.3s;
+}
+
+#enviar button:hover {
+    transform: scale(1.05);
+    background-color: var(--roxoAzulado);
+}
+
+#enviar:hover {
+    transform: scale(1.05);
+    background-color: var(--roxoAzulado);
+}
+
+.endereco-email input {
+    width: 25vw;
+    padding: 12px;
+    margin-top: 8px;
+    margin-bottom: 12px;
+    border: 1px solid hsl(0, 4%, 89%);
+    border-radius: 25px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
+    font-size: 0.95rem;
+    font-family: "Montserrat-Regular", sans-serif;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.endereco-email input:focus {
+    border-color: var(--roxoAzulado);
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* espaço entre o input e o botão */
+}
+
+.card {
+    background: var(--branco);
+    width: 100%;
+    max-width: var(--max-width);
+    border-radius: 12px;
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.07);
+    overflow: auto;
+    max-height: 100vh;
+}
+
+header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 22px;
+    border-bottom:1px solid rgba(0,0,0,0.05)
+}
+header h1{
+    font-size:1.05rem;
+    margin:0;
+    color:var(--azulEscuro)
+}
+header .controls{
+    display:flex;
+    gap:10px;
+    align-items:center
+}
+a.button {
+    background: var(--verdeAgua);
+    color: var(--branco);
+    padding: 8px 16px;
+    border-radius: 9px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.2s ease, background-color 0.3s;
+}
+
+a.button:hover {
+    transform: scale(1.03);
+    background: var(--roxoAzulado);
+}
+
+a.secondary{
+    background:transparent;
+    color:var(--azulEscuro);
+    border:1px solid rgba(0,0,0,0.06);
+    padding:7px 10px;
+    border-radius:8px;
+    text-decoration:none
+}
+
+a.secondary:hover{
+    transform: scale(1.03);
+    background: #d3d3d3;
+    transition: transform 0.2s ease, background-color 0.3s;
+}
+main{
+    padding: 28px;
+    line-height:1.55;
+    color:#222
+}
+h2{
+    margin-top: 28px;
+    color:var(--azulEscuro);
+}
+p{
+    margin:10px 0;
+    color:#333
+}
+ul{
+    margin:8px 0 18px 20px
+}
+small.meta{
+    display:block;
+    color:var(--cinza);
+    font-size:0.85rem;
+    margin-top:6px
+}
+footer{
+    padding:16px 22px;
+    border-top:1px solid rgba(0,0,0,0.04);
+    display:flex;
+    justify-content:space-between;
+    align-items:center
+}
+.print{
+    background:transparent;
+    border:none;
+    color:var(--azulEscuro);
+    cursor:pointer
+}
+@media (max-width:600px){.recuperacao{padding:16px}.card{border-radius:8px}.print{font-size:0.9rem}}

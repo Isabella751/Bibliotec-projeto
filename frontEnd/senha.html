@@ -5,15 +5,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redefinir senha</title>
+    <link rel="stylesheet" href="../css/senha.css">
 </head>
 
 <body>
-    <form class="login">
-        <label>
-            <input type="text" placeholder="Email" name="email" id="email">
-        </label>
-        <button type="submit">Redefinir senha</button>
-    </form>
+
+    <div class="recuperacao">
+        <article class="card" role="article" aria-labelledby="title">
+            <header>
+                <div>
+                    <h1 id="title">Redefinir Senha</h1>
+                </div>
+                <div class="controls">
+                    <a href="index.html" class="secondary">Voltar para fazer login</a>
+                </div>
+            </header>
+
+            <main>
+
+                <form class="endereco-email" method="post" action="/solicitar-redefinicao">
+                    <p>Por favor, insira o endereço de e-mail utilizado para fazer a recuperação.</p>
+
+                    <div class="input-group">
+                        <input type="text" placeholder="Email" name="email" id="email" class="input-principal">
+                        <button type="submit" id="enviar">Solicitar</button>
+                    </div>
+
+                </form>
+
+            </main>
+
+            <footer>
+                <div style="font-size:0.9rem;color:var(--cinza)">Bibliotec • © 2025</div>
+
+                <div id="logo">
+                    <img class="logo-termos" src="../public/images/BibliotecTerm.svg" width="60px">
+                </div>
+
+            </footer>
+
+        </article>
+    </div>
+
 </body>
 
 </html>
