@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Servidor:                     127.0.0.1
--- Versão do servidor:           12.0.2-MariaDB - mariadb.org binary distribution
+-- Versão do servidor:           11.8.2-MariaDB - mariadb.org binary distribution
 -- OS do Servidor:               Win64
--- HeidiSQL Versão:              12.11.0.7065
+-- HeidiSQL Versão:              12.10.0.7000
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -117,9 +117,19 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `criado_em` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela dblivrariabibliotec.usuarios: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela dblivrariabibliotec.usuarios: ~8 rows (aproximadamente)
+INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `data_nascimento`, `celular`, `curso`, `perfil`, `criado_em`) VALUES
+	(1, 'Giovanna Santos', 'giovanna.santos@example.com', '123456', '2003-04-15', '(11) 98876-4321', 'Análise e Desenvolvimento de Sistemas', 'Aluno', '2025-10-31 12:11:05'),
+	(2, 'Lucas Almeida', 'lucas.almeida@example.com', 'senha123', '2000-09-02', '(11) 97654-3322', 'Engenharia de Software', 'Aluno', '2025-10-31 12:11:05'),
+	(3, 'Mariana Costa', 'mariana.costa@example.com', 'mariana@123', '1999-12-20', '(21) 99745-2211', 'Ciência da Computação', 'Aluno', '2025-10-31 12:11:05'),
+	(4, 'Rafael Oliveira', 'rafael.oliveira@example.com', 'rafael321', '2001-05-10', '(31) 99888-5566', 'Sistemas de Informação', 'Aluno', '2025-10-31 12:11:05'),
+	(5, 'Amanda Rocha', 'amanda.rocha@example.com', 'amanda@senha', '2002-11-03', '(41) 98777-2233', 'Redes de Computadores', 'Aluno', '2025-10-31 12:11:05'),
+	(6, 'Beatriz Lima', 'beatriz.lima@example.com', 'bea12345', '2004-07-28', '(71) 98111-3344', 'Banco de Dados', 'Aluno', '2025-10-31 12:11:05'),
+	(7, 'Felipe Carvalho', 'felipe.carvalho@example.com', 'admin123', '1995-08-18', '(61) 99955-7788', NULL, 'Admin', '2025-10-31 12:11:05'),
+	(8, 'Juliana Mendes', 'juliana.mendes@example.com', 'adm!senha', '1998-03-25', '(81) 98844-9900', NULL, 'Admin', '2025-10-31 12:11:05'),
+	(9, 'Isabella Leite', 'isabellaleite@example.com', 'isa123', '2009-02-09', '(11) 95436-2335', 'Metalurgia', 'Aluno', '2025-10-31 12:31:25');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
