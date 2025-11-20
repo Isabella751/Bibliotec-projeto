@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redefinir senha</title>
+    <title>Solicitação da senha</title>
     <link rel="stylesheet" href="../css/senha.css">
+    <link rel="shortcut icon" href="../public/images/Group.svg" type="image/x-icon">
 </head>
 
 <body>
@@ -26,11 +27,13 @@
                 <form class="endereco-email" method="post" action="/solicitar-redefinicao">
                     <p>Por favor, insira o endereço de e-mail utilizado para fazer a recuperação.</p>
 
-                    <div class="input-group">
-                        <input type="text" placeholder="Email" name="email" id="email" class="input-principal">
-                        <button type="submit" id="enviar">Solicitar</button>
-                    </div>
-
+                    <form action="redSenha.html" method="get">
+                        <div class="input-group">
+                            <input type="text" placeholder="Email" name="email" id="email" class="input-principal">
+                            <button type="submit" id="enviar">Solicitar</button>
+                        </div>
+                    </form>
+                    
                 </form>
 
             </main>
@@ -39,7 +42,9 @@
                 <div style="font-size:0.9rem;color:var(--cinza)">Bibliotec • © 2025</div>
 
                 <div id="logo">
-                    <img class="logo-termos" src="../public/images/BibliotecTerm.svg" width="60px">
+                    <a href="bibliotec.html">
+                        <img class="logo-senha" src="../public/images/BibliotecTerm.svg" width="60px">
+                    </a>
                 </div>
 
             </footer>

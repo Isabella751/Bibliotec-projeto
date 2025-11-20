@@ -203,10 +203,16 @@ footer{
     justify-content:space-between;
     align-items:center
 }
-.print{
-    background:transparent;
-    border:none;
-    color:var(--azulEscuro);
-    cursor:pointer
+
+@media (max-width:600px){
+    .recuperacao{padding:16px}
+    .card{border-radius:8px}
 }
-@media (max-width:600px){.recuperacao{padding:16px}.card{border-radius:8px}.print{font-size:0.9rem}}
+
+.logo-senha {
+    transition: transform 0.2s ease;
+}
+
+.logo-senha:hover {
+    transform: scale(1.03);
+}

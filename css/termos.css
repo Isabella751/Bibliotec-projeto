@@ -46,7 +46,7 @@ h1, h2 {
 }
 
 
-.wrap{
+.descricao-termos{
     min-height:60vh;
     display:flex;
     align-items:center;
@@ -144,4 +144,17 @@ footer{
     color:var(--azulEscuro);
     cursor:pointer
 }
-@media (max-width:600px){.wrap{padding:16px}.card{border-radius:8px}.print{font-size:0.9rem}}
+
+@media (max-width:600px){
+    .descricao-termos{padding:16px}
+    .card{border-radius:8px}
+    .print{font-size:0.9rem}
+}
+
+.logo-termos {
+    transition: transform 0.2s ease;
+}
+
+.logo-termos:hover {
+    transform: scale(1.03); 
+} 

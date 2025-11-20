@@ -41,3 +41,13 @@ function mostrarSenha() {
     const campo = document.getElementById("senha");
     campo.type = campo.type === "password" ? "text" : "password";
 }
+
+window.addEventListener("scroll", function () {
+    const header = document.querySelector(".main-header");
+
+    if (window.scrollY > 10) {
+        header.classList.add("scrolled");
+    } else {
+        header.classList.remove("scrolled");
+    }
+});
