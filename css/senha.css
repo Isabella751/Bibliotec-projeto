@@ -33,7 +33,7 @@
  }    
 
 html,body{
-    height:80vh;
+    height: 100%;
     margin:0;
     padding: 0;
     background:var(--menta);
@@ -55,11 +55,11 @@ h1, h2 {
 
 
 .recuperacao{
-    min-height:60vh;
     display:flex;
     align-items:center;
     justify-content:center;
     padding:40px;
+    min-height: 87vh;  /* ocupa 100% da altura da tela */
 }
 
 #enviar {
@@ -96,7 +96,7 @@ h1, h2 {
 
 .endereco-email input {
     width: 25vw;
-    padding: 12px;
+    padding: 12px; 
     margin-top: 8px;
     margin-bottom: 12px;
     border: 1px solid hsl(0, 4%, 89%);

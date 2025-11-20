@@ -103,10 +103,13 @@ header {
     align-items: center;
     margin-top: 95px;
     background-color: var(--cinza);
+    outline: none;
+    transition: border-color 0.3s ease;
 }
 
 .busca input:focus {
     box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+    transition: border-color 0.3s ease;
 }
 
 .busca {
@@ -117,17 +120,20 @@ header {
     align-items: center;
     gap: 0;
     height: 9px;
+    transition: border-color 0.3s ease;
 }
 
 .busca label{
     width: 47vw;
     display: flex;
     justify-content: center;
+    transition: border-color 0.3s ease;
 }
 
 .buscarLivro {
     position: relative;
     width: 47vw; 
+    transition: border-color 0.3s ease;
 }
 
 .buscarLivro input {
@@ -137,6 +143,12 @@ header {
     border-radius: 25px;
     border: 1px solid var(--branco);
     box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
+    transition: border-color 0.3s ease;
+    outline: none;
+}
+
+.buscarLivro input:focus{
+    border-color: var(--roxoAzulado);
 }
 
 .buscarLivro .lupa {
@@ -480,13 +492,14 @@ header {
     width: 36px;
 }
 
-#livros img {
-    object-fit: cover;   /* preenche o card inteiro */
-    object-position: center; /* centraliza a imagem */
-    display: block; /* remove espaçamento fantasma */
-}
-
-#livros > div {
-    border-radius: 12px;
-    overflow: hidden; /* impede imagem de vazar para fora */
+.right-icons {
+    position: fixed;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 33px;
+    /* z-index: 999; */
+    bottom: 10px;
 }
