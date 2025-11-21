@@ -27,24 +27,21 @@
  }    
 
 html,body{
-    height:80vh;
     margin:0;
     padding: 0;
-    background:var(--menta);
+    background: linear-gradient(135deg, var(--menta), #ecf5f5);
     color:var(--azulEscuro)
 }
 
 body {
     font-family: "Montserrat-Regular", sans-serif;
     font-size: 1rem;
-    background: var(--menta);
     color: var(--azulEscuro);
 }
 
 h1, h2 {
     font-family: "Montserrat-Bold", sans-serif;
 }
-
 
 .descricao-termos{
     min-height:60vh;
@@ -54,11 +51,12 @@ h1, h2 {
     padding:40px;
 }
 .card {
-    background: var(--branco);
+    backdrop-filter: blur(4px);
+    background: rgba(255,255,255,0.85);
     width: 100%;
     max-width: var(--max-width);
     border-radius: 12px;
-    box-shadow: 0px 6px 20px rgba(0,0,0,0.07);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
     overflow: auto;
     max-height: 100vh;
 }
@@ -68,7 +66,9 @@ header{
     align-items:center;
     justify-content:space-between;
     padding:18px 22px;
-    border-bottom:1px solid rgba(0,0,0,0.05)
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(2px);
 }
 header h1{
     font-size:1.05rem;
@@ -81,18 +81,20 @@ header .controls{
     align-items:center
 }
 a.button {
-    background: var(--verdeAgua);
     color: var(--branco);
     padding: 8px 16px;
     border-radius: 9px;
     text-decoration: none;
     font-weight: 600;
     transition: transform 0.2s ease, background-color 0.3s;
+    background: linear-gradient(135deg, #2FD6CB, #42e0d7);
+    box-shadow: 0 4px 14px rgba(47, 214, 203, 0.25);
 }
 
 a.button:hover {
     transform: scale(1.03);
-    background: var(--roxoAzulado);
+    background: linear-gradient(135deg, #4a67df, #5a78ff);
+    box-shadow: 0 6px 20px rgba(74, 103, 223, 0.35);
 }
 
 a.secondary{
@@ -111,12 +113,19 @@ a.secondary:hover{
 }
 main{
     padding: 28px;
-    line-height:1.55;
+    line-height: 1.65;
     color:#222
 }
+
+main p {
+    text-align: justify;
+}
+
+
 h2{
-    margin-top: 28px;
     color:var(--azulEscuro);
+    margin-top: 32px;
+    margin-bottom: 10px;
 }
 p{
     margin:10px 0;
@@ -133,10 +142,10 @@ small.meta{
 }
 footer{
     padding:16px 22px;
-    border-top:1px solid rgba(0,0,0,0.04);
     display:flex;
     justify-content:space-between;
-    align-items:center
+    align-items:center;
+    border-top: 1px solid rgba(0,0,0,0.08);
 }
 .print{
     background:transparent;
@@ -158,3 +167,5 @@ footer{
 .logo-termos:hover {
     transform: scale(1.03); 
 } 
+
+/* ========================================= CSS LIMPO ========================================== */

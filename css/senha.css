@@ -6,7 +6,10 @@
 
 @font-face {
     font-family: "Montserrat-Bold";
-    src: url("Montserrat-Bold.eot?") format("eot"), url("Montserrat-Bold.woff") format("woff"), url("Montserrat-Bold.ttf") format("truetype"), url("Montserrat-Bold.svg#Montserrat-Bold") format("svg");
+    src: url("Montserrat-Bold.eot?") format("eot"),
+        url("Montserrat-Bold.woff") format("woff"),
+        url("Montserrat-Bold.ttf") format("truetype"),
+        url("Montserrat-Bold.svg#Montserrat-Bold") format("svg");
     font-weight: normal;
     font-style: normal;
 }
@@ -29,37 +32,34 @@
       --verdeAgua:#2FD6CB;
       --cinza:#6b7780;
       --max-width:900px;
-      --pad:20px;
  }    
 
 html,body{
     height: 100%;
     margin:0;
     padding: 0;
-    background:var(--menta);
+    background: linear-gradient(135deg, var(--menta), #ecf5f5);
     color:var(--azulEscuro)
 }
 
 body {
     font-family: "Montserrat-Regular", sans-serif;
     font-size: 1rem;
-    background: var(--menta);
     color: var(--azulEscuro);
     opacity: 0;
     animation: fadeIn 0.8s ease forwards;
 }
 
-h1, h2 {
+h1 {
     font-family: "Montserrat-Bold", sans-serif;
 }
-
 
 .recuperacao{
     display:flex;
     align-items:center;
     justify-content:center;
     padding:40px;
-    min-height: 87vh;  /* ocupa 100% da altura da tela */
+    min-height: 87vh;
 }
 
 #enviar {
@@ -80,18 +80,10 @@ h1, h2 {
     font-size: 0.9rem;
 }
 
-#enviar button {
-    transition: transform 0.2s ease, background-color 0.3s;
-}
-
-#enviar button:hover {
-    transform: scale(1.05);
-    background-color: var(--roxoAzulado);
-}
-
 #enviar:hover {
     transform: scale(1.05);
     background-color: var(--roxoAzulado);
+    box-shadow: 0 6px 20px rgba(74, 103, 223, 0.35);
 }
 
 .endereco-email input {
@@ -115,12 +107,14 @@ h1, h2 {
 .input-group {
     display: flex;
     align-items: center;
-    gap: 10px; /* espaço entre o input e o botão */
+    gap: 10px;
 }
 
 .card {
     background: var(--branco);
     width: 100%;
+    padding: 12px 22px;
+    letter-spacing: 0.5px;
     max-width: var(--max-width);
     border-radius: 12px;
     box-shadow: 0px 6px 20px rgba(0,0,0,0.07);
@@ -174,40 +168,20 @@ a.secondary:hover{
     background: #d3d3d3;
     transition: transform 0.2s ease, background-color 0.3s;
 }
+
 main{
     padding: 28px;
     line-height:1.55;
     color:#222
 }
-h2{
-    margin-top: 28px;
-    color:var(--azulEscuro);
-}
-p{
-    margin:10px 0;
-    color:#333
-}
-ul{
-    margin:8px 0 18px 20px
-}
-small.meta{
-    display:block;
-    color:var(--cinza);
-    font-size:0.85rem;
-    margin-top:6px
-}
+
 footer{
     padding:16px 22px;
     border-top:1px solid rgba(0,0,0,0.04);
-    display:flex;
+    display:flex;    
     justify-content:space-between;
     align-items:center
-}
-
-@media (max-width:600px){
-    .recuperacao{padding:16px}
-    .card{border-radius:8px}
-}
+} 
 
 .logo-senha {
     transition: transform 0.2s ease;
@@ -216,3 +190,5 @@ footer{
 .logo-senha:hover {
     transform: scale(1.03);
 }
+
+/* ========================================= CSS LIMPO ========================================== */

@@ -86,6 +86,15 @@ body {
     height: 25px;
 }
 
+.social-icons img {
+    transition: transform .25s ease, filter .25s ease;
+}
+
+.social-icons img:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 6px rgba(0,0,0,0.3));
+}
+
 header {
     width: 125%;
     margin: 10px;
@@ -129,7 +138,6 @@ header {
     border-radius: 9px;
     width: 170px;
     height: 40px;
-    background-color: var(--verdeAgua);
     color: var(--branco);
     font-family: "Montserrat-Bold", sans-serif;
     font-weight: bold;
@@ -147,7 +155,6 @@ header {
     margin: 13px 0;
     margin-right: 0;
     box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
-    transition: box-shadow 0.2s ease;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -155,9 +162,10 @@ header {
 }
 
 .login input:focus {
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
-    border-color: var(--roxoAzulado); 
-    transition: border-color 0.3s ease;
+    border-color: var(--roxoAzulado);
+    box-shadow: 0 0 12px rgba(74, 103, 223, 0.3);
+    transform: scale(1.02);
+    transition: 0.25s ease;
 }
 
 .login div {
@@ -199,51 +207,26 @@ header {
     transition: border-color 0.3s ease;
 }
 
-#enviar button:hover {
-    transform: scale(1.05);
-    background-color: var(--roxoAzulado);
-}
-
-#enviar:hover {
-    transform: scale(1.05);
-    background-color: var(--roxoAzulado);
-}
-
 html,
 body {
     height: 100vh;
     overflow: hidden;
 }
 
-#container {
-    background-color: black;
-    height: 40vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.botao {
-    width: 110px;
-    height: 80px;
-    margin-top: 50px;
-    font-family: 'Montserrat-Regular', sans-serif;
-    font-weight: normal;
-    font-size: 0.9rem;
-    color: #000000;
-    text-align: flex-end;
-    letter-spacing: 0.01em;
-
-}
-
 #entrar button {
-    transition: transform 0.2s ease, background-color 0.3s;
+    background: linear-gradient(135deg, var(--verdeAgua), var(--roxoAzulado));
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 9px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s ease;
 }
 
 #entrar button:hover {
-    transform: scale(1.05);
-    background-color: var(--roxoAzulado);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(74, 103, 223, 0.4);
 }
 
 .info {
@@ -266,7 +249,7 @@ body {
     width: 28vw;       
     height: 100vh;
     overflow: hidden;
-    box-shadow: 0px 20px 20px rgba(0,0,0,0.2);
+    box-shadow: -10px 0 30px rgba(0,0,0,0.25);
     z-index: 2;
     background: transparent;
 }
@@ -305,6 +288,12 @@ body {
 
 .content {
     margin-right: 0 !important;
+    animation: slideUp 0.7s ease both;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(25px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 .campo-senha {
@@ -346,5 +335,7 @@ body {
 }
 
 .logo-image:hover {
-    transform: scale(1.03); 
+    transform: scale(1.05);
 } 
+
+/* ========================================= CSS LIMPO ========================================== */
