@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../css/cadastro.css">
     <title>Cadastro de usuário</title>
     <link rel="shortcut icon" href="../public/images/Group.svg" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 </head>
 
 <body>
@@ -31,7 +32,7 @@
             </p>
         </section>
 
-        <form class="formulario_cadastro">
+        <form class="formulario_cadastro" action="inicio.html">
 
             <div class="info-cadastro">
 
@@ -47,7 +48,11 @@
 
                 <div class="linha_cadastro">
                     <label for="senha" class="rotulo">Senha: <span class="obrigatorio">*</span></label>
-                    <input type="password" id="senha">
+
+                    <div class="campo-senha">
+                        <input type="password" id="senha">
+                        <span id="toggleSenha" class="material-symbols-outlined icone-senha">visibility</span>
+                    </div>
                 </div>
 
                 <div class="linha_cadastro">
@@ -90,18 +95,20 @@
 
             <div class="checkbox-container">
                 <label class="checkbox-label">
-                    <input type="checkbox" name="termos" id="termos">
+                    <input type="checkbox" name="termos" id="termos" width="10%">
                     <span>Eu concordo com os Termos de Serviço e Política de Privacidade</span>
                 </label>
             </div>
 
             <div class="cadastrarButton">
-                <button type="submit" class="cadastrar">Cadastrar</button>
+                <button type="button" class="cadastrar" onclick="finalizarCadastro()">Cadastrar</button>
             </div>
 
         </form>
 
     </main>
+
+    <script src="../public/js/scriptCadastro.js"></script>
 
 </body>
 

@@ -69,7 +69,6 @@ header {
     font-family: "Montserrat-Bold", sans-serif;
     font-weight: bold;
     color: black;
-    line-height: 38px; 
     text-align: center;
 }
 
@@ -78,22 +77,26 @@ header {
     color: #ff0000;
     line-height: 20px;
     text-align: center;
-    width: 450px;
+    width: 460px;
     max-width: 90%;
     margin-left: auto;
     margin-right: auto;
+    transform: scale(1.15); 
+    transform-origin: top center; 
 }
 
 .formulario_cadastro {
     display: flex;
     flex-direction: column;
     align-items: center;
+    transform: scale(1.45);
+    transform-origin: top center; 
 }
 
 .linha_cadastro {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 5px;
     margin-bottom: 18px;
 }
 
@@ -105,7 +108,7 @@ header {
     width: 180px;
     text-align: right;
     font-family: "Montserrat-Bold", sans-serif;
-    font-weight: bold; /* força o bold */
+    font-weight: bold; 
 }
 
 .rotulo_duas_linhas {
@@ -134,7 +137,7 @@ header {
 
 .info-cadastro input,
 .entrada_selecao {
-    width: 100%;
+    width: 120%;
     padding: 12px;
     border: 1px solid hsl(0, 4%, 89%);   
     border-radius: 25px;               
@@ -146,6 +149,21 @@ header {
     transition: border-color 0.3s ease;
 }
 
+.info-cadastro input {
+    height: 10px; 
+}
+
+.entrada_selecao {
+    width: 112%;
+    padding: 6.5px 12px;   
+    border-radius: 25px;
+    font-size: 0.95rem;
+    font-family: "Montserrat-Regular", sans-serif;         
+    cursor: pointer;       
+    appearance: auto;      
+}
+
+
 .info-cadastro input:focus,
 .entrada_selecao:focus {
     border-color: var(--roxoAzulado);
@@ -154,11 +172,14 @@ header {
 .checkbox-label {
     font-size: 14px;
     color: var(--azulEscuro);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .cadastrarButton {
-    margin-top: 25px;
-    margin-bottom: 16px;
+    margin-top: 13px;
+    margin-bottom: 22px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -171,6 +192,9 @@ header {
     border: none;
     transition: transform 0.2s ease, background-color 0.3s;
     font-size: 0.9rem;
+    transform: scale(0.77); 
+    transform-origin: center;
+    
 }
 
 .cadastrar {
@@ -190,4 +214,35 @@ header {
     transform: scale(1.05);
     background-color: var(--roxoAzulado);
     box-shadow: 0 6px 20px rgba(74, 103, 223, 0.35);
+}
+
+.checkbox-container {
+    transform: scale(0.80);
+    transform-origin: center;
+}
+
+.campo-senha {
+    position: relative;
+    width: 127%; 
+    display: flex;
+    align-items: center;
+}
+
+.campo-senha input {
+    width: 100%;
+    padding-right: 45px; 
+}
+
+.icone-senha {
+    position: absolute;
+    right: 12px;
+    font-size: 22px;
+    cursor: pointer;
+    color: #8f8e8e;
+    user-select: none;
+    transition: 0.2s ease;
+}
+
+.icone-senha:hover {
+    color: #000;
 }

@@ -58,3 +58,7 @@ window.addEventListener("scroll", function () {
         header.classList.remove("scrolled");
     }
 });
+
+function abrirCadastro() {
+    window.open("cadastro.html", "cadastroJanela", "width=900,height=700");
+}
