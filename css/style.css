@@ -145,7 +145,7 @@ header {
     font-size: 0.9rem;
 }
 
-.login input[type="text"],
+.login input[type="email"],
 .login input[type="password"] {
     width: 27vw;
     padding: 7px;

@@ -95,7 +95,7 @@ header {
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-.busca input[type="text"]{
+.busca input[type="search"]{
     width: 67vw;
     padding: 7px;
     font-size: 1.1rem;

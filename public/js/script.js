@@ -38,8 +38,15 @@ function mudarImagem() {
 setInterval(mudarImagem, 3000); // muda a cada 3s
 
 function mostrarSenha() {
-    const campo = document.getElementById("senha");
-    campo.type = campo.type === "password" ? "text" : "password";
+    const senha = document.getElementById("senha");
+    const icone = document.querySelector(".toggle-senha span");
+    if (senha.type === "password") {
+        senha.type = "text";
+        icone.textContent = "visibility_off";
+    } else {
+        senha.type = "password";
+        icone.textContent = "visibility";
+    }
 }
 
 window.addEventListener("scroll", function () {

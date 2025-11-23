@@ -1,6 +1,9 @@
 @font-face {
     font-family: "Montserrat-Bold";
-    src: url("Montserrat-Bold.eot?") format("eot"), url("Montserrat-Bold.woff") format("woff"), url("Montserrat-Bold.ttf") format("truetype"), url("Montserrat-Bold.svg#Montserrat-Bold") format("svg");
+    src: url("Montserrat-Bold.eot?") format("eot"),
+        url("Montserrat-Bold.woff") format("woff"),
+        url("Montserrat-Bold.ttf") format("truetype"),
+        url("Montserrat-Bold.svg#Montserrat-Bold") format("svg");
     font-weight: normal;
     font-style: normal;
 }
