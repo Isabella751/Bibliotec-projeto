@@ -186,30 +186,26 @@ header {
     -webkit-text-fill-color: transparent;
 }
 
-.livro_1, .livro_2, .livro_3, .livro_4, .livro_5, .livro_6, .livro_7, .livro_8, .livro_9, .livro_10,
-.livro_11, .livro_12, .livro_13, .livro_14, .livro_15 {
-    background: var(--branco);
-    width: 5vw;          /* altura e largura */
-    height: 18vh;         /* dos livros */
+.livro_1 .capa1, .livro_2 .capa2, .livro_3 .capa3, .livro_4 .capa4, .livro_5 .capa5, .livro_6 .capa6, .livro_7 .capa7, .livro_8 .capa8, .livro_9 .capa9, .livro_10 .capa10,
+.livro_11 .capa11, .livro_12 .capa12, .livro_13 .capa13, .livro_14 .capa14, .livro_15 .capa15 {
+    margin-top: 10px;
+    width: 7vw;        
     border-radius: 12px;
-    box-shadow: 0px 6px 20px rgba(0,0,0,0.07);
-    padding: 20px;
     display: flex;
     justify-content: space-between;
     color: var(--azulEscuro);
-    font-family: "Montserrat-Regular", sans-serif;
-    margin: 20px auto;  
+    font-family: "Montserrat-Regular", sans-serif; 
     transition: transform 0.2s ease;   
 }
 
-.livro_1:hover, .livro_2:hover, .livro_3:hover, .livro_4:hover, .livro_5:hover, .livro_6:hover, 
-.livro_7:hover, .livro_8:hover, .livro_9:hover, .livro_10:hover, .livro_11:hover, .livro_12:hover, 
-.livro_13:hover, .livro_14:hover, .livro_15:hover{
+.livro_1:hover .capa1, .livro_2:hover .capa2, .livro_3:hover .capa3, .livro_4:hover .capa4, .livro_5:hover .capa5, .livro_6:hover .capa6, 
+.livro_7:hover .capa7, .livro_8:hover .capa8, .livro_9:hover .capa9, .livro_10:hover .capa10, .livro_11:hover .capa11, .livro_12:hover .capa12, 
+.livro_13:hover .capa13, .livro_14:hover .capa14, .livro_15:hover .capa15{
     transform: scale(1.03); 
 }
 
 #livros{
-    width: 57vw;
+    width: 67vw;
     display: flex;
     align-items: center;
     justify-content: center;
