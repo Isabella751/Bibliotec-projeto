@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import livrosRoutes from "./routes/livros.routes.js"
 import avaliacoesRoutes from "./routes/avaliacoes.routes.js"
+import usuariosRoutes from "./routes/usuarios.routes.js"
 
 // ============================
 //  Configuração do servidor
@@ -20,6 +21,7 @@ app.get("/", (req, res)=>{
 
 app.use("/livros", livrosRoutes)
 app.use("/avaliacoes", avaliacoesRoutes)
+app.use("/usuarios", usuariosRoutes)
 
 // ============================
 //  Inicia o servidor
