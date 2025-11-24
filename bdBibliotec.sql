@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `avaliacoes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `usuario_id` int(11) NOT NULL,
   `livro_id` int(11) NOT NULL,
-  `nota` decimal(2,1) DEFAULT NULL CHECK (`nota` >= 0 and `nota` <= 5),
+  `nota` decimal(2,1) DEFAULT NULL CHECK (`nota` >= 0 and `nota` <= 10),
   `comentario` text DEFAULT NULL,
   `data_avaliacao` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
@@ -65,6 +65,21 @@ CREATE TABLE IF NOT EXISTS `emprestimo_itens` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- Copiando dados para a tabela dblivrariabibliotec.emprestimo_itens: ~0 rows (aproximadamente)
+
+-- Copiando estrutura para tabela dblivrariabibliotec.favoritos
+CREATE TABLE IF NOT EXISTS `favoritos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario_id` int(11) NOT NULL,
+  `livro_id` int(11) NOT NULL,
+  `data_favoritado` timestamp NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `usuario_id` (`usuario_id`),
+  KEY `livro_id` (`livro_id`),
+  CONSTRAINT `favoritos_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `favoritos_ibfk_2` FOREIGN KEY (`livro_id`) REFERENCES `livros` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+
+-- Copiando dados para a tabela dblivrariabibliotec.favoritos: ~0 rows (aproximadamente)
 
 -- Copiando estrutura para tabela dblivrariabibliotec.historico
 CREATE TABLE IF NOT EXISTS `historico` (
@@ -108,6 +123,7 @@ CREATE TABLE IF NOT EXISTS `livros` (
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
+  `cpf` varchar(11) NOT NULL,
   `email` varchar(100) NOT NULL,
   `senha` varchar(100) NOT NULL,
   `data_nascimento` date DEFAULT NULL,
@@ -116,6 +132,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `perfil` enum('Aluno','Admin') DEFAULT 'Aluno',
   `criado_em` timestamp NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
+  UNIQUE KEY `cpf` (`cpf`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
