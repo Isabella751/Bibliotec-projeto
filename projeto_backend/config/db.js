@@ -7,7 +7,7 @@ export const db = await mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "Senai2025",
-  database: "dblivrariabibliotec",
+  database: "bdBibliotec",
   port: 3306,
 });
 
