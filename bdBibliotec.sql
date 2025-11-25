@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
   data_nascimento DATE NOT NULL,
   celular VARCHAR(20) NOT NULL,
   curso VARCHAR(100) NULL,
-  perfil ENUM('Aluno', 'Admin', 'visitante') DEFAULT 'visitante',
+  perfil ENUM('Aluno', 'Admin', 'Visitante') DEFAULT 'Visitante',
   criado_em DATE DEFAULT CURRENT_DATE
 );
 
@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS livros (
 );
 
 DROP TABLE livros
+
 -- ===========================================================
 -- TABELA DE AVALIAÇÕES
 -- ===========================================================
@@ -58,6 +59,7 @@ CREATE TABLE IF NOT EXISTS avaliacoes (
 );
 
 DROP TABLE avaliacoes
+
 -- ===========================================================
 -- TABELA DE EMPRÉSTIMOS
 -- ===========================================================
@@ -71,6 +73,7 @@ CREATE TABLE IF NOT EXISTS emprestimos (
 );
 
 DROP TABLE emprestimos
+
 -- ===========================================================
 -- TABELA DE ITENS DO EMPRÉSTIMO
 -- ===========================================================
@@ -85,6 +88,7 @@ CREATE TABLE IF NOT EXISTS emprestimo_itens (
 );
 
 DROP TABLE emprestimo_itens
+
 -- ===========================================================
 -- TABELA DE HISTORICO
 -- ===========================================================
@@ -100,10 +104,11 @@ CREATE TABLE IF NOT EXISTS historico (
 );
 
 DROP TABLE historico
+
 -- ===========================================================
 -- TABELA DE FAVORITOS
 -- ===========================================================
-bdbibliotecCREATE TABLE IF NOT EXISTS favoritos (
+CREATE TABLE IF NOT EXISTS favoritos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
     livro_id INT NOT NULL,

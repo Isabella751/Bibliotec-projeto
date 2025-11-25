@@ -36,7 +36,7 @@ header {
 }
 
 .senai-image-cadastro{
-    width: 11vw;
+    width: 16vw;
     height: 6vh;
     margin: 0px;
     padding: 12px;
@@ -74,7 +74,7 @@ header {
 
 .texto_informativo {
     font-size: 15px;
-    color: #ff0000;
+    color: var(--roxoAzulado);
     line-height: 20px;
     text-align: center;
     width: 460px;
@@ -224,6 +224,20 @@ header {
 .campo-senha {
     position: relative;
     width: 127%; 
+    display: flex;
+    align-items: center;
+}
+
+#curso {
+    position: relative;
+    width: 123%; 
+    display: flex;
+    align-items: center;
+}
+
+#perfil {
+    position: relative;
+    width: 123%; 
     display: flex;
     align-items: center;
 }
