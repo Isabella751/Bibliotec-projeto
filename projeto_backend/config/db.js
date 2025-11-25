@@ -11,4 +11,4 @@ export const db = await mysql.createConnection({
   port: 3306,
 });
 
-console.log("✅ Conectado ao banco de dados dblivrariabibliotec!");
+console.log("✅ Conectado ao banco de dados bdBibliotec!");
