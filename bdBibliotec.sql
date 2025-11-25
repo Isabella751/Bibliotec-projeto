@@ -1,9 +1,8 @@
-dblivrariabibliotecdblivraria
 -- ===========================================================
 -- CRIAÇÃO DO BANCO DE DADOS
 -- ===========================================================
-CREATE DATABASE IF NOT EXISTS dblivrariaBibliotec;
-USE dblivrariaBibliotec;
+CREATE DATABASE IF NOT EXISTS bdBibliotec;
+USE bdBibliotec;
 
 -- ===========================================================
 -- TABELA DE USUÁRIOS
@@ -14,11 +13,11 @@ CREATE TABLE IF NOT EXISTS usuarios (
   cpf VARCHAR(11) UNIQUE NOT NULL, 
   email VARCHAR(100) UNIQUE NOT NULL,
   senha VARCHAR(100) NOT NULL,
-  data_nascimento DATE,
-  celular VARCHAR(20),
-  curso VARCHAR(100),
-  perfil ENUM('Aluno', 'Admin') DEFAULT 'Aluno',
-  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  data_nascimento DATE NOT NULL,
+  celular VARCHAR(20) NOT NULL,
+  curso VARCHAR(100) NULL,
+  perfil ENUM('Aluno', 'Admin', 'visitante') DEFAULT 'visitante',
+  criado_em DATE DEFAULT CURRENT_DATE
 );
 
 DROP TABLE usuarios
@@ -30,17 +29,17 @@ CREATE TABLE IF NOT EXISTS livros (
     id INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(150) NOT NULL,
     autor VARCHAR(100) NOT NULL,
-    genero VARCHAR(100),
-    editora VARCHAR(100),
-    ano_publicacao SMALLINT,
-    isbn VARCHAR(20),
+    genero VARCHAR(100) NOT NULL,
+    editora VARCHAR(100) NULL,
+    ano_publicacao SMALLINT NULL,
+    isbn VARCHAR(20) NOT NULL UNIQUE,
     idioma VARCHAR(50) DEFAULT 'Português',
     formato ENUM('Físico', 'E-book', 'Audiobook') DEFAULT 'Físico',
-    caminho_capa VARCHAR(255),
-    sinopse TEXT,
+    caminho_capa VARCHAR(255) NULL,
+    sinopse TEXT NULL,
     ativo BOOLEAN DEFAULT TRUE,
-    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
+    atualizado_em DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 DROP TABLE livros
@@ -51,9 +50,9 @@ CREATE TABLE IF NOT EXISTS avaliacoes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
     livro_id INT NOT NULL,
-    nota DECIMAL(2,1) CHECK (nota >= 0 AND nota <= 10),
+    nota INT NOT NULL CHECK (nota >= 0 AND nota <= 10),
     comentario TEXT,
-    data_avaliacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_avaliacao DATE DEFAULT CURRENT_DATE NOT NULL,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
     FOREIGN KEY (livro_id) REFERENCES livros(id) ON DELETE CASCADE
 );
@@ -66,7 +65,7 @@ CREATE TABLE IF NOT EXISTS emprestimos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
     data_emprestimo DATE NOT NULL DEFAULT(CURRENT_DATE),
-    data_devolução DATE NULL,
+    data_devolução DATE NOT NULL,
     status_emprestimo ENUM('Emprestado', 'Devolvido', 'Atrasado') DEFAULT 'Emprestado',
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
@@ -79,8 +78,8 @@ CREATE TABLE IF NOT EXISTS emprestimo_itens (
     id INT AUTO_INCREMENT PRIMARY KEY,
     emprestimo_id INT NOT NULL,
     livro_id INT NOT NULL,
-    data_prevista DATE,
-    data_devolvido DATE,
+    data_prevista DATE NOT NULL,
+    data_devolvido DATE NULL,
     FOREIGN KEY (emprestimo_id) REFERENCES emprestimos(id) ON DELETE CASCADE,
     FOREIGN KEY (livro_id) REFERENCES livros(id) ON DELETE CASCADE
 );
@@ -89,14 +88,14 @@ DROP TABLE emprestimo_itens
 -- ===========================================================
 -- TABELA DE HISTORICO
 -- ===========================================================
-CREATE TABLE if NOT EXISTS historico (
+CREATE TABLE IF NOT EXISTS historico (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
     livro_id INT NOT NULL,
-    data_emprestimo DATE,
-	 data_devolução DATE,
-	 status_livro ENUM('Em andamento', 'No prazo', 'Em atraso', 'Perdido', 'Extraviado'),
-	 FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+    data_emprestimo DATE NOT NULL,
+    data_devolucao DATE NOT NULL,
+    status_livro ENUM('Em andamento', 'No prazo', 'Em atraso', 'Perdido', 'Extraviado') DEFAULT 'Em andamento',
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
     FOREIGN KEY (livro_id) REFERENCES livros(id) ON DELETE CASCADE
 );
 
@@ -104,7 +103,7 @@ DROP TABLE historico
 -- ===========================================================
 -- TABELA DE FAVORITOS
 -- ===========================================================
-CREATE TABLE IF NOT EXISTS favoritos (
+bdbibliotecCREATE TABLE IF NOT EXISTS favoritos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
     livro_id INT NOT NULL,
