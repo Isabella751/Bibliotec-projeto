@@ -176,7 +176,7 @@ header {
     margin-top: 40px;
     flex-wrap: wrap;
     margin: 0 auto;
-}  
+}
 
 .h2_degrade {
     font-size: 1.6rem;
@@ -184,24 +184,32 @@ header {
     background: linear-gradient(90deg, var(--roxoAzulado), var(--verdeAgua));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-}
+} 
 
 .livro_1 .capa1, .livro_2 .capa2, .livro_3 .capa3, .livro_4 .capa4, .livro_5 .capa5, .livro_6 .capa6, .livro_7 .capa7, .livro_8 .capa8, .livro_9 .capa9, .livro_10 .capa10,
-.livro_11 .capa11, .livro_12 .capa12, .livro_13 .capa13, .livro_14 .capa14, .livro_15 .capa15 {
-    margin-top: 10px;
-    width: 7vw;        
+.livro_11 .capa11, .livro_12 .capa12, .livro_13 .capa13, .livro_14 .capa14, .livro_15 .capa15, .livro_16 .capa16, .livro_17 .capa17, .livro_18 .capa18, .livro_19 .capa19, 
+.livro_20 .capa20, .livro_21 .capa21, .livro_22 .capa22, .livro_23 .capa23, .livro_24 .capa24 {
+    margin-top: 30px;
+    width: 7vw;   
+    height: 150px;     
     border-radius: 12px;
     display: flex;
     justify-content: space-between;
     color: var(--azulEscuro);
     font-family: "Montserrat-Regular", sans-serif; 
-    transition: transform 0.2s ease;   
+    transition: transform 0.2s ease;
 }
 
-.livro_1:hover .capa1, .livro_2:hover .capa2, .livro_3:hover .capa3, .livro_4:hover .capa4, .livro_5:hover .capa5, .livro_6:hover .capa6, 
-.livro_7:hover .capa7, .livro_8:hover .capa8, .livro_9:hover .capa9, .livro_10:hover .capa10, .livro_11:hover .capa11, .livro_12:hover .capa12, 
-.livro_13:hover .capa13, .livro_14:hover .capa14, .livro_15:hover .capa15{
-    transform: scale(1.03); 
+.livro_1:hover .capa1:hover, .livro_2:hover .capa2:hover, .livro_3:hover .capa3:hover, .livro_4:hover .capa4:hover, .livro_5:hover .capa5:hover, .livro_6:hover .capa6:hover, 
+.livro_7:hover .capa7:hover, .livro_8:hover .capa8:hover, .livro_9:hover .capa9:hover, .livro_10:hover .capa10:hover, .livro_11:hover .capa11:hover, .livro_12:hover .capa12:hover, 
+.livro_13:hover .capa13:hover, .livro_14:hover .capa14:hover, .livro_15:hover .capa15:hover, .livro_16:hover .capa16:hover, .livro_17:hover .capa17:hover,
+.livro_18:hover .capa18:hover, .livro_19:hover .capa19:hover, .livro_20:hover .capa20:hover, .livro_21:hover .capa21:hover, .livro_22:hover .capa22:hover,
+.livro_23:hover .capa23:hover, .livro_24:hover .capa24:hover {
+    transform: scale(1.03);
+}
+
+.faceDestaques{
+    margin-top: 12px;
 }
 
 #livros{
@@ -355,3 +363,24 @@ header {
 }
 
 /* ========================================= CSS LIMPO ========================================== */
+
+footer {
+    margin-top: 50px;
+    height: 50px;
+    background-color: var(--azulEscuro);
+    padding:16px 22px;
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+}
+
+#ajuda, #termos, #contato {
+    border:none;
+    color:var(--azulEscuro);
+    cursor:pointer;
+    border-radius: 8px;
+    background-color: #cefcf9;
+    width: 110px;
+    height: 35px;
+    gap: 25px;
+}
