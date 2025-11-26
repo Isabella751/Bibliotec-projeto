@@ -1,14 +1,16 @@
 import express from "express";
 import {
-    listarReservas,
     criarReserva,
+    listarReservas,
+    obterReserva,
     excluirReserva
 } from "../controllers/reservas.controller.js";
 
 const router = express.Router();
 
-router.get("/", listarReservas);
 router.post("/", criarReserva);
+router.get("/", listarReservas);
+router.get("/:id", obterReserva);
 router.delete("/:id", excluirReserva);
 
 export default router;

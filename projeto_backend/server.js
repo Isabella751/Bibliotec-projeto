@@ -11,7 +11,6 @@ import favoritosRoutes from "./routes/favoritos.routes.js"
 import reservasRoutes from "./routes/reservas.routes.js"
 
 
-
 // ============================
 //  Configuração do servidor
 // ============================
