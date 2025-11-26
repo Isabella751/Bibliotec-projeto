@@ -4,6 +4,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
+import usuariosRoutes from "./routes/usuarios.routes.js"
 import livrosRoutes from "./routes/livros.routes.js"
 import avaliacoesRoutes from "./routes/avaliacoes.routes.js"
 
@@ -18,6 +19,7 @@ app.get("/", (req, res)=>{
   res.send("API rodando com sucesso")
 })
 
+app.use("/usuarios", usuariosRoutes)
 app.use("/livros", livrosRoutes)
 app.use("/avaliacoes", avaliacoesRoutes)
 
