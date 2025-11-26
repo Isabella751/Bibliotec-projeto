@@ -146,7 +146,7 @@ header {
 }
 
 .login input[type="email"],
-.login input[type="password"] {
+.login input[type="password"], .login input[type="text"] {
     width: 27vw;
     padding: 7px;
     font-size: 1.1rem;

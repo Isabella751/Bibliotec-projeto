@@ -42,6 +42,11 @@
                 </div>
 
                 <div class="linha_cadastro">
+                    <label for="cpf" class="rotulo">CPF: <span class="obrigatorio">*</span></label>
+                    <input type="text" id="cpf">
+                </div>
+
+                <div class="linha_cadastro">
                     <label for="email" class="rotulo">Email: <span class="obrigatorio">*</span></label>
                     <input type="email" id="email">
                 </div>
@@ -60,7 +65,6 @@
                         <span class="linha_alta">Data de</span>
                         <span class="linha_baixa">
                             nascimento:
-                            <span class="obrigatorio">*</span>
                         </span>
                     </label>
 
@@ -68,18 +72,63 @@
                 </div>
 
                 <div class="linha_cadastro">
-                    <label for="cpf" class="rotulo">CPF: <span class="obrigatorio">*</span></label>
-                    <input type="text" id="cpf">
-                </div>
-
-                <div class="linha_cadastro">
-                    <label for="celular" class="rotulo">Celular: <span class="obrigatorio">*</span></label>
+                    <label for="celular" class="rotulo">Celular: </label>
                     <input type="tel" id="celular">
                 </div>
 
                 <div class="linha_cadastro">
-                    <label for="curso" class="rotulo">Curso: <span class="obrigatorio">*</span></label>
-                    <input type="text" id="curso">
+                    <label for="curso" class="rotulo">Curso: </label>
+                    <select id="curso" class="entrada_selecao">
+                        <option value="" selected disabled>Selecione...</option>
+
+                        <option value="Técnico em Administração">Técnico em Administração</option>
+                        <option value="Técnico em Agrimensura">Técnico em Agrimensura</option>
+                        <option value="Técnico em Alimentos">Técnico em Alimentos</option>
+                        <option value="Técnico em Automação Industrial">Técnico em Automação Industrial</option>
+                        <option value="Técnico em Açúcar e Álcool">Técnico em Açúcar e Álcool</option>
+                        <option value="Técnico em Biotecnologia">Técnico em Biotecnologia</option>
+                        <option value="Técnico em Celulose e Papel">Técnico em Celulose e Papel</option>
+                        <option value="Técnico em Comunicação Visual">Técnico em Comunicação Visual</option>
+                        <option value="Técnico em Comércio">Técnico em Comércio</option>
+                        <option value="Técnico em Construção Naval">Técnico em Construção Naval</option>
+                        <option value="Técnico em Design Gráfico">Técnico em Design Gráfico</option>
+                        <option value="Técnico em Design de Interiores">Técnico em Design de Interiores</option>
+                        <option value="Técnico em Desenvolvimento de Sistemas">Técnico em Desenvolvimento de Sistemas</option>
+                        <option value="Técnico em Edificações">Técnico em Edificações</option>
+                        <option value="Técnico em Eletrônica">Técnico em Eletrônica</option>
+                        <option value="Técnico em Eletromecânica">Técnico em Eletromecânica</option>
+                        <option value="Técnico em Eletrotécnica">Técnico em Eletrotécnica</option>
+                        <option value="Técnico em Energias Renováveis">Técnico em Energias Renováveis</option>
+                        <option value="Técnico em Equipamentos Biomédicos">Técnico em Equipamentos Biomédicos</option>
+                        <option value="Técnico em Fabricação Mecânica">Técnico em Fabricação Mecânica</option>
+                        <option value="Técnico em Geoprocessamento">Técnico em Geoprocessamento</option>
+                        <option value="Técnico em Informática">Técnico em Informática</option>
+                        <option value="Técnico em Informática para Internet">Técnico em Informática para Internet</option>
+                        <option value="Técnico em Jogos Digitais">Técnico em Jogos Digitais</option>
+                        <option value="Técnico em Logística">Técnico em Logística</option>
+                        <option value="Técnico em Manutenção Automotiva">Técnico em Manutenção Automotiva</option>
+                        <option value="Técnico em Manutenção de Aeronaves">Técnico em Manutenção de Aeronaves</option>
+                        <option value="Técnico em Marketing">Técnico em Marketing</option>
+                        <option value="Técnico em Mecânica">Técnico em Mecânica</option>
+                        <option value="Técnico em Mecatrônica">Técnico em Mecatrônica</option>
+                        <option value="Técnico em Meio Ambiente">Técnico em Meio Ambiente</option>
+                        <option value="Técnico em Metalurgia">Técnico em Metalurgia</option>
+                        <option value="Técnico em Petróleo e Gás">Técnico em Petróleo e Gás</option>
+                        <option value="Técnico em Produção de Moda">Técnico em Produção de Moda</option>
+                        <option value="Técnico em Qualidade">Técnico em Qualidade</option>
+                        <option value="Técnico em Química">Técnico em Química</option>
+                        <option value="Técnico em Redes de Computadores">Técnico em Redes de Computadores</option>
+                        <option value="Técnico em Recursos Humanos">Técnico em Recursos Humanos</option>
+                        <option value="Técnico em Segurança do Trabalho">Técnico em Segurança do Trabalho</option>
+                        <option value="Técnico em Sistemas de Energia">Técnico em Sistemas de Energia</option>
+                        <option value="Técnico em Sistemas Embarcados">Técnico em Sistemas Embarcados</option>
+                        <option value="Técnico em Soldagem">Técnico em Soldagem</option>
+                        <option value="Técnico em Têxtil">Técnico em Têxtil</option>
+                        <option value="Técnico em Usinagem">Técnico em Usinagem</option>
+                        <option value="Técnico em Veículos Automotores">Técnico em Veículos Automotores</option>
+                        <option value="Técnico em Vestuário">Técnico em Vestuário</option>
+
+                    </select>
                 </div>
 
                 <div class="linha_cadastro">
@@ -88,6 +137,7 @@
                         <option value="" selected disabled>Selecione...</option>
                         <option value="aluno">Aluno</option>
                         <option value="admin">Admin</option>
+                        <option value="visitante">Visitante</option>
                     </select>
                 </div>
 
