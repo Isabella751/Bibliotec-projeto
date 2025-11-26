@@ -16,7 +16,11 @@ CREATE TABLE IF NOT EXISTS usuarios (
   data_nascimento DATE NOT NULL,
   celular VARCHAR(20) NOT NULL,
   curso VARCHAR(100) NULL,
+<<<<<<< HEAD
   perfil ENUM('Aluno', 'Admin', 'Visitante') DEFAULT 'Visitante',
+=======
+  perfil ENUM('Aluno', 'Admin', 'visitante') DEFAULT 'visitante',
+>>>>>>> 8d1e8475c0705070a3e717c40572a4c06a72991b
   criado_em DATE DEFAULT CURRENT_DATE
 );
 
@@ -43,6 +47,7 @@ CREATE TABLE IF NOT EXISTS livros (
 );
 
 DROP TABLE livros
+<<<<<<< HEAD
 
 -- ===========================================================
 -- TABELA DE AVALIAÇÕES
@@ -117,4 +122,75 @@ CREATE TABLE IF NOT EXISTS favoritos (
     FOREIGN KEY (livro_id) REFERENCES livros(id) ON DELETE CASCADE
 );
 
+=======
+-- ===========================================================
+-- TABELA DE AVALIAÇÕES
+-- ===========================================================
+CREATE TABLE IF NOT EXISTS avaliacoes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    livro_id INT NOT NULL,
+    nota INT NOT NULL CHECK (nota >= 0 AND nota <= 10),
+    comentario TEXT,
+    data_avaliacao DATE DEFAULT CURRENT_DATE NOT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+    FOREIGN KEY (livro_id) REFERENCES livros(id) ON DELETE CASCADE
+);
+
+DROP TABLE avaliacoes
+-- ===========================================================
+-- TABELA DE EMPRÉSTIMOS
+-- ===========================================================
+CREATE TABLE IF NOT EXISTS emprestimos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    data_emprestimo DATE NOT NULL DEFAULT(CURRENT_DATE),
+    data_devolução DATE NOT NULL,
+    status_emprestimo ENUM('Emprestado', 'Devolvido', 'Atrasado') DEFAULT 'Emprestado',
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
+DROP TABLE emprestimos
+-- ===========================================================
+-- TABELA DE ITENS DO EMPRÉSTIMO
+-- ===========================================================
+CREATE TABLE IF NOT EXISTS emprestimo_itens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    emprestimo_id INT NOT NULL,
+    livro_id INT NOT NULL,
+    data_prevista DATE NOT NULL,
+    data_devolvido DATE NULL,
+    FOREIGN KEY (emprestimo_id) REFERENCES emprestimos(id) ON DELETE CASCADE,
+    FOREIGN KEY (livro_id) REFERENCES livros(id) ON DELETE CASCADE
+);
+
+DROP TABLE emprestimo_itens
+-- ===========================================================
+-- TABELA DE HISTORICO
+-- ===========================================================
+CREATE TABLE IF NOT EXISTS historico (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    livro_id INT NOT NULL,
+    data_emprestimo DATE NOT NULL,
+    data_devolucao DATE NOT NULL,
+    status_livro ENUM('Em andamento', 'No prazo', 'Em atraso', 'Perdido', 'Extraviado') DEFAULT 'Em andamento',
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+    FOREIGN KEY (livro_id) REFERENCES livros(id) ON DELETE CASCADE
+);
+
+DROP TABLE historico
+-- ===========================================================
+-- TABELA DE FAVORITOS
+-- ===========================================================
+bdbibliotecCREATE TABLE IF NOT EXISTS favoritos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    livro_id INT NOT NULL,
+    data_favoritado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+    FOREIGN KEY (livro_id) REFERENCES livros(id) ON DELETE CASCADE
+);
+
+>>>>>>> 8d1e8475c0705070a3e717c40572a4c06a72991b
 DROP TABLE favoritos
