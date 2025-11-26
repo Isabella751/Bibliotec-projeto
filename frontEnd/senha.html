@@ -21,17 +21,26 @@
                     <a href="index.html" class="secondary">Voltar para fazer login</a>
                 </div>
             </header>
-  
+
             <main>
 
-                <form action="redSenha.html" method="get" class="endereco-email">
-                    <p>Por favor, insira o endereço de e-mail utilizado para fazer a recuperação.</p>
+                <form action="redSenha.html" method="get" class="endereco-email" id="form-solicitar">
+    <p>Por favor, insira o endereço de e-mail utilizado para fazer a recuperação.</p>
 
-                    <div class="input-group">
-                        <input type="email" placeholder="Email" name="email" id="email" class="input-principal">
-                        <button type="submit" id="enviar">Solicitar</button>
-                    </div>
-                </form>
+    <div class="input-group">
+        <input type="email" placeholder="Email" name="email" id="email" class="input-principal">
+        <button type="submit" id="enviar">Solicitar</button>
+    </div>
+</form>
+
+<div class="reenvio-codigo" style="display:none" id="container-reenvio">
+    <p class="token">
+        Não recebeu o token?
+        <span id="reenviar" class="reenviar-link">Reenviar código</span>
+        <span id="timer"></span>
+    </p>
+</div>
+
 
             </main>
 
@@ -48,6 +57,8 @@
 
         </article>
     </div>
+
+    <script src="../public/js/scriptSenha.js"></script>
 
 </body>
 

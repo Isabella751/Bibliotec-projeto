@@ -192,3 +192,20 @@ footer{
 }
 
 /* ========================================= CSS LIMPO ========================================== */
+
+.reenvio-codigo {
+    margin-top: 1.2rem;
+    font-size: 0.9rem;
+}
+
+.reenviar-link {
+    color: var(--azul-principal);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.reenviar-link.desativado {
+    color: gray;
+    cursor: default;
+    text-decoration: none;
+}
