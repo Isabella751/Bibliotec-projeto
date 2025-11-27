@@ -10,9 +10,24 @@ export async function criarUsuario (req, res) {
     if (!nome || !cpf || !email || !senha || !data_nascimento || !celular)
       return res.status(400).json({ erro: "Campos obrigatórios" });
 
+    if (cpf.length !== 11)
+      return res.status(400).json({ erro: "CPF deve conter 11 dígitos" });
+
+    if (senha.length < 7)
+      return res.status(400).json({ erro: "Senha deve ter no mínimo 6 caracteres" });
+
+    if (data_nascimento.length !== 10)
+      return res.status(400).json({ erro: "Data de nascimento inválida" });
+
+    if (celular.length < 10 || celular.length > 11)
+      return res.status(400).json({ erro: "Número de celular inválido" });
+
+    const editCurso = curso === undefined || curso === "" ? null : curso;
+    const editPerfil = perfil === undefined || perfil === "" ? "visitante" : perfil;
+
     await db.execute(
-      "INSERT INTO usuarios (nome, cpf, email, senha, data_nascimento, celular, curso, perfil) VALUES (?, ?, ?, ?, ?, ?, ?)",
-      [nome, cpf, email, senha, data_nascimento, celular, curso, perfil]
+      "INSERT INTO usuarios (nome, cpf, email, senha, data_nascimento, celular, curso, perfil) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+      [nome, cpf, email, senha, data_nascimento, celular, editCurso, editPerfil]
     );
 
     res.json({ mensagem: "Usuário criado com sucesso!" });
@@ -48,9 +63,27 @@ export async function obterUsuario (req, res) {
 export async function editarUsuario (req, res) {
   try {
     const { nome, cpf, email, senha, data_nascimento, celular, curso, perfil } = req.body;
+    if (!nome || !cpf || !email || !senha || !data_nascimento || !celular)
+      return res.status(400).json({ erro: "Campos obrigatórios" });
+
+    if (cpf.length !== 11)
+      return res.status(400).json({ erro: "CPF deve conter 11 dígitos" });
+
+    if (senha.length < 7)
+      return res.status(400).json({ erro: "Senha deve ter no mínimo 6 caracteres" });
+
+    if (data_nascimento.length !== 10)
+      return res.status(400).json({ erro: "Data de nascimento inválida" });
+
+    if (celular.length < 10 || celular.length > 11)
+      return res.status(400).json({ erro: "Número de celular inválido" });
+
+    const editCurso = curso === undefined || curso === "" ? null : curso;
+    const editPerfil = perfil === undefined || perfil === "" ? "visitante" : perfil;
+
     await db.execute(
       "UPDATE usuarios SET nome = ?, cpf = ?, email = ?, senha = ?, data_nascimento = ?, celular = ?, curso = ?, perfil = ? WHERE id = ?",
-      [nome, cpf, email, senha, data_nascimento, celular, curso, perfil, req.params.id]
+      [nome, cpf, email, senha, data_nascimento, celular, editCurso, editPerfil, req.params.id]
     );
     res.json({ mensagem: "Usuário atualizado com sucesso!" });
   } catch (err) {
