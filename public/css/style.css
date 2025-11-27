@@ -50,14 +50,14 @@ body {
 .senai-image {
     position: fixed;
     bottom: 0.2px;
-    width: 150px;
-    height: 80px;
+    width: 200px;
+    height: 130px;
     object-fit: contain;
     z-index: 10;
-    margin-bottom: 0.2px;
+    margin-bottom: 0px;
     margin-left: 809px;
     padding: 5px;
-    right: auto;
+    left: 330px;
 }
 
 .social-icons {
@@ -147,7 +147,7 @@ header {
 
 .login input[type="email"],
 .login input[type="password"], .login input[type="text"] {
-    width: 27vw;
+    width: 20vw;
     padding: 7px;
     font-size: 1.1rem;
     border-radius: 25px;
@@ -277,7 +277,7 @@ body {
 
 .main-container {
     width: 72vw; 
-    height: 80vh;
+    height: 5vh;
     display: flex;
     justify-content: center;
     border-right: 1px solid rgba(0, 0, 0, 0.05);
@@ -302,13 +302,13 @@ body {
 }
 
 .campo-senha input {
-    width: 27vw;
-    padding-right: 40px; /* espaço para o olhinho */
+    width: 20vw;
+    padding-left: 80px; /* espaço para o olhinho */
 }
 
 .toggle-senha {
     position: absolute;
-    right: 10px;
+    right: 75px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
