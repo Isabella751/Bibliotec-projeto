@@ -6,7 +6,7 @@ try {
   db = await mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "casagrande",
+    password: "1234",
     database: "bdBibliotec",
     port: 3306,
   });
