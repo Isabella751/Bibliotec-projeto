@@ -26,6 +26,14 @@
 body {
     background-color: var(--menta);
     font-family: "Montserrat-Bold", sans-serif;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
 }
 
 header {
@@ -36,15 +44,15 @@ header {
 }
 
 .senai-image-cadastro{
-    width: 16vw;
+    width: 11vw;
     height: 6vh;
     margin: 0px;
     padding: 12px;
     margin-left: auto;
 }
-
+ 
 .logo-cadastro {
-    width: 250px;
+    width: 300px;
     transition: transform 0.2s ease;
 }
 
@@ -63,6 +71,9 @@ header {
 .bloco_titulo {
     padding: 10px;
     text-align: center;
+    transform: scale(1.35);
+    transform-origin: top center;
+    margin-bottom: 85px;
 }
 
 .titulo_principal {
@@ -89,7 +100,7 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    transform: scale(1.45);
+    transform: scale(1.65);
     transform-origin: top center; 
 }
 
@@ -175,16 +186,18 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    transform: scale(1.25);
+    transform-origin: top center;
 }
 
 .cadastrarButton {
-    margin-top: 13px;
+    margin-top: 22px;
     margin-bottom: 22px;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 6vw;
-    height: 6vh;
+    height: 2vh;
     background-color: var(--verdeAgua);
     color: var(--branco);
     font-family: "Montserrat-Bold", sans-serif;
@@ -208,6 +221,7 @@ header {
     transition: 0.2s;
     font-family: "Montserrat-Bold", sans-serif;
     font-weight: bold; 
+    text-decoration: none;
 }
 
 .cadastrar:hover {
@@ -259,4 +273,18 @@ header {
 
 .icone-senha:hover {
     color: #000;
+}
+
+.leftPlant {
+    position: absolute;
+    right: 745px;
+    bottom: 20px;
+    width: 500px;
+}
+
+.rightPlant {
+    position: absolute;
+    left: 737px;
+    bottom: 20px;
+    width: 100px;
 }

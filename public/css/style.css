@@ -54,8 +54,8 @@ body {
     height: 130px;
     object-fit: contain;
     z-index: 10;
-    margin-bottom: 0px;
-    margin-left: 809px;
+    margin-top: 300px;
+    margin-left: 819px;
     padding: 5px;
     left: 330px;
 }
@@ -147,7 +147,7 @@ header {
 
 .login input[type="email"],
 .login input[type="password"], .login input[type="text"] {
-    width: 20vw;
+    width: 19vw;
     padding: 7px;
     font-size: 1.1rem;
     border-radius: 25px;
@@ -276,14 +276,16 @@ body {
 }
 
 .main-container {
-    width: 72vw; 
-    height: 5vh;
+    width: 200vw; 
+    height: 205vh;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     border-right: 1px solid rgba(0, 0, 0, 0.05);
-    transform: scale(1.25);
+    transform: scale(1.65);
     position: relative;
     z-index: 3;
+    margin-left: 900px;
+    transform-origin: top center;
 }
 
 .content {
@@ -303,12 +305,12 @@ body {
 
 .campo-senha input {
     width: 20vw;
-    padding-left: 80px; /* espaço para o olhinho */
+    padding-left: 75px; /* espaço para o olhinho */
 }
 
 .toggle-senha {
     position: absolute;
-    right: 75px;
+    right: 85px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;

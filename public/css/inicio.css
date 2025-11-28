@@ -68,7 +68,7 @@ header {
 .main-header .logo-image {
     width: 15vw;
     margin: 5px;
-    padding: 10px;
+    padding: 19px;
     display: flex;
     justify-content: flex-start;
 }
@@ -79,6 +79,7 @@ header {
     margin: 10px;
     padding: 12px;
     margin-left: auto;
+    margin-top: 20px;
 }
 
 .main-header {
@@ -107,7 +108,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 95px;
+    margin-top: 135px;
     background-color: var(--cinza);
     outline: none;
     transition: box-shadow 0 0 12px rgba(74, 103, 223, 0.3), border-color 0.3s ease;
@@ -119,13 +120,13 @@ header {
 }
 
 .busca {
-    width: 63vw;
+    width: 73vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 0;
-    height: 9px;
+    height: 15px;
     transition: border-color 0.3s ease;
 }
 
@@ -138,7 +139,7 @@ header {
 
 .buscarLivro {
     position: relative;
-    width: 47vw; 
+    width: 67vw; 
     transition: border-color 0.3s ease;
 }
 
@@ -165,7 +166,7 @@ header {
     font-size: 22px;
     pointer-events: none;
     opacity: 0.4;
-    margin-top: 40px;
+    margin-top: 60px;
 }
 
 #destaques{
@@ -173,7 +174,7 @@ header {
     display: flex;
     justify-content: flex-start;
     gap: 58px;
-    margin-top: 40px;
+    margin-top: 80px;
     flex-wrap: wrap;
     margin: 0 auto;
 }
@@ -190,8 +191,8 @@ header {
 .livro_11 .capa11, .livro_12 .capa12, .livro_13 .capa13, .livro_14 .capa14, .livro_15 .capa15, .livro_16 .capa16, .livro_17 .capa17, .livro_18 .capa18, .livro_19 .capa19, 
 .livro_20 .capa20, .livro_21 .capa21, .livro_22 .capa22, .livro_23 .capa23, .livro_24 .capa24 {
     margin-top: 30px;
-    width: 7vw;   
-    height: 150px;     
+    width: 6vw;   
+    height: 180px;     
     border-radius: 12px;
     display: flex;
     justify-content: space-between;
@@ -209,11 +210,11 @@ header {
 }
 
 .faceDestaques{
-    margin-top: 12px;
+    margin-top: 65px;
 }
 
 #livros{
-    width: 67vw;
+    width: 57vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -234,16 +235,17 @@ header {
 }
  
 .left-icons .addUser-icon{
-    width: 39px;
+    width: 47px;
 }
 
 .left-icons .exit-icon{
-    width: 45px;
+    width: 57px;
 }
 
 .left-icons .filter-icon{
-    margin-bottom: 325px;
-    width: 34px;
+    margin-bottom: 555px;
+    width: 44px;
+    margin-left: 14px;
 }
 
 .right-icons {
@@ -259,27 +261,31 @@ header {
 }
 
 .right-icons .config-icon{
-    width: 33px;
+    width: 44px;
 }
 
 .right-icons .ficha-icon{
-    width: 37px;
+    width: 44px;
 }
 
 .right-icons .addLivro-icon{
-    margin-bottom: 100px;
+    margin-bottom: 320px;
+}
+
+.right-icons .lidosLivros-icon{
+    width: 44px;
 }
 
 .right-icons .favLivros-icon{
-    width: 37px;
+    width: 44px;
 }
 
 .right-icons .addLivro-icon{
-    width: 39px;
+    width: 44px;
 }
 
 .right-icons .lendoLivros-icon{
-    width: 40px;
+    width: 45px;
 }
 
 .linha-right{
@@ -290,16 +296,19 @@ header {
     justify-content: flex-end;
     align-items: flex-end;
     z-index: 999;
+    height: 760px;
 }
 
 .category-box {
     position: fixed;
-    top: 137px;  
-    left: 60px;
+    top: 187px;  
+    left: 100px;
     z-index: 9999;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    transform: scale(1.25);
+    transform-origin: top center;
 }
 
 .category-header {
@@ -311,7 +320,7 @@ header {
 }
 
 .category-header .h2{
-    width: 34px;
+    width: 64px;
 }
 
 .seta-icon {
