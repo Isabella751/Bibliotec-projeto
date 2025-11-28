@@ -14,7 +14,7 @@ export async function criarUsuario(req, res) {
         if (!nome || !email || !senha || !perfil || !cpf)
             return res.status(400).json({ erro: "Campos obrigatórios" });
 
-        //  Verificar se CPF já existe
+        //  Verifica se CPF já existe
         const [rows] = await db.execute(
             "SELECT cpf FROM usuarios WHERE cpf = ?",
             [cpf]
@@ -23,6 +23,14 @@ export async function criarUsuario(req, res) {
         if (rows.length > 0) {
             return res.status(400).json({ erro: "CPF já cadastrado!" });
         }
+
+        if(!Number(cpf) || cpf.length !== 11){ {
+            return res.status(400).json({ erro: "CPF inválido!" });
+        }}
+
+        if(!Number(celular)){ {
+            return res.status(400).json({ erro: "Número de celular inválido!" });
+        }}
 
         const dataNascimento = emptyToNull(data_nascimento);
         const celularValue = emptyToNull(celular);

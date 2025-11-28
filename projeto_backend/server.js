@@ -1,36 +1,42 @@
-// ============================
-//  Dependências
-// ============================
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import livrosRoutes from "./routes/livros.routes.js"
-import avaliacoesRoutes from "./routes/avaliacoes.routes.js"
-import usuariosRoutes from "./routes/usuarios.routes.js"
-import favoritosRoutes from "./routes/favoritos.routes.js"
-import reservasRoutes from "./routes/reservas.routes.js"
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+import livrosRoutes from "./routes/livros.routes.js";
+import avaliacoesRoutes from "./routes/avaliacoes.routes.js";
+import usuariosRoutes from "./routes/usuarios.routes.js";
+import favoritosRoutes from "./routes/favoritos.routes.js";
+import reservasRoutes from "./routes/reservas.routes.js";
 
-// ============================
-//  Configuração do servidor
-// ============================
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
+
+// Middlewares
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res)=>{
-  res.send("API rodando com sucesso")
-})
+// Servir arquivos estáticos
+app.use(express.static('public'));
 
-app.use("/livros", livrosRoutes)
-app.use("/avaliacoes", avaliacoesRoutes)
-app.use("/usuarios", usuariosRoutes)
-app.use("/favoritos", favoritosRoutes)
-app.use("/reservas", reservasRoutes)
+// Rotas da API
+app.use("/livros", livrosRoutes);
+app.use("/avaliacoes", avaliacoesRoutes);
+app.use("/usuarios", usuariosRoutes);
+app.use("/favoritos", favoritosRoutes);
+app.use("/reservas", reservasRoutes);
 
+// Rota principal
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve('public', 'index.html'));
+});
 
-// ============================
-//  Inicia o servidor
-// ============================
+// Iniciar servidor
 const PORT = 3000;
-app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
+app.listen(PORT, () => {
+  console.log(`🚀 Servidor rodando em http://localhost:3000`);
+});
