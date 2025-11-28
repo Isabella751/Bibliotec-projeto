@@ -1,4 +1,3 @@
-import e from "express";
 import { db } from "../config/db.js";
 // ============================
 //  Rotas CRUD
@@ -6,11 +5,15 @@ import { db } from "../config/db.js";
 
 export async function listarReservas (req, res) {
     try {
-        const [rows] = await db.execute("SELECT * FROM reservas");
+        const [rows] = await db.execute(`
+            SELECT e.*, u.nome AS usuario
+            FROM emprestimos e
+            JOIN usuarios u ON u.id = e.usuario_id
+        `); 
         res.json(rows);
     } catch (err) {
         res.status(500).json({ error: err.message });
-    }   
+    }
 };
 
 export async function obterReservas (req, res) {
