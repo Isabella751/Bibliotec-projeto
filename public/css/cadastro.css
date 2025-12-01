@@ -16,7 +16,7 @@
 }
 
 :root {
-    --menta: #E9F0EF;
+    --menta: #e9f0ef;
     --branco: #ffffff;
     --verdeAgua: #2fd6cb;
     --roxoAzulado: #4a67df;
@@ -277,14 +277,16 @@ header {
 
 .leftPlant {
     position: absolute;
-    right: 745px;
-    bottom: 20px;
-    width: 500px;
+    bottom: 340px;
+    width: 600px;
+    z-index: -1;
+    left: -379px;
 }
 
 .rightPlant {
     position: absolute;
-    left: 737px;
-    bottom: 20px;
-    width: 100px;
+    bottom: 0px;
+    width: 210px;
+    z-index: -1;
+    right: -339px;
 }

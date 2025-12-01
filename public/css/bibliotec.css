@@ -25,7 +25,7 @@
 }
 
 :root{
-      --menta:#E9F0EF;
+      --menta: #E9F0EF;
       --branco:#ffffff;
       --azulEscuro:#26333D;
       --roxoAzulado: #4a67df;
@@ -36,7 +36,7 @@
 body {
     font-family: "Montserrat-Regular", sans-serif;
     font-size: 1rem;
-    background: var(--menta);
+    background-color: var(--menta);
     opacity: 0;
     animation: fadeIn 0.8s ease forwards;
 }

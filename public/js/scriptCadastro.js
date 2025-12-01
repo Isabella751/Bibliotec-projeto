@@ -60,3 +60,57 @@ function finalizarCadastro() {
 
     window.close();
 }
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("btnCadastrar");
+
+    btn.addEventListener("click", async () => {
+
+        // Validação básica — sem machismo
+        if (!document.getElementById("termos").checked) {
+            alert("Você precisa aceitar os termos antes de continuar.");
+            return;
+        }
+
+        const payload = {
+            nome: document.getElementById("nome").value.trim(),
+            cpf: document.getElementById("cpf").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            senha: document.getElementById("senha").value.trim(),
+            data_nascimento: document.getElementById("data_nascimento").value,
+            celular: document.getElementById("celular").value.trim(),
+            curso: document.getElementById("curso").value,
+            perfil: document.getElementById("perfil").value
+        };
+
+        console.log("Payload enviado:", payload);
+
+        try {
+            const resposta = await fetch("http://localhost:3000/usuarios", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await resposta.json();
+            console.log("Resposta do backend:", data);
+
+            if (!resposta.ok) {
+                alert(data.erro || "Erro ao cadastrar usuário.");
+                return;
+            }
+
+            alert("Usuário cadastrado com sucesso!");
+            window.location.href = "inicio.html";
+
+        } catch (erro) {
+            console.error("Erro na requisição:", erro);
+            alert("Falha ao conectar com o servidor.");
+        }
+
+    });
+});
+

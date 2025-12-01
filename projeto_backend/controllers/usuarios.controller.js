@@ -28,9 +28,6 @@ export async function criarUsuario(req, res) {
             return res.status(400).json({ erro: "CPF inválido!" });
         }}
 
-        if(!Number(celular)){ {
-            return res.status(400).json({ erro: "Número de celular inválido!" });
-        }}
 
         const dataNascimento = emptyToNull(data_nascimento);
         const celularValue = emptyToNull(celular);
