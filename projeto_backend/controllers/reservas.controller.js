@@ -30,7 +30,7 @@ export async function criarReserva(req, res) {
          JOIN reserva_itens ri ON ri.reserva_id = r.id
          WHERE r.usuario_id = ?
            AND ri.livro_id = ?
-           AND r.status_reserva IN ('Emprestado', 'Atrasado')`,
+           AND r.status_emprestimo IN ('Emprestado', 'Atrasado')`,
         [usuario_id, item.livro_id]
       );
 
@@ -39,15 +39,16 @@ export async function criarReserva(req, res) {
     }
 
     // Datas
-    const dataReserva = new Date();
-    const dataPrevista = new Date();
-    dataPrevista.setDate(dataPrevista.getDate() + 15); // +15 dias
+    const dataEmprestimo = new Date().toISOString().split('T')[0];
+    const dataDevolucao = new Date();
+    dataDevolucao.setDate(dataDevolucao.getDate() + 15); // +15 dias
+    const dataDevolucaoStr = dataDevolucao.toISOString().split('T')[0];
 
     // Cria reserva
     const [resInsert] = await db.query(
-      `INSERT INTO reservas (usuario_id, data_reserva, status_reserva)
-       VALUES (?, ?, 'Emprestado')`,
-      [usuario_id, dataReserva]
+      `INSERT INTO reservas (usuario_id, data_emprestimo, data_devolução, status_emprestimo)
+       VALUES (?, ?, ?, 'Emprestado')`,
+      [usuario_id, dataEmprestimo, dataDevolucaoStr]
     );
 
     const reserva_id = resInsert.insertId;
@@ -57,7 +58,7 @@ export async function criarReserva(req, res) {
       await db.query(
         `INSERT INTO reserva_itens (reserva_id, livro_id, data_prevista)
          VALUES (?, ?, ?)`,
-        [reserva_id, item.livro_id, dataPrevista]
+        [reserva_id, item.livro_id, dataDevolucaoStr]
       );
     }
 
@@ -77,9 +78,9 @@ export async function listarReservas(req, res) {
       SELECT
         r.id AS reserva_id,
         r.usuario_id,
-        r.data_reserva,
-        r.data_devolucao,
-        r.status_reserva,
+        r.data_emprestimo,
+        r.data_devolução,
+        r.status_emprestimo,
         ri.livro_id
       FROM reservas r
       LEFT JOIN reserva_itens ri ON ri.reserva_id = r.id
@@ -135,17 +136,17 @@ export async function excluirReserva(req, res) {
 }
 
 export async function devolverLivro(req, res) {
-  const { emprestimo_id, livro_id } = req.body;
+  const { reserva_id, livro_id } = req.body;
 
   try {
     // 1. Marca o livro como devolvido
     await db.query(
-      "UPDATE emprestimo_itens SET devolvido = 1 WHERE emprestimo_id = ? AND livro_id = ?",
-      [emprestimo_id, livro_id]
+      "UPDATE reserva_itens SET data_devolvido = CURDATE() WHERE reserva_id = ? AND livro_id = ?",
+      [reserva_id, livro_id]
     );
 
     // 2. Verifica se todos já foram devolvidos
-    await verificarDevolucaoCompleta(emprestimo_id);
+    await verificarDevolucaoCompleta(reserva_id);
 
     res.json({ sucesso: true, mensagem: "Livro devolvido!" });
   } catch (err) {
@@ -153,11 +154,11 @@ export async function devolverLivro(req, res) {
   }
 }
 
-async function verificarDevolucaoCompleta(emprestimo_id) {
+async function verificarDevolucaoCompleta(reserva_id) {
   // Verifica se ainda existe algum item NÃO devolvido
   const [naoDevolvidos] = await db.query(
-    "SELECT COUNT(*) AS total FROM emprestimo_itens WHERE emprestimo_id = ? AND devolvido = 0",
-    [emprestimo_id]
+    "SELECT COUNT(*) AS total FROM reserva_itens WHERE reserva_id = ? AND data_devolvido IS NULL",
+    [reserva_id]
   );
 
   // Se ainda há algum livro não devolvido → sai
@@ -165,7 +166,7 @@ async function verificarDevolucaoCompleta(emprestimo_id) {
 
   // Se chegou aqui → TODOS foram devolvidos
   await db.query(
-    "UPDATE emprestimos SET data_devolucao = CURDATE() WHERE id = ?",
-    [emprestimo_id]
+    "UPDATE reservas SET status_emprestimo = 'Devolvido' WHERE id = ?",
+    [reserva_id]
   );
 }

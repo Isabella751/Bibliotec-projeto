@@ -340,4 +340,20 @@ body {
     transform: scale(1.05);
 } 
 
+#botãodaMusiquinha {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.5rem 0.9rem;
+  background: #2e7d32;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  font-family: inherit;
+}
+
+#botãodaMusiquinha:hover { opacity: 0.95; }
 /* ========================================= CSS LIMPO ========================================== */

@@ -20,7 +20,6 @@ CREATE TABLE IF NOT EXISTS usuarios (
   criado_em DATE DEFAULT CURRENT_DATE
 );
 
-DROP TABLE usuarios
 
 -- ===========================================================
 -- TABELA DE LIVROS
@@ -42,7 +41,6 @@ CREATE TABLE IF NOT EXISTS livros (
     atualizado_em DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-DROP TABLE livros
 
 -- ===========================================================
 -- TABELA DE AVALIAÇÕES
@@ -58,12 +56,11 @@ CREATE TABLE IF NOT EXISTS avaliacoes (
     FOREIGN KEY (livro_id) REFERENCES livros(id) ON DELETE CASCADE
 );
 
-DROP TABLE avaliacoes
 
 -- ===========================================================
 -- TABELA DE EMPRÉSTIMOS
 -- ===========================================================
-CREATE TABLE IF NOT EXISTS emprestimos (
+CREATE TABLE IF NOT EXISTS reservas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
     data_emprestimo DATE NOT NULL DEFAULT(CURRENT_DATE),
@@ -72,22 +69,20 @@ CREATE TABLE IF NOT EXISTS emprestimos (
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
 
-DROP TABLE emprestimos
 
 -- ===========================================================
 -- TABELA DE ITENS DO EMPRÉSTIMO
 -- ===========================================================
-CREATE TABLE IF NOT EXISTS emprestimo_itens (
+CREATE TABLE IF NOT EXISTS reserva_itens (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    emprestimo_id INT NOT NULL,
+    reserva_id INT NOT NULL,
     livro_id INT NOT NULL,
     data_prevista DATE NOT NULL,
     data_devolvido DATE NULL,
-    FOREIGN KEY (emprestimo_id) REFERENCES emprestimos(id) ON DELETE CASCADE,
+    FOREIGN KEY (reserva_id) REFERENCES reservas(id) ON DELETE CASCADE,
     FOREIGN KEY (livro_id) REFERENCES livros(id) ON DELETE CASCADE
 );
 
-DROP TABLE emprestimo_itens
 
 -- ===========================================================
 -- TABELA DE HISTORICO
@@ -103,7 +98,6 @@ CREATE TABLE IF NOT EXISTS historico (
     FOREIGN KEY (livro_id) REFERENCES livros(id) ON DELETE CASCADE
 );
 
-DROP TABLE historico
 
 -- ===========================================================
 -- TABELA DE FAVORITOS
@@ -117,4 +111,3 @@ CREATE TABLE IF NOT EXISTS favoritos (
     FOREIGN KEY (livro_id) REFERENCES livros(id) ON DELETE CASCADE
 );
 
-DROP TABLE favoritos

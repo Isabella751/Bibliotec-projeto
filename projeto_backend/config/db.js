@@ -8,7 +8,7 @@ export const db = await mysql.createConnection({
   user: "root",
   password: "1234",
   database: "bdBibliotec",
-  port: 3306,
+  port: 3304,
 });
 
 console.log("✅ Conectado ao banco de dados bdBibliotec!");
