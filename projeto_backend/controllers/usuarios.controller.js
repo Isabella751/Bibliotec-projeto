@@ -24,9 +24,9 @@ export async function criarUsuario(req, res) {
             return res.status(400).json({ erro: "CPF já cadastrado!" });
         }
 
-        if(!Number(cpf) || cpf.length !== 11){ {
-            return res.status(400).json({ erro: "CPF inválido!" });
-        }}
+        // if(!Number(cpf) || cpf.length !== 11){ {
+        //     return res.status(400).json({ erro: "CPF inválido!" });
+        // }}
 
 
         const dataNascimento = emptyToNull(data_nascimento);
