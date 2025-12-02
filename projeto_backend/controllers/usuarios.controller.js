@@ -11,7 +11,7 @@ export async function criarUsuario(req, res) {
     try {
         const { nome, cpf, email, senha, data_nascimento, celular, curso, perfil } = req.body;
 
-        if (!nome || !email || !senha || !perfil || !cpf)
+        if (!nome || !cpf || !email || !senha || !data_nascimento || !celular)
             return res.status(400).json({ erro: "Campos obrigatórios" });
 
         //  Verifica se CPF já existe

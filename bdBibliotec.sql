@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS livros (
     idioma VARCHAR(50) DEFAULT 'Português',
     formato ENUM('Físico', 'E-book', 'Audiobook') DEFAULT 'Físico',
     caminho_capa VARCHAR(255) NULL,
+    classificacao ENUM('Livre', '10+', '12+', '14+', '16+', '18+') DEFAULT 'Livre';
     sinopse TEXT NULL,
     ativo BOOLEAN DEFAULT TRUE,
     criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
