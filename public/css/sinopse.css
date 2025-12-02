@@ -1,0 +1,51 @@
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@font-face {
+    font-family: "Montserrat-Bold";
+    src: url("Montserrat-Bold.eot?") format("eot"),
+        url("Montserrat-Bold.woff") format("woff"),
+        url("Montserrat-Bold.ttf") format("truetype"),
+        url("Montserrat-Bold.svg#Montserrat-Bold") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Montserrat-Regular";
+    src: url("Montserrat-Regular.eot?") format("eot"),
+        url("Montserrat-Regular.woff") format("woff"),
+        url("Montserrat-Regular.ttf") format("truetype"),
+        url("Montserrat-Regular.svg#Montserrat-Regular") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root{
+      --menta:#E9F0EF;
+      --branco:#ffffff;
+      --azulEscuro:#26333D;
+      --roxoAzulado: #4a67df;
+      --verdeAgua:#2FD6CB;
+      --cinza:#6b7780;
+      --max-width:900px;
+ }    
+
+html,body{
+    height: 100%;
+    margin:0;
+    padding: 0;
+    background: linear-gradient(135deg, var(--menta), #ecf5f5);
+    color:var(--azulEscuro)
+}
+
+body {
+    font-family: "Montserrat-Regular", sans-serif;
+    font-size: 1rem;
+    color: var(--azulEscuro);
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+}
