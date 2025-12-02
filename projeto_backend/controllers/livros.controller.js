@@ -16,6 +16,7 @@ export async function criarLivro(req, res) {
             idioma,
             formato,
             caminho_capa,
+            classificacao,
             sinopse,
             ativo
         } = req.body;
@@ -37,6 +38,7 @@ export async function criarLivro(req, res) {
             idioma?.trim() || null,
             formato?.trim() || null,
             caminho_capa?.trim() || null,
+            classificacao?.trim() || "Livre",
             sinopse?.trim() || null,
             ativo?.trim() || null
         ];
@@ -55,8 +57,8 @@ export async function criarLivro(req, res) {
 
         await db.execute(
             `INSERT INTO livros 
-            (titulo, autor, genero, editora, ano_publicacao, isbn, idioma, formato, caminho_capa, sinopse, ativo)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    (titulo, autor, genero, editora, ano_publicacao, isbn, idioma, formato, caminho_capa, classificacao, sinopse, ativo)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             values
         );
 
@@ -78,15 +80,21 @@ export async function listarLivros(req, res) {
 
 export async function obterLivro(req, res) {
     try {
-        const [rows] = await db.execute("SELECT * FROM livros WHERE id = ?", [
-            req.params.id,
-        ]);
-        if (rows.length === 0)
+        const [rows] = await db.execute(
+            "SELECT * FROM livros WHERE id = ?",
+            [req.params.id]
+        );
+
+        if (rows.length === 0) {
             return res.status(404).json({ erro: "Livro não encontrado" });
+        }
+
+        return res.status(200).json(rows[0]); 
+        
     } catch (err) {
-        res.status(500).json({ erro: err.message });
+        return res.status(500).json({ erro: err.message });
     }
-};
+}
 
 export async function editarLivro(req, res) {
     try {
@@ -103,6 +111,7 @@ export async function editarLivro(req, res) {
             idioma,
             formato,
             caminho_capa,
+            classificacao,
             sinopse,
             ativo
         } = req.body;
@@ -125,7 +134,8 @@ export async function editarLivro(req, res) {
             idioma?.trim() || null,
             formato?.trim() || null,
             caminho_capa?.trim() || null,
-            sinopse?.trim() || null,
+            classificacao?.trim() || "Livre",
+            sinopse?.trim() || null,       
             ativo?.trim() || null,
             id
         ];
@@ -153,7 +163,8 @@ export async function editarLivro(req, res) {
                 idioma = ?, 
                 formato = ?, 
                 caminho_capa = ?, 
-                sinopse = ?, 
+                classificacao = ?,   
+                sinopse = ?,        
                 ativo = ?
             WHERE id = ?`,
             values
