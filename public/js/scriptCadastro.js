@@ -52,6 +52,25 @@ celularInput.addEventListener("input", function (e) {
     e.target.value = formatado;
 });
 
+const cpfInput = document.getElementById("cpf");
+
+cpfInput.addEventListener("input", function (e) {
+    let valor = e.target.value;
+
+    valor = valor.replace(/\D/g, "");
+
+    if (valor.length > 11) valor = valor.slice(0, 11);
+
+    let formatado = "";
+
+    if (valor.length > 0) formatado = valor.substring(0, 3);
+    if (valor.length >= 4) formatado += "." + valor.substring(3, 6);
+    if (valor.length >= 7) formatado += "." + valor.substring(6, 9);
+    if (valor.length >= 10) formatado += "-" + valor.substring(9, 11);
+
+    e.target.value = formatado;
+});
+
 function finalizarCadastro() {
 
     if (window.opener && !window.opener.closed) {
