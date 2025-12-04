@@ -183,6 +183,7 @@ header {
     font-size: 1.6rem;
     font-weight: bold;
     background: linear-gradient(90deg, var(--roxoAzulado), var(--verdeAgua));
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 } 
