@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `data_nascimento` date DEFAULT NULL,
   `celular` varchar(20) DEFAULT NULL,
   `curso` varchar(100) DEFAULT NULL,
-  `perfil` enum('Aluno','Admin','Visitante') DEFAULT 'Visitante',
+  `perfil` enum('Aluno','Admin') DEFAULT 'Aluno',
   `criado_em` date DEFAULT curdate(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `cpf` (`cpf`),
@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 INSERT INTO `usuarios` (`id`, `nome`, `cpf`, `email`, `senha`, `data_nascimento`, `celular`, `curso`, `perfil`, `criado_em`) VALUES
 	(1, 'Isabella Leite dos Santos', '12345678901', 'isabella.leite562@gmail.com', 'isa123', '2009-02-09', '(11) 99999-9998', 'Técnico em Desenvolvimento de Sistemas', 'Aluno', '2025-12-01'),
 	(2, 'Giovanna Santana da Silva', '01987654321', 'gigisantanasilva@gmail.com', 'gi0909', '2008-02-07', '(11) 95335-0971', NULL, 'Aluno', '2025-12-01'),
-	(4, 'Vitor Pimentel', '10120230344', 'vitor.pimentel@gmail.com', '0403', '1001-02-03', '(11) 99999-2345', 'Técnico em Equipamentos Biomédicos', 'Visitante', '2025-12-01');
+	(3, 'Vitor Pimentel', '10120230344', 'vitor.pimentel@gmail.com', '0403', '1001-02-03', '(11) 99999-2345', 'Técnico em Equipamentos Biomédicos', '2025-12-01');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

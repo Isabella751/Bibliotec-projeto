@@ -268,8 +268,9 @@ header {
     width: 44px;
 }
 
-.right-icons .addLivro-icon{
+.right-icons .resLivro-icon{
     margin-bottom: 320px;
+    width: 43px;
 }
 
 .right-icons .lidosLivros-icon{
@@ -277,10 +278,6 @@ header {
 }
 
 .right-icons .favLivros-icon{
-    width: 44px;
-}
-
-.right-icons .addLivro-icon{
     width: 44px;
 }
 

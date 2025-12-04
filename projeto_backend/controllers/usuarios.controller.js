@@ -9,10 +9,10 @@ function emptyToNull(value) {
 
 export async function criarUsuario(req, res) {
   try {
-    const { nome, cpf, email, senha, data_nascimento, celular, curso, perfil } =
+    const { nome, cpf, email, senha, data_nascimento, celular, curso } =
       req.body;
 
-    if (!nome || !email || !senha || !perfil || !cpf)
+    if (!nome || !email || !senha || !data_nascimento || !cpf || !curso)
       return res.status(400).json({ erro: "Campos obrigatórios" });
 
     //  Verifica se CPF já existe
@@ -31,21 +31,18 @@ export async function criarUsuario(req, res) {
       return res.status(400).json({ erro: "CPF inválido!" });
     }
 
-    const dataNascimento = emptyToNull(data_nascimento);
     const celularValue = emptyToNull(celular);
-    const cursoValue = emptyToNull(curso);
 
     await db.execute(
-      "INSERT INTO usuarios (nome, cpf, email, senha, perfil, data_nascimento, celular, curso) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO usuarios (nome, cpf, email, senha, data_nascimento, celular, curso) VALUES (?, ?, ?, ?, ?, ?, ?)",
       [
         nome,
         cpfLimpo,
         email,
         senha,
-        perfil,
-        dataNascimento,
+        data_nascimento,
         celularValue,
-        cursoValue,
+        curso
       ]
     );
     res.status(201).json({ mensagem: "Usuário criado com sucesso!" });
@@ -83,7 +80,7 @@ export async function obterUsuario(req, res) {
 
 export async function atualizarUsuario(req, res) {
   try {
-    const { nome, email, senha, celular, data_nascimento, curso, cpf } =
+    const { nome, celular, curso } =
       req.body;
     const id = req.params.id;
 
@@ -96,6 +93,10 @@ export async function atualizarUsuario(req, res) {
       return res.status(404).json({ erro: "Usuário não encontrado" });
     }
 
+    if (!nome || !curso) {
+      return res.status(400).json({ erro: "Campos obrigatórios" });
+    }
+
     const cpfAtual = resultado[0].cpf;
 
     // Se tentar mudar o CPF
@@ -103,15 +104,13 @@ export async function atualizarUsuario(req, res) {
       return res.status(400).json({ erro: "Não é permitido alterar o CPF" });
     }
 
-    const dataNascimento = emptyToNull(data_nascimento);
     const celularValue = emptyToNull(celular);
-    const cursoValue = emptyToNull(curso);
 
     await db.execute(
       `UPDATE usuarios 
-            SET nome = ?, email = ?, senha = ?, celular = ?, data_nascimento = ?, curso = ?
+            SET nome = ?, celular = ?, curso = ?
             WHERE id = ?`,
-      [nome, email, senha, celularValue, dataNascimento, cursoValue, id]
+      [nome, celularValue, curso, id]
     );
 
     return res.json({ mensagem: "Usuário atualizado com sucesso!" });
