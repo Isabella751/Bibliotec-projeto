@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Livros - Admin</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Adicionar Novo Livro</h1>
+
+        <form id="formLivro">
+            <label>Título</label>
+            <input type="text" id="titulo" required>
+
+            <label>Autor</label>
+            <input type="text" id="autor" required>
+
+            <label>Gênero</label>
+            <input type="text" id="genero">
+
+            <label>Editora</label>
+            <input type="text" id="editora">
+
+            <label>Ano</label>
+            <input type="number" id="ano" min="1500" max="2099">
+
+            <label>Descrição</label>
+            <textarea id="descricao"></textarea>
+
+            <label>Capa do Livro (URL da imagem)</label>
+            <input type="text" id="capa">
+
+            <button type="submit">Cadastrar Livro</button>
+        </form>
+
+        <div id="mensagem"></div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
