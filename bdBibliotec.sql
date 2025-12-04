@@ -15,11 +15,23 @@ CREATE TABLE IF NOT EXISTS usuarios (
   senha VARCHAR(100) NOT NULL,
   data_nascimento DATE NOT NULL,
   celular VARCHAR(20) NOT NULL,
-  curso VARCHAR(100) NULL,
-  perfil ENUM('Aluno', 'Admin', 'Visitante') DEFAULT 'Visitante',
+  curso VARCHAR(100) NOT NULL,
+  perfil ENUM('Aluno', 'Admin') DEFAULT 'aluno',
   criado_em DATE DEFAULT CURRENT_DATE
 );
 
+-- ===========================================================
+-- TABELA DE ADMINS
+-- ===========================================================
+CREATE TABLE IF NOT EXISTS admins (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(100) NOT NULL,
+  cpf VARCHAR(11) UNIQUE NOT NULL, 
+  email VARCHAR(100) UNIQUE NOT NULL,
+  senha VARCHAR(100) NOT NULL,
+  celular VARCHAR(20) NOT NULL,
+  criado_em DATE DEFAULT CURRENT_DATE
+);
 
 -- ===========================================================
 -- TABELA DE LIVROS
@@ -35,7 +47,7 @@ CREATE TABLE IF NOT EXISTS livros (
     idioma VARCHAR(50) DEFAULT 'Português',
     formato ENUM('Físico', 'E-book', 'Audiobook') DEFAULT 'Físico',
     caminho_capa VARCHAR(255) NULL,
-    classificacao ENUM('Livre', '10+', '12+', '14+', '16+', '18+') DEFAULT 'Livre';
+    classificacao ENUM('Livre', '10+', '12+', '14+', '16+', '18+') DEFAULT 'Livre',
     sinopse TEXT NULL,
     ativo BOOLEAN DEFAULT TRUE,
     criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
