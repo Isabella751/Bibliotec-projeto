@@ -30,50 +30,58 @@ document.addEventListener("DOMContentLoaded", () => {
     async function carregarLivros() {
         try {
             const res = await fetch('http://localhost:3000/livros');
-            if (!res.ok) throw new Error('Erro ao buscar livros');
+            if (!res.ok) throw new Error('Erro ao carregar livros');
 
             const livros = await res.json();
+            console.log('Livros carregados:', livros); // debug
             const container = document.getElementById('livros');
             container.innerHTML = ''; // Limpa o container
 
-            // Helper para montar o caminho da imagem
-            function buildSrc(caminho) {
-                if (!caminho) return '/book_images/default.jpg';
-                if (caminho.startsWith('http://') || caminho.startsWith('https://')) 
-                    return caminho;
-                if (caminho.includes('/')) 
-                    return '/' + caminho.replace(/^\/+/, '');
-                return '/book_images/' + caminho;
-            }
+            const backendBase = 'http://localhost:3000'; // ajuste se o backend estiver em outro endereço
+            const imagensPasta = '/book_images/'; // pasta pública no backend
 
-            // Renderiza cada livro
-            livros.forEach((livro, idx) => {
-                const wrap = document.createElement('div');
-                wrap.className = `livro_item livro_${idx + 1}`;
+            livros.forEach(livro => {
+                const livroContainer = document.createElement('div');
+                livroContainer.className = 'livro-container';
 
                 const img = document.createElement('img');
-                img.src = buildSrc(livro.caminho_capa);
+                img.className = 'capa';
                 img.alt = livro.titulo || 'Capa do livro';
-                img.className = `capa capa-${idx + 1}`;
-                img.style.cursor = 'pointer';
+                img.loading = 'lazy';
 
-                // Clique na capa para abrir detalhes (opcional)
-                img.addEventListener('click', () => {
-                    console.log('Livro clicado:', livro);
-                    // Você pode redirecionar para uma página de detalhes
-                    // window.location.href = `/detalhes.html?id=${livro.id}`;
-                });
+                // monta src: aceita URL absoluta, caminho relativo já com /book_images, ou só nome de arquivo
+                if (livro.caminho_capa) {
+                    const caminho = String(livro.caminho_capa).trim();
 
-                wrap.appendChild(img);
-                container.appendChild(wrap);
+                    if (/^https?:\/\//i.test(caminho)) {
+                        img.src = caminho;
+                    } else if (caminho.startsWith('/')) {
+                        // caminho absoluto no servidor -> prefixa backendBase
+                        img.src = backendBase + caminho;
+                    } else if (caminho.startsWith('book_images') || caminho.startsWith('public/book_images')) {
+                        // já aponta para pasta book_images
+                        img.src = backendBase + (caminho.startsWith('/') ? caminho : '/' + caminho);
+                    } else {
+                        // assume que no banco está só o filename ou subpasta em book_images
+                        img.src = backendBase + imagensPasta + caminho.replace(/^\/+/, '');
+                    }
+                } else {
+                    img.src = './images/placeholder.png';
+                }
+
+                // fallback se imagem não carregar
+                img.onerror = () => { img.src = './images/placeholder.png'; };
+
+                const titulo = document.createElement('p');
+                titulo.className = 'livro-titulo';
+                titulo.textContent = livro.titulo || 'Título indisponível';
+
+                livroContainer.appendChild(img);
+                livroContainer.appendChild(titulo);
+                container.appendChild(livroContainer);
             });
-
-            console.log('✅ Livros carregados com sucesso!', livros.length);
-
         } catch (err) {
-            console.error('❌ Erro ao carregar livros:', err);
-            document.getElementById('livros').innerHTML = 
-                '<p style="color: red; text-align: center;">Erro ao carregar livros. Tente mais tarde.</p>';
+            console.error(err);
         }
     }
 

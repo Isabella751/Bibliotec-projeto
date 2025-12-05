@@ -1,8 +1,8 @@
 import { db } from "../config/db.js";
 
-// ============================
-//  Rotas CRUD
-// ============================
+function emptyToNull(value) {
+    return value === "" || value == null ? null : value;
+}
 
 export async function criarLivro(req, res) {
     try {
@@ -16,83 +16,73 @@ export async function criarLivro(req, res) {
             idioma,
             formato,
             caminho_capa,
+            classificacao,
             sinopse,
             ativo
         } = req.body;
 
-        if (!titulo || !autor) {
-            return res.status(400).json({
-                erro: "Título e autor são obrigatórios."
-            });
+        if (!titulo || !autor || !genero || !editora || !ano_publicacao || !isbn || !idioma || !formato || !caminho_capa || !classificacao || !sinopse) {
+            return res.status(400).json({ erro: "campos não prenchidos" });
         }
 
-        // Converter "" = null
-        const values = [
-            titulo,
-            autor,
-            genero?.trim() || null,
-            editora?.trim() || null,
-            ano_publicacao?.toString().trim() || null,
-            isbn?.trim() || null,
-            idioma?.trim() || null,
-            formato?.trim() || null,
-            caminho_capa?.trim() || null,
-            sinopse?.trim() || null,
-            ativo?.trim() || null
-        ];
-
-        // Verificar se ISBN já existe
-        const [existe] = await db.execute(
-            `SELECT id FROM livros WHERE isbn = ?`,
-            [isbn]
-        );
-
-        if (existe.length > 0) {
-            return res.status(400).json({
-                erro: "ISBN já cadastrado."
-            });
+        const isbnClean = emptyToNull(isbn?.toString().trim());
+        // Verificar ISBN apenas se informado
+        if (isbnClean) {
+            const [existe] = await db.execute("SELECT id FROM livros WHERE isbn = ?", [isbnClean]);
+            if (existe.length > 0) {
+                return res.status(400).json({ erro: "ISBN já cadastrado." });
+            }
         }
 
         await db.execute(
-            `INSERT INTO livros 
-            (titulo, autor, genero, editora, ano_publicacao, isbn, idioma, formato, caminho_capa, sinopse, ativo)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-            values
+            "INSERT INTO livros (titulo, autor, genero, editora, ano_publicacao, isbn, idioma, formato, caminho_capa, classificacao, sinopse, ativo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            [titulo, autor, genero, editora, ano_publicacao, isbnClean, idioma, formato, caminho_capa, classificacao, sinopse, ativo]
         );
-
-        return res.status(201).json({ mensagem: "Livro criado com sucesso!" });
-
+        res.status(201).json({ mensagem: "Livro criado com sucesso!"});
     } catch (err) {
-        return res.status(500).json({ erro: err.message });
+        res.status(500).json({ erro: err.message });
     }
+}
+
+function buildCapaUrl(caminho) {
+    if (!caminho) return null;
+    const c = String(caminho).trim();
+    if (/^https?:\/\//i.test(c)) return c;
+    const baseUrl = process.env.BASE_URL || "http://localhost:3000";
+    if (c.startsWith("/")) return baseUrl + c;
+    // assume filename armazenado em public/book_images/
+    return `${baseUrl}/book_images/${c.replace(/^\/+/, "")}`;
 }
 
 export async function listarLivros(req, res) {
     try {
         const [rows] = await db.execute("SELECT * FROM livros");
-        res.json(rows);
+        const mapped = rows.map(r => {
+            const novo = { ...r };
+            novo.caminho_capa = buildCapaUrl(novo.caminho_capa);
+            return novo;
+        });
+        res.json(mapped);
     } catch (err) {
         res.status(500).json({ erro: err.message });
     }
-};
+}
 
 export async function obterLivro(req, res) {
     try {
-        const [rows] = await db.execute("SELECT * FROM livros WHERE id = ?", [
-            req.params.id,
-        ]);
-        if (rows.length === 0)
-            return res.status(404).json({ erro: "Livro não encontrado" });
+        const [rows] = await db.execute("SELECT * FROM livros WHERE id = ?", [req.params.id]);
+        if (rows.length === 0) return res.status(404).json({ erro: "Livro não encontrado" });
+        const livro = { ...rows[0] };
+        livro.caminho_capa = buildCapaUrl(livro.caminho_capa);
+        return res.json(livro);
     } catch (err) {
-        res.status(500).json({ erro: err.message });
+        return res.status(500).json({ erro: err.message });
     }
-};
+}
 
 export async function editarLivro(req, res) {
     try {
-
         const { id } = req.params;
-
         const {
             titulo,
             autor,
@@ -107,40 +97,30 @@ export async function editarLivro(req, res) {
             ativo
         } = req.body;
 
-
-        if (!titulo || !autor) {
-            return res.status(400).json({
-                erro: "Título e autor são obrigatórios."
-            });
+        if (!titulo || !autor || !genero || !editora || !ano_publicacao || !isbn || !idioma || !formato || !caminho_capa || !classificacao || !sinopse) {
+            return res.status(400).json({ erro: "campos não prenchidos" });
         }
 
-        // Transformar "" = null para evitar erros no MySQL
+        const isbnClean = emptyToNull(isbn?.toString().trim());
+        if (isbnClean) {
+            const [existe] = await db.execute("SELECT id FROM livros WHERE isbn = ? AND id != ?", [isbnClean, id]);
+            if (existe.length > 0) return res.status(400).json({ erro: "ISBN já está sendo usado por outro livro." });
+        }
+
         const values = [
-            titulo,
-            autor,
-            genero?.trim() || null,
-            editora?.trim() || null,
-            ano_publicacao?.toString().trim() || null,
-            isbn?.trim() || null,
-            idioma?.trim() || null,
-            formato?.trim() || null,
-            caminho_capa?.trim() || null,
-            sinopse?.trim() || null,
-            ativo?.trim() || null,
+            titulo.trim(),
+            autor.trim(),
+            emptyToNull(genero?.toString().trim()),
+            emptyToNull(editora?.toString().trim()),
+            emptyToNull(ano_publicacao?.toString().trim()),
+            isbnClean,
+            emptyToNull(idioma?.toString().trim()),
+            emptyToNull(formato?.toString().trim()),
+            emptyToNull(caminho_capa?.toString().trim()),
+            emptyToNull(sinopse?.toString().trim()),
+            emptyToNull(ativo?.toString().trim()),
             id
         ];
-        
-        // Verificar se ISBN já existe em outro livro
-        const [existe] = await db.execute(
-            `SELECT id FROM livros WHERE isbn = ? AND id != ?`,
-            [isbn, id]
-        );
-
-        if (existe.length > 0) {
-            return res.status(400).json({
-                erro: "ISBN já está sendo usado por outro livro."
-            });
-        }
 
         await db.execute(
             `UPDATE livros SET
@@ -159,10 +139,7 @@ export async function editarLivro(req, res) {
             values
         );
 
-        return res.status(200).json({
-            mensagem: "Livro atualizado com sucesso!"
-        });
-
+        return res.status(200).json({ mensagem: "Livro atualizado com sucesso!" });
     } catch (error) {
         return res.status(500).json({ erro: error.message });
     }
@@ -175,4 +152,4 @@ export async function deletarLivro(req, res) {
     } catch (err) {
         res.status(500).json({ erro: err.message });
     }
-};
+}
