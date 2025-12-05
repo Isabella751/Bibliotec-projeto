@@ -31,11 +31,11 @@
       --roxoAzulado: #4a67df;
       --verdeAgua:#2FD6CB;
       --cinza:#6b7780;
-      --max-width:900px;
+    --max-width:900px;
+    --card-height: 590px; /* altura do card — ajuste para px ou vh (ex: 70vh) */
  }    
 
 html,body{
-    height: 100%;
     margin:0;
     padding: 0;
     background: linear-gradient(135deg, var(--menta), #ecf5f5);
@@ -58,8 +58,7 @@ h1 {
     display:flex;
     align-items:center;
     justify-content:center;
-    padding:40px;
-    min-height: 87vh;
+    padding: 40px;
 }
 
 #enviar {
@@ -112,35 +111,38 @@ h1 {
 
 .card {
     background: var(--branco);
-    width: 100%;
-    padding: 12px 22px;
+    padding: 12px 44px;
     letter-spacing: 0.5px;
     max-width: var(--max-width);
-    border-radius: 12px;
-    box-shadow: 0px 6px 20px rgba(0,0,0,0.07);
-    overflow: auto;
-    max-height: 100vh;
-    transform: scale(1.25);
-    transform-origin: center;
+    border-radius: 35px;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.25);
+    overflow: visible; 
+    width: 420px;
+    height: var(--card-height);
+    transform: none;
+    margin-top: 170px;
+    transform: scale(1.17);
 }
 
 header{
     display:flex;
     align-items:center;
-    justify-content:space-between;
+    justify-content:center;
     padding:18px 22px;
-    border-bottom:1px solid rgba(0,0,0,0.05)
 }
+
 header h1{
     font-size:1.20rem;
     margin:0;
     color:var(--azulEscuro)
 }
+
 header .controls{
     display:flex;
     gap:10px;
     align-items:center
 }
+
 a.button {
     background: var(--verdeAgua);
     color: var(--branco);
@@ -172,9 +174,7 @@ a.secondary:hover{
 }
 
 main{
-    padding: 28px;
-    line-height:1.55;
-    color:#222
+    color:#222;
 }
 
 .logo-senha {
@@ -202,4 +202,17 @@ main{
     color: gray;
     cursor: default;
     text-decoration: none;
+}
+
+.perfil-logo {
+    width: 90px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.perfil-title {
+    text-align: center;
 }
