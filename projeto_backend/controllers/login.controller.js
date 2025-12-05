@@ -1,26 +1,34 @@
-// controllers/login.controller.js
 import { db } from "../config/db.js";
 
 export async function login(req, res) {
-    try {
-        const { email, senha } = req.body;
+    const { email, senha } = req.body;
 
-        if (!email || !senha) {
-            return res.status(400).json({ erro: "Email e senha são obrigatórios" });
+    try {
+        // Verifica se é ADMIN
+        const [admin] = await db.query(
+            "SELECT * FROM admins WHERE email = ? AND senha = ?",
+            [email, senha]
+        );
+
+        if (admin.length > 0) {
+            return res.json({ tipo: "Admin", message: "Login admin" });
         }
 
-        const [rows] = await db.execute(
+        //  Verifica se é USUÁRIO
+        const [usuario] = await db.query(
             "SELECT * FROM usuarios WHERE email = ? AND senha = ?",
             [email, senha]
         );
 
-        if (rows.length === 0) {
-            return res.status(401).json({ erro: "Credenciais inválidas" });
+        if (usuario.length > 0) {
+            return res.json({ tipo: "Aluno", message: "Login usuário" });
         }
 
-        return res.status(200).json({ mensagem: "Login realizado!", usuario: rows[0] });
+        // Nenhum encontrado
+        return res.status(401).json({ erro: "Credenciais inválidas" });
 
-    } catch (err) {
-        return res.status(500).json({ erro: err.message });
+    } catch (error) {
+        console.error("Erro no login:", error);
+        return res.status(500).json({ erro: "Erro no login", detalhe: error });
     }
 }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/cadastro.css">
+    <title>Cadastro do Admin</title>
+    <link rel="shortcut icon" href="./images/Group.svg" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+
+<body>
+
+    <header class="main-header">
+        <a href="bibliotec.html">
+            <img class="logo-cadastro" src="./images/Group 107.svg" width="15%">
+        </a>
+
+        <img class="senai-image-cadastro" src="./images/SENAI_logo 1.png" width="10%">
+    </header>
+
+    <main class="conteudo_principal">
+
+        <section class="bloco_titulo">
+            <h1 class="titulo_principal">
+                Acesso ao sistema
+            </h1>
+            <p class="texto_informativo">
+                Selecione o seu perfil e insira seu email para continuar.
+            </p>
+        </section>
+
+        <form class="formulario_cadastro" id="formLoginAdmin">
+
+            <div class="info-cadastro">
+
+                <div class="linha_cadastro">
+                    <label for="email" class="rotulo">Email: <span class="obrigatorio">*</span></label>
+                    <input type="email" id="email">
+                </div>
+
+                <div class="linha_cadastro">
+                    <label for="perfil" class="rotulo">Perfil: <span class="obrigatorio">*</span></label>
+                    <select id="perfil" class="entrada_selecao">

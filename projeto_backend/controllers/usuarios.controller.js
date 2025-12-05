@@ -7,47 +7,95 @@ function emptyToNull(value) {
   return value === "" || value == null ? null : value;
 }
 
+
+function validarCPF(cpf) {
+    cpf = cpf.replace(/\D/g, "");
+
+    if (cpf.length !== 11) return false;
+    if (/^(\d)\1+$/.test(cpf)) return false; // bloqueia CPFs tipo 11111111111
+
+    let soma = 0;
+    let resto;
+
+    // Primeiro dígito verificador
+    for (let i = 1; i <= 9; i++) {
+        soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
+    }
+    resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+    if (resto !== parseInt(cpf.substring(9, 10))) return false;
+
+    // Segundo dígito verificador
+    soma = 0;
+    for (let i = 1; i <= 10; i++) {
+        soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+    }
+    resto = (soma * 10) % 11;
+    if (resto === 10 || resto === 11) resto = 0;
+    if (resto !== parseInt(cpf.substring(10))) return false;
+
+    return true;
+}
+
+function validarData(dataStr) {
+    const data = new Date(dataStr);
+
+    if (isNaN(data.getTime())) return false; // Data inválida
+
+    const ano = data.getUTCFullYear();
+    const hoje = new Date();
+
+    if (ano < 1900) return false;
+    if (data > hoje) return false;
+
+    return true;
+}
+
 export async function criarUsuario(req, res) {
   try {
     const { nome, cpf, email, senha, data_nascimento, celular, curso } =
       req.body;
 
+    // Verifica obrigatórios
     if (!nome || !email || !senha || !data_nascimento || !cpf || !curso)
       return res.status(400).json({ erro: "Campos obrigatórios" });
 
-    //  Verifica se CPF já existe
+    // Valida data real
+    if (!validarData(data_nascimento)) {
+      return res.status(400).json({ erro: "Data de nascimento inválida!" });
+    }
+
+    // Nome sem números
+    if (!/^[A-Za-zÀ-ÿ\s]+$/.test(nome)) {
+      return res.status(400).json({ erro: "Nome inválido. Use apenas letras." });
+    }
+
+    // Limpa CPF
+    const cpfLimpo = cpf.replace(/\D/g, "");
+
+    // Valida CPF matematicamente
+    if (!validarCPF(cpfLimpo)) {
+      return res.status(400).json({ erro: "CPF inválido!" });
+    }
+
+    // Verifica se CPF já existe
     const [rows] = await db.execute("SELECT cpf FROM usuarios WHERE cpf = ?", [
-      cpf,
+      cpfLimpo,
     ]);
 
     if (rows.length > 0) {
       return res.status(400).json({ erro: "CPF já cadastrado!" });
     }
 
-    // Remove mascara (pontos e traço)
-    const cpfLimpo = cpf.replace(/\D/g, "");
-
-    if (!Number(cpfLimpo) || cpfLimpo.length !== 11) {
-      return res.status(400).json({ erro: "CPF inválido!" });
-    }
-
     const celularValue = emptyToNull(celular);
 
     await db.execute(
       "INSERT INTO usuarios (nome, cpf, email, senha, data_nascimento, celular, curso) VALUES (?, ?, ?, ?, ?, ?, ?)",
-      [
-        nome,
-        cpfLimpo,
-        email,
-        senha,
-        data_nascimento,
-        celularValue,
-        curso
-      ]
+      [nome, cpfLimpo, email, senha, data_nascimento, celularValue, curso]
     );
+
     res.status(201).json({ mensagem: "Usuário criado com sucesso!" });
   } catch (err) {
-    //  Se o CPF já existir no banco
     if (err.code === "ER_DUP_ENTRY") {
       return res.status(400).json({ erro: "CPF já está cadastrado!" });
     }
@@ -55,6 +103,7 @@ export async function criarUsuario(req, res) {
     res.status(500).json({ erro: err.message });
   }
 }
+
 
 export async function listarUsuarios(req, res) {
   try {

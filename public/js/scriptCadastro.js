@@ -10,9 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!asterisco) return;
 
             if (campo.value.trim() !== "") {
-                asterisco.style.visibility = "hidden"; 
+                asterisco.style.visibility = "hidden";
             } else {
-                asterisco.style.visibility = "visible"; 
+                asterisco.style.visibility = "visible";
             }
         });
     });
@@ -80,30 +80,85 @@ function finalizarCadastro() {
     window.close();
 }
 
+// Impedir números no campo nome
+const nomeInput = document.getElementById("nome");
+
+nomeInput.addEventListener("input", () => {
+    nomeInput.value = nomeInput.value.replace(/[^A-Za-zÀ-ÿ\s]/g, "");
+});
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const btn = document.getElementById("btnCadastrar");
 
     btn.addEventListener("click", async () => {
 
-        // Validação básica — sem machismo
+        // Termos
         if (!document.getElementById("termos").checked) {
             alert("Você precisa aceitar os termos antes de continuar.");
             return;
         }
 
-        const payload = {
-            nome: document.getElementById("nome").value.trim(),
-            cpf: document.getElementById("cpf").value.trim(),
-            email: document.getElementById("email").value.trim(),
-            senha: document.getElementById("senha").value.trim(),
-            data_nascimento: document.getElementById("data_nascimento").value,
-            celular: document.getElementById("celular").value.trim(),
-            curso: document.getElementById("curso").value,
-            perfil: document.getElementById("perfil").value
-        };
+        // Coleta valores
+        const nome = document.getElementById("nome").value.trim();
+        const cpf = document.getElementById("cpf").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const senha = document.getElementById("senha").value.trim();
+        const data_nascimento = document.getElementById("data_nascimento").value;
+        const celular = document.getElementById("celular").value.trim();
+        const curso = document.getElementById("curso").value;
+        const perfil = document.getElementById("perfil") ? document.getElementById("perfil").value : "aluno";
 
-        console.log("Payload enviado:", payload);
+        // Validações
+
+        //  Nome sem números
+        if (!/^[A-Za-zÀ-ÿ\s]+$/.test(nome)) {
+            alert("O nome não pode conter números ou caracteres inválidos.");
+            return;
+        }
+
+        //  CPF com 11 números (antes de formatar)
+        const cpfLimpo = cpf.replace(/\D/g, "");
+        if (cpfLimpo.length !== 11) {
+            alert("O CPF deve conter 11 números.");
+            return;
+        }
+
+        //  Email válido
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            alert("Digite um email válido (exemplo: usuario@gmail.com).");
+            return;
+        }
+
+        //  Senha com mínimo 8 caracteres
+        if (senha.length < 8) {
+            alert("A senha deve ter no mínimo 8 caracteres.");
+            return;
+        }
+
+        //  Curso obrigatório
+        if (!curso) {
+            alert("Selecione um curso.");
+            return;
+        }
+
+        //  Data obrigatória
+        if (!data_nascimento) {
+            alert("Informe sua data de nascimento.");
+            return;
+        }
+
+        const payload = {
+            nome,
+            cpf,
+            email,
+            senha,
+            data_nascimento,
+            celular,
+            curso,
+            perfil
+        };
 
         try {
             const resposta = await fetch("http://localhost:3000/usuarios", {
@@ -115,7 +170,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             const data = await resposta.json();
-            console.log("Resposta do backend:", data);
 
             if (!resposta.ok) {
                 alert(data.erro || "Erro ao cadastrar usuário.");
@@ -132,4 +186,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 });
+
 

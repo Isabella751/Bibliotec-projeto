@@ -59,9 +59,7 @@ function abrirCadastro() {
   window.open("cadastro.html", "cadastroJanela", "width=900,height=700");
 }
 
-// ===============================
-// LOGIN AJUSTADO
-// ===============================
+// login
 document.addEventListener("DOMContentLoaded", () => {
     const btn = document.getElementById("entrar");
 
@@ -90,8 +88,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // Login aprovado
-            window.location.href = "inicio.html";
+            if (data.tipo === "Admin") {
+                window.location.href = "loginAdmin.html";  // ADMIN
+            } else if (data.tipo === "Aluno") {
+                window.location.href = "inicio.html";      // Aluno
+            }
 
         } catch (erro) {
             alert("Erro ao conectar ao servidor.");
