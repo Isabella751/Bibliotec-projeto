@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const reenviarContainer = document.getElementById("container-reenvio");
     const link = document.getElementById("reenviar");
     const timerSpan = document.getElementById("timer");
+    const btnEnviar = document.getElementById("enviar");
 
     let tempo = 30;
     let interval;
@@ -22,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 link.classList.remove("desativado");
                 link.style.pointerEvents = "auto";
                 timerSpan.textContent = "";
-                link.textContent = "Reenviar código";
                 tempo = 30;
             }
         }, 1000);
@@ -33,38 +33,58 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    form.addEventListener("submit", (e) => {
-        e.preventDefault(); 
+    // ENVIAR EMAIL AO BACKEND
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
         const email = document.getElementById("email").value.trim();
-        if (email === "") {
-            alert("Digite um email válido.");
-            return;
+        if (!email) return alert("Digite um email válido.");
+
+        btnEnviar.textContent = "Enviando...";
+        btnEnviar.disabled = true;
+
+        const resposta = await fetch("http://localhost:3000/senha/recuperar", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email })
+        });
+
+        btnEnviar.textContent = "Solicitar";
+        btnEnviar.disabled = false;
+
+        const data = await resposta.json();
+
+        if (!resposta.ok) {
+            return alert(data.erro);
         }
 
-        document.getElementById("enviar").textContent = "Enviando...";
-        document.getElementById("enviar").disabled = true;
+        alert("Email enviado! Verifique sua caixa de entrada.");
 
-        setTimeout(() => {
-            document.getElementById("enviar").textContent = "Solicitar";
-            document.getElementById("enviar").disabled = false;
-
-            reenviarContainer.style.display = "block";
-
-            iniciarTimer();
-
-        }, 1200); 
+        reenviarContainer.style.display = "block";
+        iniciarTimer();
     });
 
-    link.addEventListener("click", () => {
-        link.textContent = "Código reenviado!";
+
+    // REENVIAR O CÓDIGO
+    link.addEventListener("click", async () => {
+
+        const email = document.getElementById("email").value.trim();
+        if (!email) return;
+
+        link.textContent = "Reenviando...";
         link.classList.add("desativado");
         link.style.pointerEvents = "none";
 
-        setTimeout(() => {
-            tempo = 30;
-            iniciarTimer();
-        }, 1500);
+        await fetch("http://localhost:3000/senha/recuperar", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email })
+        });
+
+        link.textContent = "Código reenviado!";
+        tempo = 30;
+
+        setTimeout(() => iniciarTimer(), 1500);
     });
 
 });

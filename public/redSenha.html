@@ -1,17 +1,119 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redefinir senha</title>
-    <link rel="stylesheet" href="./css/redSenha.css">
-    <link rel="shortcut icon" href="./images/Group.svg" type="image/x-icon">
+    <title>Redefinir Senha</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .box {
+            background: white;
+            padding: 25px;
+            width: 350px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .msg {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
 </head>
-
 <body>
-    <h2>PUT</h2>
-    <h1>Olaaaaaa</h1>
-</body>
 
-</html> 
+    <div class="box">
+        <h2>Redefinir Senha</h2>
+
+        <input type="password" id="senha" placeholder="Nova senha">
+        <input type="password" id="confirmar" placeholder="Confirmar senha">
+
+        <button onclick="redefinir()">Salvar Nova Senha</button>
+
+        <p class="msg" id="msg"></p>
+    </div>
+
+<script>
+    async function redefinir() {
+        const senha = document.getElementById("senha").value;
+        const confirmar = document.getElementById("confirmar").value;
+        const msg = document.getElementById("msg");
+
+        // pegar token da URL
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get("token");
+
+        if (!token) {
+            msg.innerHTML = "Token não encontrado!";
+            msg.style.color = "red";
+            return;
+        }
+
+        if (senha.length < 8) {
+            msg.innerHTML = "A senha deve ter pelo menos 8 caracteres.";
+            msg.style.color = "red";
+            return;
+        }
+
+        if (senha !== confirmar) {
+            msg.innerHTML = "As senhas não coincidem!";
+            msg.style.color = "red";
+            return;
+        }
+
+        const resposta = await fetch("http://localhost:3000/redefinir-senha", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token, novaSenha: senha })
+        });
+
+        const dados = await resposta.json();
+
+        if (resposta.ok) {
+            msg.style.color = "green";
+            msg.innerHTML = "Senha alterada com sucesso!";
+
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 2000);
+        } else {
+            msg.style.color = "red";
+            msg.innerHTML = dados.erro;
+        }
+    }
+</script>
+
+</body>
+</html>

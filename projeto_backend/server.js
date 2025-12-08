@@ -10,6 +10,7 @@ import usuariosRoutes from "./routes/usuarios.routes.js";
 import favoritosRoutes from "./routes/favoritos.routes.js";
 import reservasRoutes from "./routes/reservas.routes.js";
 import loginRoutes from "./routes/login.routes.js";
+import redSenha from "./routes/redSenha.routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -31,6 +32,7 @@ app.use("/usuarios", usuariosRoutes);
 app.use("/favoritos", favoritosRoutes);
 app.use("/reservas", reservasRoutes);
 app.use("/login", loginRoutes);
+app.use("/senha", redSenha);
 
 
 // Rota principal
