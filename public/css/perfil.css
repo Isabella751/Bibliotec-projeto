@@ -50,15 +50,40 @@ body {
     animation: fadeIn 0.8s ease forwards;
 }
 
+header {
+    padding: 10px;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.senai-image-cadastro{
+    width: 11vw;
+    height: 6vh;
+    margin: 0px;
+    padding: 12px;
+    margin-left: auto;
+}
+ 
+.logo-cadastro {
+    width: 300px;
+    transition: transform 0.2s ease;
+}
+
+.logo-cadastro:hover {
+    transform: scale(1.03); 
+}
+
 h1 {
     font-family: "Montserrat-Bold", sans-serif;
+    font-weight: bold; 
+    font-size: 1.8rem;
 }
 
 .perfil-container {
     display:flex;
     align-items:center;
     justify-content:center;
-    padding: 40px;
 }
 
 #enviar {
@@ -120,7 +145,7 @@ h1 {
     width: 420px;
     height: var(--card-height);
     transform: none;
-    margin-top: 170px;
+    margin-top: 80px;
     transform: scale(1.17);
 }
 
@@ -215,4 +240,64 @@ main{
 
 .perfil-title {
     text-align: center;
+    font-family: "Montserrat-Bold", sans-serif;
+    font-weight: bold; 
+    font-size: 1.8rem;
 }
+
+p1, p2, p3, p4 {
+    font-family: "Montserrat-Regular", sans-serif;
+    font-weight: regular;
+    font-size: 1.7rem;
+    display: flex;
+    flex-direction: column;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+}
+
+.info {
+    font-family: "Montserrat-Regular", sans-serif;
+    font-size: 1.7rem;
+    margin: 7px 0;
+}
+
+.info .value {
+    color: var(--roxoAzulado);
+}
+
+.card main p.veja {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    font-size: 1.7rem;
+}
+
+.card main p:last-of-type {
+    margin-top: 22px;
+}
+
+.sair-btn {
+    width: 60%;
+    padding: 12px 0;
+    background-color: var(--verdeAgua);
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    display: block;
+    margin: 25px auto 10px auto; 
+    transition: 0.2s ease;
+}
+
+.sair-btn:hover {
+    filter: brightness(0.9);
+    transform: scale(0.98);
+    background-color: var(--roxoAzulado);
+    box-shadow: 0 6px 20px rgba(74, 103, 223, 0.35);
+}
+
