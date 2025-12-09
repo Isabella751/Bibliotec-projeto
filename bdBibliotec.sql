@@ -54,7 +54,6 @@ CREATE TABLE IF NOT EXISTS livros (
     atualizado_em DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-
 -- ===========================================================
 -- TABELA DE AVALIAÇÕES
 -- ===========================================================
@@ -69,7 +68,6 @@ CREATE TABLE IF NOT EXISTS avaliacoes (
     FOREIGN KEY (livro_id) REFERENCES livros(id) ON DELETE CASCADE
 );
 
-
 -- ===========================================================
 -- TABELA DE EMPRÉSTIMOS
 -- ===========================================================
@@ -81,7 +79,6 @@ CREATE TABLE IF NOT EXISTS reservas (
     status_emprestimo ENUM('Emprestado', 'Devolvido', 'Atrasado') DEFAULT 'Emprestado',
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
-
 
 -- ===========================================================
 -- TABELA DE ITENS DO EMPRÉSTIMO
@@ -95,7 +92,6 @@ CREATE TABLE IF NOT EXISTS reserva_itens (
     FOREIGN KEY (reserva_id) REFERENCES reservas(id) ON DELETE CASCADE,
     FOREIGN KEY (livro_id) REFERENCES livros(id) ON DELETE CASCADE
 );
-
 
 -- ===========================================================
 -- TABELA DE HISTORICO
@@ -111,7 +107,6 @@ CREATE TABLE IF NOT EXISTS historico (
     FOREIGN KEY (livro_id) REFERENCES livros(id) ON DELETE CASCADE
 );
 
-
 -- ===========================================================
 -- TABELA DE FAVORITOS
 -- ===========================================================
@@ -123,4 +118,3 @@ CREATE TABLE IF NOT EXISTS favoritos (
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
     FOREIGN KEY (livro_id) REFERENCES livros(id) ON DELETE CASCADE
 );
-

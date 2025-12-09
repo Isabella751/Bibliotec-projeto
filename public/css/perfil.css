@@ -57,7 +57,7 @@ header {
     justify-content: space-between;
 }
 
-.senai-image-cadastro{
+.senai-image-perfil{
     width: 11vw;
     height: 6vh;
     margin: 0px;
@@ -65,13 +65,9 @@ header {
     margin-left: auto;
 }
  
-.logo-cadastro {
+.logo-perfil {
     width: 300px;
     transition: transform 0.2s ease;
-}
-
-.logo-cadastro:hover {
-    transform: scale(1.03); 
 }
 
 h1 {
@@ -235,7 +231,7 @@ main{
     display: flex;
     align-items: center;
     justify-content: center;
-
+    margin-top: 11px;
 }
 
 .perfil-title {
@@ -290,7 +286,7 @@ main{
     border-radius: 12px;
     cursor: pointer;
     display: block;
-    margin: 25px auto 10px auto; 
+    margin: 29px auto 10px auto; 
     transition: 0.2s ease;
 }
 

@@ -40,3 +40,79 @@ body {
     opacity: 0;
     animation: fadeIn 0.8s ease forwards;
 }
+
+
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+
+/* HEADER */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 60px;
+}
+
+/* CARD CENTRAL */
+.intro-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.card {
+    background: #ffffff;
+    width: 520px;
+    padding: 35px 40px;
+    border-radius: 25px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+/* TÍTULO */
+.card-header h1 {
+    font-weight: 700;
+    font-size: 1.9rem;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #555;
+    font-size: 1rem;
+    margin-bottom: 25px;
+}
+
+/* FEATURES */
+.features p {
+    font-size: 1rem;
+    margin: 10px 0;
+    color: #333;
+}
+
+/* BOTÃO */
+.cta {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 14px 35px;
+    background-color: #19c2b0;
+    color: white;
+    font-weight: 600;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: .3s;
+}
+
+.cta:hover {
+    background-color: #149e92;
+    transform: translateY(-2px);
+}
