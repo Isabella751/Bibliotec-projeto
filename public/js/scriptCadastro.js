@@ -196,3 +196,15 @@ formCadastro.addEventListener("keydown", function (e) {
         document.getElementById("btnCadastrar").click(); // aciona o botão
     }
 });
+
+// Aviso de Caps Lock no cadastro
+const senhaCadastro = document.getElementById("senha");
+const capsWarningCadastro = document.getElementById("capsWarning");
+
+senhaCadastro.addEventListener("keyup", function (event) {
+    if (event.getModifierState("CapsLock")) {
+        capsWarningCadastro.style.display = "block";
+    } else {
+        capsWarningCadastro.style.display = "none";
+    }
+});
