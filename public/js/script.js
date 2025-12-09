@@ -99,3 +99,29 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+// Aviso de CAPS LOCK
+const senhaInput = document.getElementById("senha");
+const capsWarning = document.getElementById("capsWarning");
+
+senhaInput.addEventListener("keydown", function (e) {
+    if (e.getModifierState("CapsLock")) {
+        capsWarning.classList.add("show");
+    } else {
+        capsWarning.classList.remove("show");
+    }
+});
+
+senhaInput.addEventListener("blur", () => {
+    capsWarning.classList.remove("show");
+});
+
+// Permitir login ao apertar ENTER
+const form = document.getElementById("form-login");
+
+form.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+        e.preventDefault(); // evita enviar o form sozinho
+        document.getElementById("entrar").click(); // clica no botão
+    }
+});

@@ -187,4 +187,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// Permitir CADASTRO ao apertar ENTER
+const formCadastro = document.getElementById("formCadastro");
 
+formCadastro.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+        e.preventDefault(); // impede o form de recarregar
+        document.getElementById("btnCadastrar").click(); // aciona o botão
+    }
+});
