@@ -176,7 +176,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
+            // Salva o email no localStorage após cadastro bem-sucedido
+            console.log("Cadastro realizado com sucesso! Email:", email);
+            localStorage.setItem("emailUsuario", email);
+            console.log("Email salvo no localStorage:", localStorage.getItem("emailUsuario"));
+
             alert("Usuário cadastrado com sucesso!");
+            
+            // Redireciona para a home (inicio.html) mas dados ficam salvos no localStorage
             window.location.href = "inicio.html";
 
         } catch (erro) {

@@ -11,7 +11,7 @@ export async function login(req, res) {
         );
 
         if (admin.length > 0) {
-            return res.json({ tipo: "Admin", message: "Login admin" });
+            return res.json({ tipo: "Admin", message: "Login admin", email: admin[0].email });
         }
 
         //  Verifica se é USUÁRIO
@@ -21,7 +21,7 @@ export async function login(req, res) {
         );
 
         if (usuario.length > 0) {
-            return res.json({ tipo: "Aluno", message: "Login usuário" });
+            return res.json({ tipo: "Aluno", message: "Login usuário", email: usuario[0].email });
         }
 
         // Nenhum encontrado

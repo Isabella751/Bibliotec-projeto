@@ -127,6 +127,28 @@ export async function obterUsuario(req, res) {
   }
 }
 
+export async function obterUsuarioPorEmail(req, res) {
+  try {
+    const email = req.params.email;
+    console.log("Buscando usuário por email:", email);
+    
+    const [rows] = await db.execute("SELECT id, nome, email, curso FROM usuarios WHERE email = ?", [
+      email,
+    ]);
+    
+    console.log("Resultado da query:", rows);
+    
+    if (rows.length === 0)
+      return res.status(404).json({ erro: "Usuário não encontrado" });
+    
+    console.log("Enviando dados:", rows[0]);
+    res.json(rows[0]);
+  } catch (err) {
+    console.error("Erro ao buscar usuário por email:", err);
+    res.status(500).json({ erro: err.message });
+  }
+}
+
 export async function atualizarUsuario(req, res) {
   try {
     const { nome, celular, curso } =
