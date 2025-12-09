@@ -27,21 +27,21 @@ export async function solicitarRecuperacao(req, res) {
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
-                user: "seuEmail@gmail.com",
-                pass: "sua-senha-de-app"
+                user: "gigisantanasilva@gmail.com",
+                pass: "tubu ajfw maie zfzy"
             }
         });
 
         const link = `http://localhost:3000/redefinir.html?token=${token}`;
 
         await transporter.sendMail({
-            from: "Bibliotec <seuEmail@gmail.com>",
+            from: "gigisantanasilva@gmail.com>",
             to: email,
             subject: "Redefinir Senha",
             html: `
                 <p>Você solicitou redefinição de senha.</p>
                 <p>Clique aqui: <a href="${link}">${link}</a></p>
-                <p>Esse link expira em 1 hora.</p>
+                <p>Esse link expira em 15 minutos.</p>
             `
         });
 
@@ -57,9 +57,9 @@ export async function redefinirSenha(req, res) {
     const { token, novaSenha } = req.body;
 
     try {
-        const [row] = await db.execute(
-            "SELECT * FROM reset_tokens WHERE token = ? AND expiracao > NOW() AND usado = 0",
-            [token]
+        await db.execute(
+            "INSERT INTO reset_tokens (usuario_id, token, expiracao) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 15 MINUTE))",
+            [usuarioId, token]
         );
 
         if (row.length === 0) {
