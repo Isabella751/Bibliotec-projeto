@@ -88,6 +88,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
+            // Salva o email no localStorage para uso posterior
+            console.log("Email do login:", data.email);
+            localStorage.setItem("emailUsuario", data.email);
+            console.log("Email salvo no localStorage:", localStorage.getItem("emailUsuario"));
+
             if (data.tipo === "Admin") {
                 window.location.href = "loginAdmin.html";  // ADMIN
             } else if (data.tipo === "Aluno") {

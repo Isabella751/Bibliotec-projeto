@@ -297,3 +297,18 @@ main{
     box-shadow: 0 6px 20px rgba(74, 103, 223, 0.35);
 }
 
+.leftPlant {
+    position: absolute;
+    bottom: 340px;
+    width: 980px;
+    z-index: 9999;
+    top: 110px;
+}
+
+.rightPlant {
+    position: absolute;
+    bottom: 0px;
+    width: 360px;
+    z-index: 9999;
+    right: 0;
+}
