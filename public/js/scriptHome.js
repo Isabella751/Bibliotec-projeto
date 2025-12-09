@@ -9,81 +9,46 @@ window.addEventListener("scroll", function () {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-    const header = document.querySelector('.category-header');
-    const box = document.querySelector('.category-box');
+    const categoryHeader = document.querySelector('.category-header');
+    const categoryBox = document.querySelector('.category-box');
 
-    if (header && box) {
-        header.addEventListener('click', () => {
-            box.classList.toggle('open');
+    if (categoryHeader && categoryBox) {
+        categoryHeader.addEventListener('click', () => {
+            categoryBox.classList.toggle('open');
         });
     }
 
-    const itens = document.querySelectorAll('.category-list p');
-
-    itens.forEach(item => {
-        item.addEventListener('click', () => {
-            window.location.href = '../frontEnd/index.html';
-        });
-    });
-
-    // Carregar livros do backend
     async function carregarLivros() {
         try {
-            const res = await fetch('http://localhost:3000/livros');
-            if (!res.ok) throw new Error('Erro ao carregar livros');
-
+            const res = await fetch("http://localhost:3000/livros");
             const livros = await res.json();
-            console.log('Livros carregados:', livros); // debug
-            const container = document.getElementById('livros');
-            container.innerHTML = ''; // Limpa o container
-
-            const backendBase = 'http://localhost:3000'; // ajuste se o backend estiver em outro endereço
-            const imagensPasta = '/book_images/'; // pasta pública no backend
+            const container = document.getElementById("livros");
+            container.innerHTML = "";
 
             livros.forEach(livro => {
-                const livroContainer = document.createElement('div');
-                livroContainer.className = 'livro-container';
+                console.log("Livro:", livro.titulo, "Capa:", livro.caminho_capa);
 
-                const img = document.createElement('img');
-                img.className = 'capa';
-                img.alt = livro.titulo || 'Capa do livro';
-                img.loading = 'lazy';
+                const div = document.createElement("div");
+                div.classList.add("livro-container");
 
-                // monta src: aceita URL absoluta, caminho relativo já com /book_images, ou só nome de arquivo
-                if (livro.caminho_capa) {
-                    const caminho = String(livro.caminho_capa).trim();
+                const img = document.createElement("img");
+                img.classList.add("capa");
+                img.src = livro.caminho_capa;
+                img.alt = livro.titulo;
+                img.onerror = () => console.error("Erro ao carregar imagem:", livro.caminho_capa); // <--- para ver erros
 
-                    if (/^https?:\/\//i.test(caminho)) {
-                        img.src = caminho;
-                    } else if (caminho.startsWith('/')) {
-                        // caminho absoluto no servidor -> prefixa backendBase
-                        img.src = backendBase + caminho;
-                    } else if (caminho.startsWith('book_images') || caminho.startsWith('public/book_images')) {
-                        // já aponta para pasta book_images
-                        img.src = backendBase + (caminho.startsWith('/') ? caminho : '/' + caminho);
-                    } else {
-                        // assume que no banco está só o filename ou subpasta em book_images
-                        img.src = backendBase + imagensPasta + caminho.replace(/^\/+/, '');
-                    }
-                } else {
-                    img.src = './images/placeholder.png';
-                }
+                const titulo = document.createElement("p");
+                titulo.classList.add("livro-titulo");
+                titulo.textContent = livro.titulo;
 
-                // fallback se imagem não carregar
-                img.onerror = () => { img.src = './images/placeholder.png'; };
-
-                const titulo = document.createElement('p');
-                titulo.className = 'livro-titulo';
-                titulo.textContent = livro.titulo || 'Título indisponível';
-
-                livroContainer.appendChild(img);
-                livroContainer.appendChild(titulo);
-                container.appendChild(livroContainer);
+                div.appendChild(img);
+                div.appendChild(titulo);
+                container.appendChild(div);
             });
         } catch (err) {
-            console.error(err);
+            console.error("Erro geral:", err);
         }
-    }
+        }
 
-    carregarLivros();
+        carregarLivros();
 });
