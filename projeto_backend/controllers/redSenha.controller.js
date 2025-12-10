@@ -6,7 +6,6 @@ export async function solicitarRecuperacao(req, res) {
     const { email } = req.body;
 
     try {
-        // Buscar usuário pelo e-mail
         const [user] = await db.execute("SELECT * FROM usuarios WHERE email = ?", [email]);
 
         if (user.length === 0) {
@@ -15,12 +14,13 @@ export async function solicitarRecuperacao(req, res) {
 
         const usuarioId = user[0].id;
 
-        // Criar token
+        // TOKEN RANDÔMICO
         const token = crypto.randomBytes(32).toString("hex");
 
-        // Inserir usando usuario_id
+        // SALVAR TOKEN POR 15 MIN
         await db.execute(
-            "INSERT INTO reset_tokens (usuario_id, token, expiracao, usado) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 1 HOUR), 0)",
+            `INSERT INTO reset_tokens (usuario_id, token, expiracao, usado)
+             VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 15 MINUTE), 0)`,
             [usuarioId, token]
         );
 
@@ -32,10 +32,10 @@ export async function solicitarRecuperacao(req, res) {
             }
         });
 
-        const link = `http://localhost:3000/redefinir.html?token=${token}`;
+        const link = `http://localhost:3000/redSenha.html?token=${token}`;
 
         await transporter.sendMail({
-            from: "gigisantanasilva@gmail.com>",
+            from: "gigisantanasilva@gmail.com",
             to: email,
             subject: "Redefinir Senha",
             html: `
@@ -52,28 +52,30 @@ export async function solicitarRecuperacao(req, res) {
     }
 }
 
-
 export async function redefinirSenha(req, res) {
     const { token, novaSenha } = req.body;
 
     try {
-        await db.execute(
-            "INSERT INTO reset_tokens (usuario_id, token, expiracao) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 15 MINUTE))",
-            [usuarioId, token]
+        // VERIFICA SE TOKEN EXISTE, NÃO FOI USADO E NÃO ESTÁ EXPIRADO
+        const [rows] = await db.execute(
+            `SELECT * FROM reset_tokens
+             WHERE token = ? AND usado = 0 AND expiracao > NOW()`,
+            [token]
         );
 
-        if (row.length === 0) {
+        if (rows.length === 0) {
             return res.status(400).json({ erro: "Token inválido ou expirado." });
         }
 
-        const usuarioId = row[0].usuario_id;
+        const usuarioId = rows[0].usuario_id;
 
+        // ALTERAR SENHA
         await db.execute(
             "UPDATE usuarios SET senha = ? WHERE id = ?",
             [novaSenha, usuarioId]
         );
 
-        // Marca token como usado
+        // MARCAR TOKEN COMO USADO
         await db.execute(
             "UPDATE reset_tokens SET usado = 1 WHERE token = ?",
             [token]

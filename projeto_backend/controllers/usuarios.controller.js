@@ -1,4 +1,6 @@
 import { db } from "../config/db.js";
+import crypto from "crypto";
+import nodemailer from "nodemailer";
 // ============================
 //  Rotas CRUD
 // ============================
@@ -9,46 +11,46 @@ function emptyToNull(value) {
 
 
 function validarCPF(cpf) {
-    cpf = cpf.replace(/\D/g, "");
+  cpf = cpf.replace(/\D/g, "");
 
-    if (cpf.length !== 11) return false;
-    if (/^(\d)\1+$/.test(cpf)) return false; // bloqueia CPFs tipo 11111111111
+  if (cpf.length !== 11) return false;
+  if (/^(\d)\1+$/.test(cpf)) return false; // bloqueia CPFs tipo 11111111111
 
-    let soma = 0;
-    let resto;
+  let soma = 0;
+  let resto;
 
-    // Primeiro dígito verificador
-    for (let i = 1; i <= 9; i++) {
-        soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
-    }
-    resto = (soma * 10) % 11;
-    if (resto === 10 || resto === 11) resto = 0;
-    if (resto !== parseInt(cpf.substring(9, 10))) return false;
+  // Primeiro dígito verificador
+  for (let i = 1; i <= 9; i++) {
+    soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
+  }
+  resto = (soma * 10) % 11;
+  if (resto === 10 || resto === 11) resto = 0;
+  if (resto !== parseInt(cpf.substring(9, 10))) return false;
 
-    // Segundo dígito verificador
-    soma = 0;
-    for (let i = 1; i <= 10; i++) {
-        soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
-    }
-    resto = (soma * 10) % 11;
-    if (resto === 10 || resto === 11) resto = 0;
-    if (resto !== parseInt(cpf.substring(10))) return false;
+  // Segundo dígito verificador
+  soma = 0;
+  for (let i = 1; i <= 10; i++) {
+    soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+  }
+  resto = (soma * 10) % 11;
+  if (resto === 10 || resto === 11) resto = 0;
+  if (resto !== parseInt(cpf.substring(10))) return false;
 
-    return true;
+  return true;
 }
 
 function validarData(dataStr) {
-    const data = new Date(dataStr);
+  const data = new Date(dataStr);
 
-    if (isNaN(data.getTime())) return false; // Data inválida
+  if (isNaN(data.getTime())) return false; // Data inválida
 
-    const ano = data.getUTCFullYear();
-    const hoje = new Date();
+  const ano = data.getUTCFullYear();
+  const hoje = new Date();
 
-    if (ano < 1900) return false;
-    if (data > hoje) return false;
+  if (ano < 1900) return false;
+  if (data > hoje) return false;
 
-    return true;
+  return true;
 }
 
 export async function criarUsuario(req, res) {
@@ -105,6 +107,65 @@ export async function criarUsuario(req, res) {
 }
 
 
+
+export async function enviarCodigoVerificacao(usuarioId, email) {
+
+  // Código de 5 dígitos
+  const codigo = Math.floor(10000 + Math.random() * 90000).toString();
+
+  // Salvar no banco (expira em 10 min)
+  await db.execute(
+    "INSERT INTO email_verificacao (usuario_id, codigo, expiracao) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 10 MINUTE))",
+    [usuarioId, codigo]
+  );
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "gigisantanasilva@gmail.com",
+      pass: "tubu ajfw maie zfzy"
+    }
+  });
+
+  await transporter.sendMail({
+    from: "Bibliotec <gigisantanasilva@gmail.com>",
+    to: email,
+    subject: "Confirmação de Email",
+    html: `
+            <p>Seu código de verificação é:</p>
+            <h1 style="font-size: 32px; letter-spacing: 8px;">${codigo}</h1>
+            <p>Ele expira em 10 minutos.</p>
+        `
+  });
+
+  return true;
+}
+
+export async function validarCodigo(req, res) {
+  const { usuarioId, codigo } = req.body;
+
+  const [rows] = await db.execute(`
+        SELECT * FROM email_verificacao 
+        WHERE usuario_id = ? AND codigo = ? AND usado = 0 AND expiracao > NOW()
+    `, [usuarioId, codigo]);
+
+  if (rows.length === 0) {
+    return res.status(400).json({ erro: "Código inválido ou expirado." });
+  }
+
+  await db.execute(`
+        UPDATE email_verificacao SET usado = 1 WHERE id = ?
+    `, [rows[0].id]);
+
+  await db.execute(`
+        UPDATE usuarios SET email_confirmado = 1 WHERE id = ?
+    `, [usuarioId]);
+
+  res.json({ mensagem: "E-mail confirmado com sucesso!" });
+}
+
+
+
 export async function listarUsuarios(req, res) {
   try {
     const [rows] = await db.execute("SELECT * FROM usuarios");
@@ -131,16 +192,16 @@ export async function obterUsuarioPorEmail(req, res) {
   try {
     const email = req.params.email;
     console.log("Buscando usuário por email:", email);
-    
+
     const [rows] = await db.execute("SELECT id, nome, email, curso FROM usuarios WHERE email = ?", [
       email,
     ]);
-    
+
     console.log("Resultado da query:", rows);
-    
+
     if (rows.length === 0)
       return res.status(404).json({ erro: "Usuário não encontrado" });
-    
+
     console.log("Enviando dados:", rows[0]);
     res.json(rows[0]);
   } catch (err) {

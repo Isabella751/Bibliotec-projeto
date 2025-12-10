@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 clearInterval(interval);
                 link.classList.remove("desativado");
                 link.style.pointerEvents = "auto";
+                link.style.color = "#00C6A2";
                 timerSpan.textContent = "";
                 tempo = 30;
             }

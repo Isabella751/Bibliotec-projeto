@@ -11,6 +11,7 @@ import favoritosRoutes from "./routes/favoritos.routes.js";
 import reservasRoutes from "./routes/reservas.routes.js";
 import loginRoutes from "./routes/login.routes.js";
 import redSenha from "./routes/redSenha.routes.js";
+import confirmarEmailRoutes from "./routes/confirmarEmail.routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

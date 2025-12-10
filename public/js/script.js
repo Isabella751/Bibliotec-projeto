@@ -121,21 +121,12 @@ senhaInput.addEventListener("blur", () => {
     capsWarning.classList.remove("show");
 });
 
-// Aviso de CAPS LOCK no cadastro
-const senhaCadastro = document.getElementById("senha");
-const capsWarningCadastro = document.getElementById("capsWarning");
+// Permitir entrar ao apertar ENTER
+const formCadastro = document.getElementById("entrarForm");
 
-senhaCadastro.addEventListener("keydown", (e) => {
-    if (e.getModifierState("CapsLock")) {
-        capsWarningCadastro.style.display = "block";
-    } else {
-        capsWarningCadastro.style.display = "none";
+formCadastro.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+        e.preventDefault(); // impede o form de recarregar
+        document.getElementById("entrar").click(); // aciona o botão
     }
 });
-
-senhaCadastro.addEventListener("keyup", (e) => {
-    if (!e.getModifierState("CapsLock")) {
-        capsWarningCadastro.style.display = "none";
-    }
-});
-

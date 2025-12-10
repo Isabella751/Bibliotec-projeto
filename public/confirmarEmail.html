@@ -1,0 +1,23 @@
+<input type="text" id="codigo" maxlength="5" placeholder="Digite o código">
+
+<button id="btnConfirmar" onclick="confirmar()">Confirmar</button>
+
+<p id="msg"></p>
+
+<script>
+async function confirmar() {
+    const codigo = document.getElementById("codigo").value;
+    const usuarioId = localStorage.getItem("usuarioId"); // após cadastro
+
+    const res = await fetch("http://localhost:3000/verificar-codigo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ usuarioId, codigo })
+    });
+
+    const data = await res.json();
+
+    document.getElementById("msg").innerText = data.mensagem || data.erro;
+    document.getElementById("msg").style.color = res.ok ? "green" : "red";
+}
+</script>
