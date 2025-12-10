@@ -132,7 +132,7 @@ export async function obterUsuarioPorEmail(req, res) {
     const email = req.params.email;
     console.log("Buscando usuário por email:", email);
     
-    const [rows] = await db.execute("SELECT id, nome, email, curso FROM usuarios WHERE email = ?", [
+    const [rows] = await db.execute("SELECT id, nome, email, curso, criado_em FROM usuarios WHERE email = ?", [
       email,
     ]);
     

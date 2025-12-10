@@ -94,9 +94,9 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("Email salvo no localStorage:", localStorage.getItem("emailUsuario"));
 
             if (data.tipo === "Admin") {
-                window.location.href = "loginAdmin.html";  // ADMIN
+                window.location.href = "loginAdmin.html";  
             } else if (data.tipo === "Aluno") {
-                window.location.href = "inicio.html";      // Aluno
+                window.location.href = "inicio.html";      
             }
 
         } catch (erro) {
@@ -105,7 +105,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// Aviso de CAPS LOCK
 const senhaInput = document.getElementById("senha");
 const capsWarning = document.getElementById("capsWarning");
 
@@ -121,7 +120,6 @@ senhaInput.addEventListener("blur", () => {
     capsWarning.classList.remove("show");
 });
 
-// Aviso de CAPS LOCK no cadastro
 const senhaCadastro = document.getElementById("senha");
 const capsWarningCadastro = document.getElementById("capsWarning");
 
