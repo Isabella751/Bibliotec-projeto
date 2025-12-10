@@ -61,72 +61,73 @@ function abrirCadastro() {
 
 // login
 document.addEventListener("DOMContentLoaded", () => {
-    const btn = document.getElementById("entrar");
+  const btn = document.getElementById("entrar");
 
-    btn.addEventListener("click", async () => {
-        const email = document.getElementById("email").value.trim();
-        const senha = document.getElementById("senha").value.trim();
+  btn.addEventListener("click", async () => {
+    const email = document.getElementById("email").value.trim();
+    const senha = document.getElementById("senha").value.trim();
 
-        if (!email || !senha) {
-            alert("Preencha email e senha.");
-            return;
-        }
+    if (!email || !senha) {
+      alert("Preencha email e senha.");
+      return;
+    }
 
-        try {
-            const resposta = await fetch("http://localhost:3000/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ email, senha })
-            });
+    try {
+      const resposta = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, senha })
+      });
 
-            const data = await resposta.json();
+      const data = await resposta.json();
 
-            if (!resposta.ok) {
-                alert(data.erro);
-                return;
-            }
+      if (!resposta.ok) {
+        alert(data.erro);
+        return;
+      }
 
-            // Salva o email no localStorage para uso posterior
-            console.log("Email do login:", data.email);
-            localStorage.setItem("emailUsuario", data.email);
-            console.log("Email salvo no localStorage:", localStorage.getItem("emailUsuario"));
+      // Salva o email no localStorage para uso posterior
+      console.log("Email do login:", data.email);
+      localStorage.setItem("emailUsuario", data.email);
+      console.log("Email salvo no localStorage:", localStorage.getItem("emailUsuario"));
 
-            if (data.tipo === "Admin") {
-                window.location.href = "loginAdmin.html";  // ADMIN
-            } else if (data.tipo === "Aluno") {
-                window.location.href = "inicio.html";      // Aluno
-            }
+      if (data.tipo === "Admin") {
+        window.location.href = "loginAdmin.html";
+      } else if (data.tipo === "Aluno") {
+        window.location.href = "inicio.html";
+      }
 
-        } catch (erro) {
-            alert("Erro ao conectar ao servidor.");
-        }
-    });
+    } catch (erro) {
+      alert("Erro ao conectar ao servidor.");
+    }
+  });
 });
 
-// Aviso de CAPS LOCK
 const senhaInput = document.getElementById("senha");
 const capsWarning = document.getElementById("capsWarning");
 
 senhaInput.addEventListener("keydown", function (e) {
-    if (e.getModifierState("CapsLock")) {
-        capsWarning.classList.add("show");
-    } else {
-        capsWarning.classList.remove("show");
-    }
+  if (e.getModifierState("CapsLock")) {
+    capsWarning.classList.add("show");
+  } else {
+    capsWarning.classList.remove("show");
+  }
 });
 
 senhaInput.addEventListener("blur", () => {
-    capsWarning.classList.remove("show");
+  capsWarning.classList.remove("show");
 });
 
 // Permitir entrar ao apertar ENTER
 const formCadastro = document.getElementById("entrarForm");
+const senhaCadastro = document.getElementById("senha");
+const capsWarningCadastro = document.getElementById("capsWarning");
 
 formCadastro.addEventListener("keydown", function (e) {
-    if (e.key === "Enter") {
-        e.preventDefault(); // impede o form de recarregar
-        document.getElementById("entrar").click(); // aciona o botão
-    }
+  if (e.key === "Enter") {
+    e.preventDefault(); // impede o form de recarregar
+    document.getElementById("entrar").click(); // aciona o botão
+  }
 });

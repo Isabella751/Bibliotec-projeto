@@ -32,6 +32,8 @@ async function carregarDadosUsuario() {
         document.getElementById("nome-usuario").textContent = usuario.nome || "N/A";
         document.getElementById("email-usuario").textContent = usuario.email || "N/A";
         document.getElementById("curso-usuario").textContent = usuario.curso || "N/A";
+        document.getElementById("criado-em-usuario").textContent = usuario.criado_em || "N/A";
+        
         document.getElementById("perfil-usuario").textContent = "Aluno"; // Tipo fixo por enquanto
 
         console.log("Dados preenchidos com sucesso!");
