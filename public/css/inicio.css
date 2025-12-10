@@ -241,17 +241,17 @@ header {
     gap: 33px;
     z-index: 999;
 }
- 
+/*  
 .left-icons .addUser-icon{
     width: 47px;
-}
+} */
 
 .left-icons .exit-icon{
     width: 57px;
 }
 
 .left-icons .filter-icon{
-    margin-bottom: 555px;
+    margin-bottom: 636px;
     width: 44px;
     margin-left: 14px;
 }
@@ -393,7 +393,7 @@ footer {
     color:var(--azulEscuro);
     cursor:pointer;
     border-radius: 8px;
-    background-color: #cefcf9;
+    background-color: #75ebe3;
     width: 110px;
     height: 35px;
     gap: 25px;
