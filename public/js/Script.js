@@ -54,11 +54,6 @@ window.addEventListener("scroll", () => {
     : header.classList.remove("scrolled");
 });
 
-// abrir cadastro
-function abrirCadastro() {
-  window.open("cadastro.html", "cadastroJanela", "width=900,height=700");
-}
-
 // login
 document.addEventListener("DOMContentLoaded", () => {
   const btn = document.getElementById("entrar");
@@ -121,13 +116,23 @@ senhaInput.addEventListener("blur", () => {
 });
 
 // Permitir entrar ao apertar ENTER
-const formCadastro = document.getElementById("entrar");
-const senhaCadastro = document.getElementById("senha");
-const capsWarningCadastro = document.getElementById("capsWarning");
+const emailInput = document.getElementById("email");
+const senhaInputLogin = document.getElementById("senha");
 
-formCadastro.addEventListener("keydown", function (e) {
-  if (e.key === "Enter") {
-    e.preventDefault(); // impede o form de recarregar
-    document.getElementById("entrar").click(); // aciona o botão
-  }
-});
+if (emailInput) {
+  emailInput.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      document.getElementById("entrar").click();
+    }
+  });
+}
+
+if (senhaInputLogin) {
+  senhaInputLogin.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      document.getElementById("entrar").click();
+    }
+  });
+}
