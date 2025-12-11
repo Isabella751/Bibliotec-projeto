@@ -121,7 +121,7 @@ senhaInput.addEventListener("blur", () => {
 });
 
 // Permitir entrar ao apertar ENTER
-const formCadastro = document.getElementById("entrarForm");
+const formCadastro = document.getElementById("entrar");
 const senhaCadastro = document.getElementById("senha");
 const capsWarningCadastro = document.getElementById("capsWarning");
 

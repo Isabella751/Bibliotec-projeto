@@ -27,15 +27,15 @@ export async function solicitarRecuperacao(req, res) {
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
-                user: "gigisantanasilva@gmail.com",
-                pass: "tubu ajfw maie zfzy"
+                user: "bibliotec.suport@gmail.com",
+                pass: "npfd ybqp duyf nlhr"
             }
         });
 
         const link = `http://localhost:3000/redSenha.html?token=${token}`;
 
         await transporter.sendMail({
-            from: "gigisantanasilva@gmail.com",
+            from: "bibliotec.suport@gmail.com",
             to: email,
             subject: "Redefinir Senha",
             html: `
