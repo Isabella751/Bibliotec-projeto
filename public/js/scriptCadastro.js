@@ -94,10 +94,10 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", async () => {
 
         // Termos
-        if (!document.getElementById("termos").checked) {
-            alert("Você precisa aceitar os termos antes de continuar.");
-            return;
-        }
+        // if (!document.getElementById("termos").checked) {
+        //     alert("Você precisa aceitar os termos antes de continuar.");
+        //     return;
+        // }
 
         // Coleta valores
         const nome = document.getElementById("nome").value.trim();
