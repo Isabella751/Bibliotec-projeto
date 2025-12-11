@@ -33,13 +33,36 @@
                 <p class="info"><span class="label">Curso:</span> <span id="curso-usuario" class="value">-</span></p>
                 <p class="info"><span class="label">Email:</span> <span id="email-usuario" class="value">-</span></p>
                 <p class="info"><span class="label">Perfil:</span> <span id="perfil-usuario" class="value">-</span></p>
-                <p class="info"><span class="label">Criado em:</span> <span id="criado-em-usuario" class="value">-</span></p>
+                <p class="info"><span class="label">Data de nascimento:</span> <span id="data-nascimento-usuario"
+                        class="value">-</span></p>
+                <div class="info">
+                    <label for="categoriaPreferida">Interesses:</label>
+                    <select id="categoriaPreferida">
+                        <option value="romance">Romance</option>
+                        <option value="ficcao">Ficção</option>
+                        <option value="fantasia">Fantasia</option>
+                        <option value="terror">Terror</option>
+                        <option value="suspense">Suspense</option>
+                        <option value="aventura">Aventura</option>
+                    </select>
+                </div>
+                <p class="info"><span class="label">Conta criada em:</span> <span id="criado-em-usuario"
+                        class="value">-</span></p>
 
-                <p class="veja">Veja suas conquistas!</p>
+                <a class="veja-conquistas" href="index.html">Veja suas conquistas!</a>
+
+                <div class="progresso-container">
+                    <p id="textoProgresso">Você leu 12 de 20 livros este ano</p>
+
+                    <div class="barra-fundo">
+                        <div class="barra-preenchida" id="barraProgresso"></div>
+                    </div>
+                </div>
 
             </main>
 
             <button id="btnSair" class="sair-btn">Sair</button>
+            <a class="edit-info" href="index.html">Editar informações de perfil</a>
 
         </article>
     </div>

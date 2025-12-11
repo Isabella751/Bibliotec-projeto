@@ -1,24 +1,28 @@
+// Função para formatar datas ISO em DD/MM/YYYY
+function formatarData(dataISO) {
+    if (!dataISO) return "N/A";
+
+    const data = new Date(dataISO);
+
+    // Garante que sempre vai exibir DD/MM/YYYY corretamente
+    return data.toLocaleDateString("pt-BR", {
+        timeZone: "UTC"
+    });
+}
+
 // Função para buscar dados do usuário no banco
 async function carregarDadosUsuario() {
     try {
-        // Recupera o email do usuário do localStorage (salvo durante login)
         const emailUsuario = localStorage.getItem("emailUsuario");
-        
-        console.log("Email recuperado do localStorage:", emailUsuario);
-        
+
         if (!emailUsuario) {
             console.error("Email não encontrado no localStorage. Faça login novamente.");
             return;
         }
 
-        // Faz requisição para obter dados do usuário (corrigido o endpoint)
         const url = `http://localhost:3000/usuarios/email/${emailUsuario}`;
-        console.log("Fazendo fetch para:", url);
-        
         const response = await fetch(url);
-        
-        console.log("Status da resposta:", response.status);
-        
+
         if (!response.ok) {
             const errorData = await response.json();
             console.error("Erro na resposta:", errorData);
@@ -32,26 +36,52 @@ async function carregarDadosUsuario() {
         document.getElementById("nome-usuario").textContent = usuario.nome || "N/A";
         document.getElementById("email-usuario").textContent = usuario.email || "N/A";
         document.getElementById("curso-usuario").textContent = usuario.curso || "N/A";
-        document.getElementById("criado-em-usuario").textContent = usuario.criado_em || "N/A";
-        
-        document.getElementById("perfil-usuario").textContent = "Aluno"; // Tipo fixo por enquanto
+        document.getElementById("perfil-usuario").textContent = usuario.perfil || "Aluno";
+
+        // >>> AQUI as datas formatadinhas <<<
+        document.getElementById("data-nascimento-usuario").textContent =
+            formatarData(usuario.data_nascimento);
+
+        document.getElementById("criado-em-usuario").textContent =
+            formatarData(usuario.criado_em);
 
         console.log("Dados preenchidos com sucesso!");
 
     } catch (erro) {
         console.error("Erro ao carregar dados do usuário:", erro);
-        // Mantém valores padrão se houver erro
     }
 }
 
 // Carrega os dados quando a página é carregada
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("DOM carregado, iniciando carregamento de dados...");
     carregarDadosUsuario();
 });
 
 document.getElementById("btnSair").addEventListener("click", () => {
-    // Limpa dados do localStorage ao sair
     localStorage.removeItem("emailUsuario");
     window.location.href = "bibliotec.html";
 });
+
+const lidos = 19;
+const meta = 20;
+
+const porcentagem = (lidos / meta) * 100;
+
+document.getElementById("textoProgresso").textContent =
+  `Você leu ${lidos} de ${meta} livros este ano`;
+
+document.getElementById("barraProgresso").style.width = `${porcentagem}%`;
+
+const selectCat = document.getElementById("categoriaFav");
+
+selectCat.addEventListener("change", () => {
+    const valor = selectCat.value;
+    localStorage.setItem("categoriaFavorita", valor);
+});
+
+// Carregar escolha salva
+window.addEventListener("load", () => {
+    const salvo = localStorage.getItem("categoriaFavorita");
+    if (salvo) selectCat.value = salvo;
+});
+

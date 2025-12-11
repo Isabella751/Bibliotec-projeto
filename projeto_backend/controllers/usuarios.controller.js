@@ -1,105 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import { db } from "../config/db.js";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
@@ -110,7 +8,6 @@ import nodemailer from "nodemailer";
 function emptyToNull(value) {
   return value === "" || value == null ? null : value;
 }
-
 
 function validarCPF(cpf) {
   cpf = cpf.replace(/\D/g, "");
@@ -171,7 +68,9 @@ export async function criarUsuario(req, res) {
 
     // Nome sem números
     if (!/^[A-Za-zÀ-ÿ\s]+$/.test(nome)) {
-      return res.status(400).json({ erro: "Nome inválido. Use apenas letras." });
+      return res
+        .status(400)
+        .json({ erro: "Nome inválido. Use apenas letras." });
     }
 
     // Limpa CPF
@@ -208,10 +107,7 @@ export async function criarUsuario(req, res) {
   }
 }
 
-
-
 export async function enviarCodigoVerificacao(usuarioId, email) {
-
   // Código de 5 dígitos
   const codigo = Math.floor(10000 + Math.random() * 90000).toString();
 
@@ -225,8 +121,8 @@ export async function enviarCodigoVerificacao(usuarioId, email) {
     service: "gmail",
     auth: {
       user: "gigisantanasilva@gmail.com",
-      pass: "tubu ajfw maie zfzy"
-    }
+      pass: "tubu ajfw maie zfzy",
+    },
   });
 
   await transporter.sendMail({
@@ -237,7 +133,7 @@ export async function enviarCodigoVerificacao(usuarioId, email) {
             <p>Seu código de verificação é:</p>
             <h1 style="font-size: 32px; letter-spacing: 8px;">${codigo}</h1>
             <p>Ele expira em 10 minutos.</p>
-        `
+        `,
   });
 
   return true;
@@ -246,27 +142,34 @@ export async function enviarCodigoVerificacao(usuarioId, email) {
 export async function validarCodigo(req, res) {
   const { usuarioId, codigo } = req.body;
 
-  const [rows] = await db.execute(`
+  const [rows] = await db.execute(
+    `
         SELECT * FROM email_verificacao 
         WHERE usuario_id = ? AND codigo = ? AND usado = 0 AND expiracao > NOW()
-    `, [usuarioId, codigo]);
+    `,
+    [usuarioId, codigo]
+  );
 
   if (rows.length === 0) {
     return res.status(400).json({ erro: "Código inválido ou expirado." });
   }
 
-  await db.execute(`
+  await db.execute(
+    `
         UPDATE email_verificacao SET usado = 1 WHERE id = ?
-    `, [rows[0].id]);
+    `,
+    [rows[0].id]
+  );
 
-  await db.execute(`
+  await db.execute(
+    `
         UPDATE usuarios SET email_confirmado = 1 WHERE id = ?
-    `, [usuarioId]);
+    `,
+    [usuarioId]
+  );
 
   res.json({ mensagem: "E-mail confirmado com sucesso!" });
 }
-
-
 
 export async function listarUsuarios(req, res) {
   try {
@@ -295,9 +198,20 @@ export async function obterUsuarioPorEmail(req, res) {
     const email = req.params.email;
     console.log("Buscando usuário por email:", email);
 
-    const [rows] = await db.execute("SELECT id, nome, email, curso FROM usuarios WHERE email = ?", [
-      email,
-    ]);
+    const [rows] = await db.execute(
+      `
+  SELECT 
+    id,
+    nome,
+    email,
+    curso,
+    data_nascimento,
+    criado_em
+  FROM usuarios 
+  WHERE email = ?
+`,
+      [email]
+    );
 
     console.log("Resultado da query:", rows);
 
@@ -314,10 +228,10 @@ export async function obterUsuarioPorEmail(req, res) {
 
 export async function atualizarUsuario(req, res) {
   try {
-    const { nome, celular, curso } =
-      req.body;
+    const { nome, celular, curso, cpf } = req.body; // <--- cpf agora existe
     const id = req.params.id;
 
+    // Verifica se usuário existe
     const [resultado] = await db.execute(
       "SELECT cpf FROM usuarios WHERE id = ?",
       [id]
@@ -333,7 +247,7 @@ export async function atualizarUsuario(req, res) {
 
     const cpfAtual = resultado[0].cpf;
 
-    // Se tentar mudar o CPF
+    // Impede alteração de CPF
     if (cpf && cpf !== cpfAtual) {
       return res.status(400).json({ erro: "Não é permitido alterar o CPF" });
     }
@@ -342,8 +256,8 @@ export async function atualizarUsuario(req, res) {
 
     await db.execute(
       `UPDATE usuarios 
-            SET nome = ?, celular = ?, curso = ?
-            WHERE id = ?`,
+        SET nome = ?, celular = ?, curso = ?
+        WHERE id = ?`,
       [nome, celularValue, curso, id]
     );
 

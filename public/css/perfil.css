@@ -132,17 +132,17 @@ h1 {
 
 .card {
     background: var(--branco);
-    padding: 12px 44px;
+    padding: 10px 28px;
     letter-spacing: 0.5px;
     max-width: var(--max-width);
     border-radius: 35px;
     box-shadow: -10px 0 30px rgba(0,0,0,0.25);
-    overflow: visible; 
+    /* manter dimensões do card fixas — não encolher o card */
+    overflow: hidden;
     width: 420px;
     height: var(--card-height);
-    transform: none;
-    margin-top: 80px;
     transform: scale(1.17);
+    margin-top: 80px;
 }
 
 header{
@@ -226,19 +226,17 @@ main{
 }
 
 .perfil-logo {
-    width: 90px;
-    height: 90px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 11px;
+    width: 78px;
+    height: 78px;
+    display: block;
+    margin: 8px auto 6px auto;
 }
 
 .perfil-title {
     text-align: center;
     font-family: "Montserrat-Bold", sans-serif;
     font-weight: bold; 
-    font-size: 1.8rem;
+    font-size: 1.35rem;
 }
 
 p1, p2, p3, p4 {
@@ -256,7 +254,7 @@ main{
 
 .info {
     font-family: "Montserrat-Regular", sans-serif;
-    font-size: 1.7rem;
+    font-size: 0.95rem;
     margin: 7px 0;
 }
 
@@ -268,11 +266,28 @@ main{
     margin-top: 40px;
     display: flex;
     justify-content: center;
-    font-size: 1.7rem;
+    font-size: 1rem;
 }
 
 .card main p:last-of-type {
     margin-top: 22px;
+}
+
+.veja-conquistas {
+    display: block;
+    text-align: center;
+    margin: auto 50px auto;
+    color: black;
+    text-decoration: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    font-family: "Montserrat-Regular", sans-serif;
+    margin-top: 12px;
+}
+
+.veja-conquistas:hover {
+    color: var(--roxoAzulado);
+    text-decoration: none;
 }
 
 .sair-btn {
@@ -297,18 +312,86 @@ main{
     box-shadow: 0 6px 20px rgba(74, 103, 223, 0.35);
 }
 
+/* link para editar informações do perfil */
+.edit-info {
+    display: block;
+    text-align: center;
+    margin: 12px auto 20px auto;
+    color: black;
+    text-decoration: none;
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-family: "Montserrat-Bold", sans-serif;
+    font-weight: bold;
+}
+
+.edit-info:hover {
+    color: var(--roxoAzulado);
+    text-decoration: none;
+}
+
 .leftPlant {
     position: absolute;
     bottom: 340px;
-    width: 980px;
-    z-index: 9999;
+    width: 350px;
     top: 110px;
 }
+
+.leftPlant img {
+    pointer-events: none;
+}
+
 
 .rightPlant {
     position: absolute;
     bottom: 0px;
     width: 360px;
-    z-index: 9999;
     right: 0;
 }
+
+.progresso-container {
+    margin-top: 0px;
+    width: 100%;
+    text-align: center;
+}
+
+#textoProgresso {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.barra-fundo {
+    width: 80%;
+    height: 8px;
+    background: #dcdcdc;
+    border-radius: 20px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.barra-preenchida {
+    height: 100%;
+    width: 0%; /* atualizado no JS */
+    background: linear-gradient(90deg, #5a97ff, #264bde);
+    border-radius: 20px;
+    transition: 0.4s;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#categoriaFav {
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: var(--bg, #fff);
+    color: var(--text, #000);
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+}
+
