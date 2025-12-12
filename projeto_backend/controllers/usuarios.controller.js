@@ -120,19 +120,19 @@ export async function enviarCodigoVerificacao(usuarioId, email) {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "gigisantanasilva@gmail.com",
-      pass: "tubu ajfw maie zfzy",
+      user: "bibliotec.suport@gmail.com",
+      pass: "amxn npaq gypi ihaf",
     },
   });
 
   await transporter.sendMail({
-    from: "Bibliotec <gigisantanasilva@gmail.com>",
+    from: "Bibliotec <bibliotec.suport@gmail.com>",
     to: email,
     subject: "Confirmação de Email",
     html: `
             <p>Seu código de verificação é:</p>
             <h1 style="font-size: 32px; letter-spacing: 8px;">${codigo}</h1>
-            <p>Ele expira em 10 minutos.</p>
+            <p>Ele expira em 15 minutos.</p>
         `,
   });
 

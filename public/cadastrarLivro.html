@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <title>Cadastrar Livro</title>
+    <link rel="stylesheet" href="cadastrarLivro.css" />
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Cadastrar Livro</h1>
+
+    <!-- BLOQUEIO PARA ADM -->
+    <div id="bloqueio" class="bloqueio">
+        <p>Carregando validação...</p>
+    </div>
+
+    <form id="formLivro">
+
+        <label>Título *</label>
+        <input type="text" id="titulo" required>
+
+        <label>Autor *</label>
+        <input type="text" id="autor" required>
+
+        <label>Gênero</label>
+        <input type="text" id="genero">
+
+        <label>Editora</label>
+        <input type="text" id="editora">
+
+        <label>Ano de Publicação</label>
+        <input type="number" id="ano_publicacao">
+
+        <label>ISBN</label>
+        <input type="text" id="isbn">
+
+        <label>Idioma</label>
+        <input type="text" id="idioma">
+
+        <label>Formato</label>
+        <input type="text" id="formato">
+
+        <label>Caminho da capa (URL)</label>
+        <input type="text" id="caminho_capa">
+
+        <img id="preview" class="preview" style="display:none">
+
+        <label>Classificação</label>
+        <select id="classificacao">
+            <option value="Livre">Livre</option>
+            <option value="+10">+10</option>
+            <option value="+12">+12</option>
+            <option value="+14">+14</option>
+            <option value="+16">+16</option>
+            <option value="+18">+18</option>
+        </select>
+
+        <label>Sinopse</label>
+        <textarea id="sinopse"></textarea>
+
+        <label>Ativo</label>
+        <select id="ativo">
+            <option value="1">Sim</option>
+            <option value="0">Não</option>
+        </select>
+
+        <button type="submit" class="btn">Cadastrar</button>
+    </form>
+
+    <div id="msg"></div>
+
+</div>
+
+<script src="cadastrarLivro.js"></script>
+
+</body>
+</html>

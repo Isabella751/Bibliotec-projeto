@@ -187,3 +187,40 @@ export async function deletarLivro(req, res) {
         res.status(500).json({ erro: err.message });
     }
 };
+
+export async function registrarVisualizacao(req, res) {
+    try {
+        const { id } = req.params;
+        
+        await db.execute(
+            `UPDATE livros 
+             SET visualizacoes = visualizacoes + 1,
+                 ultima_visualizacao = NOW()
+             WHERE id = ?`,
+            [id]
+        );
+        
+        return res.status(200).json({ mensagem: "Visualização registrada" });
+        
+    } catch (err) {
+        return res.status(500).json({ erro: err.message });
+    }
+}
+
+export async function obterDestaques(req, res) {
+    try {
+        const limite = req.query.limite || 24; // Quantidade de destaques
+        
+        const [rows] = await db.execute(
+            `SELECT * FROM livros 
+             WHERE ativo = 1 OR ativo IS NULL
+             ORDER BY visualizacoes DESC, ultima_visualizacao DESC
+             LIMIT ?`,
+            [parseInt(limite)]
+        );
+        
+        res.json(rows);
+    } catch (err) {
+        res.status(500).json({ erro: err.message });
+    }
+}

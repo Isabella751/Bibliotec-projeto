@@ -28,14 +28,14 @@ export async function solicitarRecuperacao(req, res) {
             service: "gmail",
             auth: {
                 user: "bibliotec.suport@gmail.com",
-                pass: "npfd ybqp duyf nlhr"
+                pass: "amxn npaq gypi ihaf"
             }
         });
 
         const link = `http://localhost:3000/redSenha.html?token=${token}`;
 
         await transporter.sendMail({
-            from: "bibliotec.suport@gmail.com",
+            from: "Bibliotec <bibliotec.suport@gmail.com>",
             to: email,
             subject: "Redefinir Senha",
             html: `

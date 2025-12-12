@@ -55,10 +55,13 @@ window.addEventListener("scroll", () => {
 });
 
 // login
+// login
 document.addEventListener("DOMContentLoaded", () => {
+
   const btn = document.getElementById("entrar");
 
   btn.addEventListener("click", async () => {
+
     const email = document.getElementById("email").value.trim();
     const senha = document.getElementById("senha").value.trim();
 
@@ -70,9 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const resposta = await fetch("http://localhost:3000/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, senha })
       });
 
@@ -83,15 +84,22 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      // Salva o email no localStorage para uso posterior
-      console.log("Email do login:", data.email);
-      localStorage.setItem("emailUsuario", data.email);
-      console.log("Email salvo no localStorage:", localStorage.getItem("emailUsuario"));
+      console.log("Usuário logado:", data);
+
+      // evita conflito
+      localStorage.removeItem("emailUsuario");
+      localStorage.removeItem("emailadmin");
 
       if (data.tipo === "Admin") {
-        window.location.href = "loginAdmin.html";
-      } else if (data.tipo === "Aluno") {
+        localStorage.setItem("emailadmin", data.email);
+        window.location.href = "inicioAdmin.html";
+        return;
+      }
+
+      if (data.tipo === "Aluno") {
+        localStorage.setItem("emailUsuario", data.email);
         window.location.href = "inicio.html";
+        return;
       }
 
     } catch (erro) {
@@ -100,24 +108,27 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+
+// CAPS LOCK
 const senhaInput = document.getElementById("senha");
 const capsWarning = document.getElementById("capsWarning");
 
-senhaInput.addEventListener("keydown", function (e) {
-  if (e.getModifierState("CapsLock")) {
-    capsWarning.classList.add("show");
-  } else {
+if (senhaInput) {
+  senhaInput.addEventListener("keydown", function (e) {
+    if (e.getModifierState("CapsLock")) {
+      capsWarning.classList.add("show");
+    } else {
+      capsWarning.classList.remove("show");
+    }
+  });
+
+  senhaInput.addEventListener("blur", () => {
     capsWarning.classList.remove("show");
-  }
-});
+  });
+}
 
-senhaInput.addEventListener("blur", () => {
-  capsWarning.classList.remove("show");
-});
-
-// Permitir entrar ao apertar ENTER
+// ENTER para logar
 const emailInput = document.getElementById("email");
-const senhaInputLogin = document.getElementById("senha");
 
 if (emailInput) {
   emailInput.addEventListener("keydown", function (e) {
@@ -128,11 +139,13 @@ if (emailInput) {
   });
 }
 
-if (senhaInputLogin) {
-  senhaInputLogin.addEventListener("keydown", function (e) {
+if (senhaInput) {
+  senhaInput.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
       e.preventDefault();
       document.getElementById("entrar").click();
     }
   });
 }
+
+
