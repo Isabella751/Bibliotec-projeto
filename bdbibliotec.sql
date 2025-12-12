@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `admins` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `cpf` (`cpf`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
 -- Copiando dados para a tabela bdbibliotec.admins: ~1 rows (aproximadamente)
 INSERT INTO `admins` (`id`, `nome`, `cpf`, `email`, `senha`, `perfil`, `criado_em`) VALUES
@@ -180,13 +180,14 @@ CREATE TABLE IF NOT EXISTS `reset_tokens` (
   PRIMARY KEY (`id`),
   KEY `usuario_id` (`usuario_id`),
   CONSTRAINT `1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela bdbibliotec.reset_tokens: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela bdbibliotec.reset_tokens: ~4 rows (aproximadamente)
 INSERT INTO `reset_tokens` (`id`, `usuario_id`, `token`, `expiracao`, `usado`) VALUES
-	(14, 11, '507170072cb905bdc28b76c36c1effc7d09001d6b49a55d98a85e571170583e5', '2025-12-10 11:02:04', 0),
-	(15, 11, '46f3a79360a4cfbcff87c3859e6ee1ece7fd15c75d988a7c62a7bd625a614ec4', '2025-12-10 11:02:43', 0),
-	(16, 12, '1174f49e8df1f6fe226df9a5a908305e85fbca8c9e3d5d39c85f237283333d30', '2025-12-10 11:08:28', 0);
+	(17, 23, '5cce8effefdeb0ba0bb8feb701ae6f929c1a17743a1c4792e631c60e56348676', '2025-12-12 15:11:39', 0),
+	(18, 24, '62c2638b91be4877089df37c852107656f155eaebe6b227a062e226228ec7d65', '2025-12-12 15:15:34', 0),
+	(19, 24, '702b3d4df8938b8c3d4e7341655a71faa5e0c96ed0a5780f3931c56913111040', '2025-12-12 15:21:51', 0),
+	(20, 24, '56a7a1197de166ab08a7e3082212c3366aef8f54c8c000c010e5c9691de7b4d2', '2025-12-12 16:24:56', 0);
 
 -- Copiando estrutura para tabela bdbibliotec.usuarios
 CREATE TABLE IF NOT EXISTS `usuarios` (
@@ -196,24 +197,27 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `email` varchar(100) NOT NULL,
   `senha` varchar(100) NOT NULL,
   `data_nascimento` date NOT NULL,
-  `celular` varchar(20) NULL,
+  `celular` varchar(20) DEFAULT NULL,
   `curso` varchar(100) NOT NULL,
   `perfil` enum('Aluno') DEFAULT 'Aluno',
   `criado_em` date DEFAULT curdate(),
   `email_verificado` tinyint(4) DEFAULT 0,
   `email_confirmado` tinyint(1) DEFAULT 0,
+  `reset_token` varchar(255) DEFAULT NULL,
+  `reset_token_expires` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `cpf` (`cpf`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_uca1400_ai_ci;
 
--- Copiando dados para a tabela bdbibliotec.usuarios: ~5 rows (aproximadamente)
-INSERT INTO `usuarios` (`id`, `nome`, `cpf`, `email`, `senha`, `data_nascimento`, `celular`, `curso`, `perfil`, `criado_em`, `email_verificado`, `email_confirmado`) VALUES
-	(9, 'Vitor Pimentel', '33575843791', 'vitorpimentel@gmail.com', 'vitor1234', '2009-05-04', '(55) 46754-7457', 'Técnico em Eletrônica', 'Aluno', '2025-12-08', 0, 0),
-	(11, 'Isabella Leite', '15652071907', 'isabella.leite562@gmail.com', 'isa12345', '2009-02-09', '(11) 78889-9871', 'Técnico em Redes de Computadores', 'Aluno', '2025-12-08', 0, 0),
-	(12, 'Leandro Quisbert', '70012892483', 'leandro.chq123@gmail.com', 'Panguço123', '2007-04-30', '(11) 94405-0584', 'Técnico em Produção de Moda', 'Aluno', '2025-12-09', 0, 0),
-	(13, 'Lorena Marques da Silva', '50125092857', 'llomarques1103@gmail.com', '12345678', '2007-03-11', '(11) 96783-0824', 'Técnico em Desenvolvimento de Sistemas', 'Aluno', '2025-12-09', 0, 0),
-	(14, 'Bibliotec', '16635964096', 'bibliotec.suport@gmail.com', 'livro1234', '2000-12-02', '(11) 92421-4124', 'Técnico em Soldagem', 'Aluno', '2025-12-10', 0, 0);
+-- Copiando dados para a tabela bdbibliotec.usuarios: ~6 rows (aproximadamente)
+INSERT INTO `usuarios` (`id`, `nome`, `cpf`, `email`, `senha`, `data_nascimento`, `celular`, `curso`, `perfil`, `criado_em`, `email_verificado`, `email_confirmado`, `reset_token`, `reset_token_expires`) VALUES
+	(9, 'Vitor Pimentel', '33575843791', 'vitorpimentel@gmail.com', 'vitor1234', '2009-05-04', '(55) 46754-7457', 'Técnico em Eletrônica', 'Aluno', '2025-12-08', 0, 0, NULL, NULL),
+	(13, 'Lorena Marques da Silva', '50125092857', 'llomarques1103@gmail.com', '12345678', '2007-03-11', '(11) 96783-0824', 'Técnico em Desenvolvimento de Sistemas', 'Aluno', '2025-12-09', 0, 0, NULL, NULL),
+	(19, 'Nicolly Nicastro', '45754165099', 'nickk45@gmail.com', 'nicastrocolly', '2008-05-05', '(11) 96723-3452', 'Técnico em Desenvolvimento de Sistemas', 'Aluno', '2025-12-12', 0, 0, NULL, NULL),
+	(21, 'Gabriel Lopes da Silva', '56367925066', 'gabriel0w0@yahoo.com', '12345678', '2006-04-23', NULL, 'Técnico em Desenvolvimento de Sistemas', 'Aluno', '2025-12-12', 0, 0, NULL, NULL),
+	(23, 'Vinicius Ribeiro dos Santos', '03063042013', 'vinifxx@gmail.com', '', '1987-05-05', '(11) 90980-9907', 'Técnico em Desenvolvimento de Sistemas', 'Aluno', '2025-12-12', 0, 0, NULL, NULL),
+	(24, 'Isabella Leite dos Santos', '58049866866', 'isabella.leite562@gmail.com', '', '2009-02-09', '(11) 93034-7426', 'Técnico em Desenvolvimento de Sistemas', 'Aluno', '2025-12-12', 0, 0, NULL, NULL);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
