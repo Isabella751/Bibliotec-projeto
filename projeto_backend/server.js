@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Servir arquivos estáticos
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Rotas da API
 app.use("/livros", livrosRoutes);
@@ -39,7 +39,7 @@ app.use("/admins", adminRoutes);
 
 // Rota principal
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve('public', 'bibliotec.html'));
+  res.sendFile(path.join(__dirname, 'public', 'bibliotec.html'));
 });
 
 // Iniciar servidor
