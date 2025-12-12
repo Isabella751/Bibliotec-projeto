@@ -491,3 +491,14 @@ footer.footer-home-container {
     transform: scale(1.25);
 }
 
+/* ============================
+   PADRONIZAÇÃO DAS CAPAS
+============================ */
+#livros div img {
+    width: 100%;           /* Largura total do card */
+    height: 300px;         /* ALTURA FIXA (Mude para 250px ou 350px se preferir) */
+    object-fit: cover;     /* A MÁGICA: Corta o excesso sem esticar/deformar */
+    object-position: top;  /* Prioriza mostrar o topo da capa (título) */
+    border-radius: 5px;    /* Cantos arredondados */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3); /* Sombra suave */
+}

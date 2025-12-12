@@ -5,17 +5,19 @@ import {
     editarLivro,
     obterLivro,
     deletarLivro,
-    registrarVisualizacao,  // ← NOVO
-    obterDestaques          // ← NOVO
+    registrarVisualizacao,  
+    obterDestaques,
+    buscarLivros
 } from "../controllers/livros.controller.js";
 
 const router = express.Router();
 
 router.get("/", listarLivros);
-router.get("/destaques", obterDestaques);          // ← NOVO
-router.get("/:id", obterLivro);
+router.get('/busca', buscarLivros); 
+router.get('/destaques', obterDestaques);
+router.get('/livros/:id', obterLivro);
 router.post("/", criarLivro);
-router.post("/:id/visualizar", registrarVisualizacao); // ← NOVO
+router.post("/:id/visualizar", registrarVisualizacao);
 router.put("/:id", editarLivro);
 router.delete("/:id", deletarLivro);
 

@@ -1,79 +1,120 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8" />
-    <title>Cadastrar Livro</title>
-    <link rel="stylesheet" href="cadastrarLivro.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Livro - Bibliotec</title>
+    <link rel="stylesheet" href="./css/cadastrarLivro.css">
 </head>
+
 <body>
 
-<div class="container">
-
-    <h1>Cadastrar Livro</h1>
-
-    <!-- BLOQUEIO PARA ADM -->
-    <div id="bloqueio" class="bloqueio">
-        <p>Carregando validação...</p>
+    <div id="bloqueio" style="display: none; text-align: center; margin-top: 50px; color: white;">
+        <h2>Acesso Negado</h2>
+        <a href="inicioAdmin.html" style="color: #4facfe;">Voltar para Home</a>
     </div>
 
-    <form id="formLivro">
+    <div class="main-container" id="formContainer">
+        <header>
+            <h1>Cadastrar Novo Livro</h1>
+            <a href="index.html" class="btn-voltar">← Voltar</a>
+        </header>
 
-        <label>Título *</label>
-        <input type="text" id="titulo" required>
+        <form id="formLivro">
+            <div class="form-grid">
+                <div class="coluna-dados">
+                    <div class="input-group">
+                        <label>Título do Livro*</label>
+                        <input type="text" id="titulo" required placeholder="Ex: Dom Casmurro">
+                    </div>
 
-        <label>Autor *</label>
-        <input type="text" id="autor" required>
+                    <div class="row-dupla">
+                        <div class="input-group">
+                            <label>Autor*</label>
+                            <input type="text" id="autor" required placeholder="Nome do Autor">
+                        </div>
+                        <div class="input-group">
+                            <label>Editora</label>
+                            <input type="text" id="editora" placeholder="Nome da Editora">
+                        </div>
+                    </div>
 
-        <label>Gênero</label>
-        <input type="text" id="genero">
+                    <div class="row-tripla">
+                        <div class="input-group">
+                            <label>Gênero</label>
+                            <input type="text" id="genero" placeholder="Ex: Romance">
+                        </div>
+                        <div class="input-group">
+                            <label>Ano</label>
+                            <input type="number" id="ano" placeholder="2024">
+                        </div>
+                        <div class="input-group">
+                            <label>Idioma</label>
+                            <input type="text" id="idioma" value="Português">
+                        </div>
+                    </div>
 
-        <label>Editora</label>
-        <input type="text" id="editora">
+                    <div class="row-dupla">
+                        <div class="input-group">
+                            <label>ISBN</label>
+                            <input type="text" id="isbn" placeholder="Código ISBN">
+                        </div>
+                        <div class="input-group">
+                            <label>Classificação</label>
+                            <select id="classificacao">
+                                <option value="Livre">Livre</option>
+                                <option value="10+">10+</option>
+                                <option value="12+">12+</option>
+                                <option value="14+">14+</option>
+                                <option value="16+">16+</option>
+                                <option value="18+">18+</option>
+                            </select>
+                        </div>
+                    </div>
 
-        <label>Ano de Publicação</label>
-        <input type="number" id="ano_publicacao">
+                    <div class="input-group">
+                        <label>Sinopse</label>
+                        <textarea id="sinopse" rows="4" placeholder="Breve resumo do livro..."></textarea>
+                    </div>
+                </div>
 
-        <label>ISBN</label>
-        <input type="text" id="isbn">
+                <div class="coluna-midia">
+                    <div class="input-group">
+                        <label>URL da Capa (Obrigatório)*</label>
+                        <input type="url" id="caminho_capa" placeholder="Cole o link da imagem aqui" required>
+                    </div>
 
-        <label>Idioma</label>
-        <input type="text" id="idioma">
+                    <div class="input-group">
+                        <label>Formato</label>
+                        <select id="formato">
+                            <option value="Físico">Físico</option>
+                            <option value="E-book">E-book</option>
+                        </select>
+                    </div>
 
-        <label>Formato</label>
-        <input type="text" id="formato">
+                    <div class="checkbox-group">
+                        <label class="switch-label">
+                            <input type="checkbox" id="ativo" checked>
+                            <span class="label-text">Livro Ativo (Visível)</span>
+                        </label>
 
-        <label>Caminho da capa (URL)</label>
-        <input type="text" id="caminho_capa">
+                        <label class="switch-label">
+                            <input type="checkbox" id="destaque">
+                            <span class="label-text">Destaque na Home</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
 
-        <img id="preview" class="preview" style="display:none">
+            <div class="form-footer">
+                <p id="msg" class="mensagem"></p>
+                <button type="submit" class="btn-salvar">Cadastrar Livro</button>
+            </div>
+        </form>
+    </div>
 
-        <label>Classificação</label>
-        <select id="classificacao">
-            <option value="Livre">Livre</option>
-            <option value="+10">+10</option>
-            <option value="+12">+12</option>
-            <option value="+14">+14</option>
-            <option value="+16">+16</option>
-            <option value="+18">+18</option>
-        </select>
-
-        <label>Sinopse</label>
-        <textarea id="sinopse"></textarea>
-
-        <label>Ativo</label>
-        <select id="ativo">
-            <option value="1">Sim</option>
-            <option value="0">Não</option>
-        </select>
-
-        <button type="submit" class="btn">Cadastrar</button>
-    </form>
-
-    <div id="msg"></div>
-
-</div>
-
-<script src="cadastrarLivro.js"></script>
-
+    <script src="./js/cadastrarLivro.js"></script>
 </body>
+
 </html>
