@@ -87,17 +87,82 @@ nomeInput.addEventListener("input", () => {
     nomeInput.value = nomeInput.value.replace(/[^A-Za-zÀ-ÿ\s]/g, "");
 });
 
+// Controlador dinâmico de campos baseado no perfil selecionado
+const perfilSelect = document.getElementById("perfil");
 
+function atualizarCamposBaseadoNoPerfil() {
+    const perfilValue = perfilSelect.value.toLowerCase();
+    
+    // Elementos que aparecem apenas para alunos
+    const dataNascimento = document.getElementById("data_nascimento").closest(".linha_cadastro");
+    const celular = document.getElementById("celular").closest(".linha_cadastro");
+    const curso = document.getElementById("curso").closest(".linha_cadastro");
+    const senhaContainer = document.getElementById("senha").closest(".linha_cadastro");
+    const senhaLabel = document.querySelector('label[for="senha"]');
+    
+    if (perfilValue === "admin") {
+        // Admin: esconde data, celular e curso; MOSTRA senha
+        dataNascimento.style.display = "none";
+        celular.style.display = "none";
+        curso.style.display = "none";
+        senhaContainer.style.display = "flex";
+        
+        // Limpa campos invisíveis
+        document.getElementById("data_nascimento").value = "";
+        document.getElementById("curso").value = "";
+        
+        // Remove asterisco de obrigatoriedade da senha para admin (senha é opcional)
+        const senhaObrigatorio = senhaLabel.querySelector(".obrigatorio");
+        if (senhaObrigatorio) {
+            senhaObrigatorio.style.display = "none";
+        }
+    } else if (perfilValue === "aluno") {
+        // Aluno: mostra data, celular e curso; ESCONDE senha
+        dataNascimento.style.display = "flex";
+        celular.style.display = "flex";
+        curso.style.display = "flex";
+        senhaContainer.style.display = "none";
+        
+        // Limpa campo invisível
+        document.getElementById("senha").value = "";
+        
+        // Mostra asterisco de obrigatoriedade da senha para aluno (mas campo está escondido)
+        const senhaObrigatorio = senhaLabel.querySelector(".obrigatorio");
+        if (senhaObrigatorio) {
+            senhaObrigatorio.style.display = "inline";
+        }
+    } else {
+        // Sem seleção: mostra data, celular e curso; ESCONDE apenas senha
+        dataNascimento.style.display = "flex";
+        celular.style.display = "flex";
+        curso.style.display = "flex";
+        senhaContainer.style.display = "none";
+        
+        // Limpa campo invisível
+        document.getElementById("senha").value = "";
+        
+        const senhaObrigatorio = senhaLabel.querySelector(".obrigatorio");
+        if (senhaObrigatorio) {
+            senhaObrigatorio.style.display = "inline";
+        }
+    }
+}
+
+// Adiciona listener para mudanças no perfil
+perfilSelect.addEventListener("change", atualizarCamposBaseadoNoPerfil);
+
+// Chamar a função no carregamento para esconder campos inicialmente
 document.addEventListener("DOMContentLoaded", () => {
+    atualizarCamposBaseadoNoPerfil();
     const btn = document.getElementById("btnCadastrar");
 
     btn.addEventListener("click", async () => {
 
         // Termos
-        // if (!document.getElementById("termos").checked) {
-        //     alert("Você precisa aceitar os termos antes de continuar.");
-        //     return;
-        // }
+        if (!document.getElementById("termos").checked) {
+            alert("Você precisa aceitar os termos antes de continuar.");
+            return;
+        }
 
         // Coleta valores
         const nome = document.getElementById("nome").value.trim();
@@ -107,13 +172,25 @@ document.addEventListener("DOMContentLoaded", () => {
         const data_nascimento = document.getElementById("data_nascimento").value;
         const celular = document.getElementById("celular").value.trim();
         const curso = document.getElementById("curso").value;
-        const perfil = document.getElementById("perfil") ? document.getElementById("perfil").value : "aluno";
+        const perfil = document.getElementById("perfil") ? document.getElementById("perfil").value : "";
 
         // Validações
+
+        // Nome obrigatório
+        if (!nome) {
+            alert("O nome é obrigatório.");
+            return;
+        }
 
         //  Nome sem números
         if (!/^[A-Za-zÀ-ÿ\s]+$/.test(nome)) {
             alert("O nome não pode conter números ou caracteres inválidos.");
+            return;
+        }
+
+        // CPF obrigatório
+        if (!cpf) {
+            alert("O CPF é obrigatório.");
             return;
         }
 
@@ -124,6 +201,12 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        // Email obrigatório
+        if (!email) {
+            alert("O email é obrigatório.");
+            return;
+        }
+
         //  Email válido
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
@@ -131,21 +214,46 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        //  Senha com mínimo 8 caracteres
-        if (senha.length < 8) {
-            alert("A senha deve ter no mínimo 8 caracteres.");
+        //  Perfil obrigatório
+        if (!perfil) {
+            alert("Selecione um perfil.");
             return;
         }
 
-        //  Curso obrigatório
-        if (!curso) {
-            alert("Selecione um curso.");
-            return;
+        // Normaliza perfil
+        const perfilNormalizado = String(perfil).toLowerCase();
+
+        // Senha obrigatória APENAS para admins; alunos não preenchem senha (campo escondido)
+        if (perfilNormalizado === "admin") {
+            if (!senha) {
+                alert("A senha é obrigatória para Admin.");
+                return;
+            }
+
+            //  Senha com mínimo 8 caracteres
+            if (senha.length < 8) {
+                alert("A senha deve ter no mínimo 8 caracteres.");
+                return;
+            }
         }
 
-        //  Data obrigatória
-        if (!data_nascimento) {
-            alert("Informe sua data de nascimento.");
+        //  Curso e Data obrigatórios APENAS para alunos
+        if (perfilNormalizado === "aluno") {
+            if (!curso) {
+                alert("Selecione um curso.");
+                return;
+            }
+
+            //  Data obrigatória
+            if (!data_nascimento) {
+                alert("Informe sua data de nascimento.");
+                return;
+            }
+        }
+
+        // Celular obrigatório para todos
+        if (!celular) {
+            alert("O celular é obrigatório.");
             return;
         }
 
@@ -179,12 +287,18 @@ document.addEventListener("DOMContentLoaded", () => {
             // Salva o email no localStorage após cadastro bem-sucedido
             console.log("Cadastro realizado com sucesso! Email:", email);
             localStorage.setItem("emailUsuario", email);
+            localStorage.setItem("perfilUsuario", perfil);
             console.log("Email salvo no localStorage:", localStorage.getItem("emailUsuario"));
+            console.log("Perfil salvo no localStorage:", localStorage.getItem("perfilUsuario"));
 
             alert("Usuário cadastrado com sucesso!");
             
-            // Redireciona para a home (inicio.html) mas dados ficam salvos no localStorage
-            window.location.href = "inicio.html";
+            // Redireciona para a página apropriada conforme o perfil
+            if (perfil === "admin") {
+                window.location.href = "inicioAdmin.html";
+            } else {
+                window.location.href = "inicio.html";
+            }
 
         } catch (erro) {
             console.error("Erro na requisição:", erro);

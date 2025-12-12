@@ -1,6 +1,7 @@
 import { db } from "../config/db.js";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
+
 // ============================
 //  Rotas CRUD
 // ============================
@@ -54,53 +55,94 @@ function validarData(dataStr) {
 
 export async function criarUsuario(req, res) {
   try {
-    const { nome, cpf, email, senha, data_nascimento, celular, curso } =
-      req.body;
+    const {
+      nome,
+      cpf,
+      email,
+      senha,
+      data_nascimento,
+      celular,
+      curso,
+      perfil: perfilRecebido,
+    } = req.body;
 
-    // Verifica obrigatórios
-    if (!nome || !email || !senha || !data_nascimento || !cpf || !curso)
+    // Normaliza perfil recebido
+    const perfil = perfilRecebido && String(perfilRecebido).toLowerCase() === "admin" ? "Admin" : "Aluno";
+
+    // Verifica obrigatórios comuns (nome, email, cpf)
+    if (!nome || !email || !cpf) {
       return res.status(400).json({ erro: "Campos obrigatórios" });
+    }
 
-    // Valida data real
-    if (!validarData(data_nascimento)) {
-      return res.status(400).json({ erro: "Data de nascimento inválida!" });
+    // Se for Admin, senha é obrigatória
+    if (perfil === "Admin") {
+      if (!senha) {
+        return res.status(400).json({ erro: "Senha é obrigatória para Admin" });
+      }
+    }
+
+    // Se for usuário comum (Aluno), validar campos específicos
+    if (perfil === "Aluno") {
+      if (!data_nascimento || !curso) {
+        return res.status(400).json({ erro: "Campos obrigatórios para aluno" });
+      }
+
+      // Valida data real
+      if (!validarData(data_nascimento)) {
+        return res.status(400).json({ erro: "Data de nascimento inválida!" });
+      }
     }
 
     // Nome sem números
     if (!/^[A-Za-zÀ-ÿ\s]+$/.test(nome)) {
-      return res
-        .status(400)
-        .json({ erro: "Nome inválido. Use apenas letras." });
+      return res.status(400).json({ erro: "Nome inválido. Use apenas letras." });
     }
 
     // Limpa CPF
-    const cpfLimpo = cpf.replace(/\D/g, "");
+    const cpfLimpo = String(cpf).replace(/\D/g, "");
 
     // Valida CPF matematicamente
     if (!validarCPF(cpfLimpo)) {
       return res.status(400).json({ erro: "CPF inválido!" });
     }
 
-    // Verifica se CPF já existe
-    const [rows] = await db.execute("SELECT cpf FROM usuarios WHERE cpf = ?", [
-      cpfLimpo,
-    ]);
+    // Verifica se CPF ou email já existe em usuarios ou admins
+    const [usuariosCpf] = await db.execute("SELECT cpf FROM usuarios WHERE cpf = ?", [cpfLimpo]);
+    const [adminsCpf] = await db.execute("SELECT cpf FROM admins WHERE cpf = ?", [cpfLimpo]);
 
-    if (rows.length > 0) {
+    if (usuariosCpf.length > 0 || adminsCpf.length > 0) {
       return res.status(400).json({ erro: "CPF já cadastrado!" });
     }
 
+    const [usuariosEmail] = await db.execute("SELECT email FROM usuarios WHERE email = ?", [email]);
+    const [adminsEmail] = await db.execute("SELECT email FROM admins WHERE email = ?", [email]);
+
+    if (usuariosEmail.length > 0 || adminsEmail.length > 0) {
+      return res.status(400).json({ erro: "Email já cadastrado!" });
+    }
+
+    // Se for Admin, insere na tabela admins
+    if (perfil === "Admin") {
+      await db.execute(
+        "INSERT INTO admins (nome, cpf, email, senha, perfil) VALUES (?, ?, ?, ?, ?)",
+        [nome, cpfLimpo, email, senha, perfil]
+      );
+
+      return res.status(201).json({ mensagem: "Admin criado com sucesso!" });
+    }
+
+    // Caso contrário, insere em usuarios
     const celularValue = emptyToNull(celular);
 
     await db.execute(
-      "INSERT INTO usuarios (nome, cpf, email, senha, data_nascimento, celular, curso) VALUES (?, ?, ?, ?, ?, ?, ?)",
-      [nome, cpfLimpo, email, senha, data_nascimento, celularValue, curso]
+      "INSERT INTO usuarios (nome, cpf, email, senha, data_nascimento, celular, curso, perfil) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+      [nome, cpfLimpo, email, senha, data_nascimento, celularValue, curso, perfil]
     );
 
     res.status(201).json({ mensagem: "Usuário criado com sucesso!" });
   } catch (err) {
     if (err.code === "ER_DUP_ENTRY") {
-      return res.status(400).json({ erro: "CPF já está cadastrado!" });
+      return res.status(400).json({ erro: "CPF ou email já está cadastrado!" });
     }
 
     res.status(500).json({ erro: err.message });
