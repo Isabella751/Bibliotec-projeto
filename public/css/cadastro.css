@@ -53,11 +53,6 @@ header {
  
 .logo-cadastro {
     width: 300px;
-    transition: transform 0.2s ease;
-}
-
-.logo-cadastro:hover {
-    transform: scale(1.03); 
 }
 
 .conteudo_principal {
@@ -165,7 +160,7 @@ header {
 }
 
 .entrada_selecao {
-    width: 112%;
+    width: 120%;
     padding: 6.5px 12px;   
     border-radius: 25px;
     font-size: 0.95rem;
@@ -237,7 +232,7 @@ header {
 
 .campo-senha {
     position: relative;
-    width: 127%; 
+    width: 120%; 
     display: flex;
     align-items: center;
 }
@@ -269,14 +264,14 @@ header {
 
 #curso {
     position: relative;
-    width: 123%; 
+    width: 120%; 
     display: flex;
     align-items: center;
 }
 
 #perfil {
     position: relative;
-    width: 123%; 
+    width: 120%; 
     display: flex;
     align-items: center;
 }

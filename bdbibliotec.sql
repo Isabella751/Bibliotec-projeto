@@ -196,7 +196,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `email` varchar(100) NOT NULL,
   `senha` varchar(100) NOT NULL,
   `data_nascimento` date NOT NULL,
-  `celular` varchar(20) NOT NULL,
+  `celular` varchar(20) NULL,
   `curso` varchar(100) NOT NULL,
   `perfil` enum('Aluno') DEFAULT 'Aluno',
   `criado_em` date DEFAULT curdate(),

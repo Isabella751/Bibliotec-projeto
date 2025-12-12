@@ -13,9 +13,7 @@
 <body>
 
     <header class="main-header">
-        <a href="bibliotec.html">
             <img class="logo-cadastro" src="./images/Group 107.svg" width="15%">
-        </a>
 
         <img class="senai-image-cadastro" src="./images/SENAI_logo 1.png" width="10%">
     </header>
@@ -35,6 +33,15 @@
         <form class="formulario_cadastro" id="formCadastro">
 
             <div class="info-cadastro">
+
+                <div class="linha_cadastro">
+                    <label for="perfil" class="rotulo">Perfil: <span class="obrigatorio">*</span></label>
+                    <select id="perfil" class="entrada_selecao">
+                        <option value="" selected disabled>Selecione...</option>
+                        <option value="aluno">Aluno</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
 
                 <div class="linha_cadastro">
                     <label for="nome" class="rotulo">Nome: <span class="obrigatorio">*</span></label>
@@ -75,7 +82,7 @@
                 </div>
 
                 <div class="linha_cadastro">
-                    <label for="celular" class="rotulo">Celular: </label>
+                    <label for="celular" class="rotulo">Celular: <span class="obrigatorio">*</span></label>
                     <input type="tel" id="celular">
                 </div>
 
@@ -135,15 +142,6 @@
                     </select>
                 </div>
 
-                <!-- <div class="linha_cadastro">
-                    <label for="perfil" class="rotulo">Perfil: <span class="obrigatorio">*</span></label>
-                    <select id="perfil" class="entrada_selecao">
-                        <option value="" selected disabled>Selecione...</option>
-                        <option value="aluno">Aluno</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                </div> -->
-
             </div>
 
             <div class="checkbox-container">
@@ -155,14 +153,6 @@
 
             <div class="cadastrarButton">
                 <button type="button" id="btnCadastrar" class="cadastrar">Cadastrar</button>
-            </div>
-
-            <div class="leftPlant">
-                <img src="./images/Folhinha1.png" width="80%">
-            </div>
-
-            <div class="rightPlant">
-                <img src="./images/Folhinha2.png" width="80%">
             </div>
 
         </form>
