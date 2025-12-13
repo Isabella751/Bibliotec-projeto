@@ -291,14 +291,18 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("Email salvo no localStorage:", localStorage.getItem("emailUsuario"));
             console.log("Perfil salvo no localStorage:", localStorage.getItem("perfilUsuario"));
 
-            alert("Usuário cadastrado com sucesso!");
+            // Exibe mensagem de sucesso sem redirecionar
+            alert("Cadastro realizado com sucesso!");
             
-            // Redireciona para a página apropriada conforme o perfil
-            if (perfil === "admin") {
-                window.location.href = "inicioAdmin.html";
-            } else {
-                window.location.href = "inicio.html";
-            }
+            // Limpa o formulário
+            document.getElementById("formCadastro").reset();
+            atualizarCamposBaseadoNoPerfil();
+            
+            // Restaura os asteriscos
+            const asteriscos = document.querySelectorAll(".obrigatorio");
+            asteriscos.forEach(asterisco => {
+                asterisco.style.visibility = "visible";
+            });
 
         } catch (erro) {
             console.error("Erro na requisição:", erro);
