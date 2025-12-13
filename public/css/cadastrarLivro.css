@@ -1,0 +1,129 @@
+/* css/cadastro.css */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #1a1a2e; /* Fundo escuro moderno */
+    color: #fff;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.main-container {
+    background-color: #16213e;
+    width: 100%;
+    max-width: 900px;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #303a52;
+    padding-bottom: 15px;
+}
+
+h1 { margin: 0; font-size: 24px; color: #4facfe; }
+
+.btn-voltar {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 14px;
+}
+.btn-voltar:hover { color: white; }
+
+/* Grid Layout */
+.form-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Esquerda maior, direita menor */
+    gap: 30px;
+}
+
+@media (max-width: 768px) {
+    .form-grid { grid-template-columns: 1fr; } /* Celular: um embaixo do outro */
+}
+
+/* Inputs e Labels */
+.input-group { margin-bottom: 15px; }
+label { display: block; margin-bottom: 5px; font-size: 13px; color: #aeb6bf; }
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    background-color: #0f3460;
+    border: 1px solid #303a52;
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+    box-sizing: border-box; /* Importante para não quebrar o layout */
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #4facfe;
+}
+
+/* Linhas com múltiplos inputs */
+.row-dupla { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.row-tripla { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+
+/* Preview da Imagem */
+.capa-preview {
+    background-color: #0f3460;
+    border: 2px dashed #303a52;
+    border-radius: 8px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.capa-preview img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.capa-preview span { font-size: 12px; color: #555; margin-top: 5px; }
+
+/* Checkboxes */
+.checkbox-group {
+    background: #9bb9dd;
+    padding: 15px;
+    border-radius: 6px;
+}
+.switch-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.switch-label input { width: auto; margin-right: 10px; }
+
+/* Botão Salvar */
+.form-footer { margin-top: 20px; text-align: right; }
+
+.btn-salvar {
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-salvar:hover { transform: scale(1.05); }
+
+.mensagem { float: left; font-size: 14px; margin-top: 10px; }
+
+

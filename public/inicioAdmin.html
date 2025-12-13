@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+    <link rel="stylesheet" href="./css/inicio.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="shortcut icon" href="./images/Group.svg" type="image/x-icon">
+</head>
+
+<body>
+
+    <header class="main-header">
+        <img class="logo-image" src="./images/Group 107.svg" width="15%">
+
+        <form class="busca" method="get">
+
+            <label class="buscarLivro">
+                <input type="search" placeholder="Buscar" name="busca" id="busca">
+                <span class="lupa material-symbols-outlined">search</span>
+            </label>
+
+        </form>
+
+        <img class="senai-image" src="./images/SENAI_logo 1.png" width="10%">
+    </header>
+
+    <div class="category-box">
+        <div class="category-header">
+            <h2>Categorias</h2>
+            <img class="seta-icon" src="./images/setaFechada.png" alt="seta">
+        </div>
+
+        <div class="category-list">
+            <p>Romance</p>
+            <p>Terror</p>
+            <p>Ação</p>
+            <p>Infantil</p>
+            <p>Educacional</p>
+            <p>Fantasia</p>
+        </div>
+    </div>
+
+    <div class="faceDestaques">
+        <div id="destaques">
+            <h2 class="h2_degrade">Livros em Destaque</h2>
+        </div>
+
+        <div id="livros">
+            <!-- Livros carregados automaticamente -->
+        </div>
+
+    </div>
+    </div>
+
+    <div class="left-icons">
+        <img class="filter-icon" src="./images/filtroCategoria.png" alt="Filter">
+        <a href="cadastro.html">
+            <img class="addUser-icon" src="./images/adUsuario.png" alt="addUser"> </a>
+        <a href="bibliotec.html">
+            <img class="exit-icon" src="./images/Sair.png" alt="Exit"> </a>
+    </div>
+
+    <div class="right-icons">
+        <a href="cadastrarLivro.html">
+            <img class="addLivro-icon" src="./images/adLivro.png" alt="addLivro"> </a>
+        <a href="perfil.html">
+            <img class="config-icon" src="./images/Engrenagem.png" alt="config"> </a>
+    </div>
+
+    <div class="linha-right">
+        <img class="linha-right" src="./images/linha.png" alt="linha">
+    </div>
+
+    <footer class="footer-home-container">
+
+        <div class="footer-copy">
+            Bibliotec • © 2025
+        </div>
+
+        <div class="footer-buttons">
+            <button type="button" id="ajuda">Ajuda</button>
+            <a href="termos.html" target="_blank">
+                <button type="button" id="termos">Termos de Uso</button>
+            </a>
+            <button type="button" id="contato">Contato</button>
+        </div>
+
+    </footer>
+
+    <script src="./js/scriptHome.js"></script>
+
+</body>
+
+</html>

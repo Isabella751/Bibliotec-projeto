@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redefinir Senha</title>
+    <link rel="stylesheet" href="./css/redSenha.css">
+    <link rel="shortcut icon" href="./images/Group.svg" type="image/x-icon">
+</head>
+<body>
+
+    <div class="box">
+        <h2>Redefinir Senha</h2>
+
+        <input type="password" id="senha" placeholder="Nova senha">
+        <input type="password" id="confirmar" placeholder="Confirmar senha">
+
+        <button onclick="redefinir()">Salvar Nova Senha</button>
+
+        <p class="msg" id="msg"></p>
+    </div>
+
+<script>
+    async function redefinir() {
+        const senha = document.getElementById("senha").value;
+        const confirmar = document.getElementById("confirmar").value;
+        const msg = document.getElementById("msg");
+
+        // pegar token da URL
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get("token");
+
+        if (!token) {
+            msg.innerHTML = "Token não encontrado!";
+            msg.style.color = "red";
+            return;
+        }
+
+        if (senha.length < 8) {
+            msg.innerHTML = "A senha deve ter pelo menos 8 caracteres.";
+            msg.style.color = "red";
+            return;
+        }
+
+        if (senha !== confirmar) {
+            msg.innerHTML = "As senhas não coincidem!";
+            msg.style.color = "red";
+            return;
+        }
+
+        const resposta = await fetch("http://localhost:3000/redefinir-senha", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token, novaSenha: senha })
+        });
+
+        const dados = await resposta.json();
+
+        if (resposta.ok) {
+            msg.style.color = "green";
+            msg.innerHTML = "Senha alterada com sucesso!";
+
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 2000);
+        } else {
+            msg.style.color = "red";
+            msg.innerHTML = dados.erro;
+        }
+    }
+</script>
+
+</body>
+</html>

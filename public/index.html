@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="shortcut icon" href="./images/Group.svg" type="image/x-icon">
+    <title>Login</title>
+</head>
+
+<body>
+    <header class="main-header">
+        <a href="bibliotec.html">
+            <img class="logo-image" src="./images/Group 107.svg" width="15%">
+        </a>
+    </header>
+
+    <div class="main-container">
+        <div class="content">
+            <h1>Faça o seu login</h1>
+            <div class="social-icons">
+                <a href="https://pt-br.facebook.com/" target="_blank">
+                    <img class="face-icon" src="./images/facebook.png" alt="Facebook"> </a>
+                <a href="https://br.linkedin.com/" target="_blank">
+                    <img class="link-icon" src="./images/linkedin.png" alt="LinkedIn"> </a>
+                <a href="https://accounts.google.com/v3/signin/accountchooser?dsh=S893024233%3A1760702730048842&hl=pt-br&ifkv=AfYwgwWgVCkmfOWEI_zFZTQxfkqwcj0SLwEkiLHP5x3NeGaVVVXdxikWJda4hOB9df2PmMa1GHyR&flowName=GlifWebSignIn&flowEntry=ServiceLogin"
+                    target="_blank">
+                    <img class="google-icon" src="./images/google.png" alt="Google"> </a>
+            </div>
+
+            <h2>Ou use o Email para o cadastro</h2>
+
+            <form class="login" id="form-login">
+                <label>
+                    <input type="email" placeholder="Email" name="email" id="email">
+                </label>
+
+                <div class="campo-senha">
+                    <input type="password" placeholder="Senha" name="senha" id="senha">
+
+                    <div id="capsWarning" class="caps-warning">⚠ Caps Lock ativado</div>
+
+                    <span class="toggle-senha" onclick="mostrarSenha()">
+                        <span class="material-symbols-outlined">visibility</span>
+                    </span>
+                </div>
+
+                <div class="senha">
+                    <a href="senha.html">Esqueceu sua senha?</a>
+                </div>
+
+                <div id="entrar">
+                    <button type="button" id="entrar">Entrar</button>
+                </div>
+            </form>
+
+            <div class="info">
+                <p class="terms">Ao entrar, você concorda com nossos <a href="termos.html" target="_blank">Termos de
+                        Uso</a>.</p>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="carrossel">
+        <div class="carrossel-inner" id="carrossel-inner"></div>
+    </div>
+
+    <script src="./js/script.js"></script>
+
+    <img class="senai-image" src="./images/SENAI_logo 1.png" width="10%">
+
+</body>
+
+</html>

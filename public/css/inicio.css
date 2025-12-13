@@ -1,0 +1,670 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --menta: #E9F0EF;
+    --branco: #ffffff;
+    --verdeAgua: #2fd6cb;
+    --roxoAzulado: #4a67df;
+    --azulEscuro: #26333d;
+    --cinza:#e6e6e6;
+}
+
+@font-face {
+    font-family: "Montserrat-Regular";
+    src: url("Montserrat-Regular.eot?") format("eot"),
+        url("Montserrat-Regular.woff") format("woff"),
+        url("Montserrat-Regular.ttf") format("truetype"),
+        url("Montserrat-Regular.svg#Montserrat-Regular") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Montserrat-Bold";
+    src: url("Montserrat-Bold.eot?") format("eot"), url("Montserrat-Bold.woff") format("woff"), url("Montserrat-Bold.ttf") format("truetype"), url("Montserrat-Bold.svg#Montserrat-Bold") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background-color: var(--menta);
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+    font-family: "Montserrat-Regular", sans-serif;
+    padding-top: 120px;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+html,
+body {
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    margin: 0px;
+    padding: 2px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
+    backdrop-filter: blur(6px);
+}
+
+.main-header .logo-image {
+    width: 15vw;
+    margin: 5px;
+    padding: 19px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.main-header .senai-image{
+    width: 9vw;
+    height: 5vh;
+    margin: 10px;
+    padding: 12px;
+    margin-left: auto;
+    margin-top: 20px;
+}
+
+.main-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    background-color: var(--branco); 
+    transition: box-shadow 0.3s ease;
+    border-bottom-left-radius: 14px;
+    border-bottom-right-radius: 14px;
+}
+
+.main-header.scrolled {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.busca input[type="search"]{
+    width: 67vw;
+    padding: 7px;
+    font-size: 1.1rem;
+    border-radius: 25px;
+    border: 1px solid var(--cinza);
+    margin: 13px 0;
+    margin-right: 0;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 135px;
+    background-color: var(--cinza);
+    outline: none;
+    transition: box-shadow 0 0 12px rgba(74, 103, 223, 0.3), border-color 0.3s ease;
+}
+
+.busca input:focus {
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+    transition: border-color 0.3s ease;
+}
+
+.busca {
+    width: 73vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    height: 15px;
+    transition: border-color 0.3s ease;
+}
+
+.busca label{
+    width: 47vw;
+    display: flex;
+    justify-content: center;
+    transition: border-color 0.3s ease;
+}
+
+.buscarLivro {
+    position: relative;
+    width: 67vw; 
+    transition: border-color 0.3s ease;
+}
+
+.buscarLivro input {
+    width: 100%;
+    padding: 7px 40px 7px 15px;
+    font-size: 1.1rem;
+    border-radius: 25px;
+    border: 1px solid var(--branco);
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
+    transition: border-color 0.3s ease;
+    outline: none;
+}
+
+.buscarLivro input:focus{
+    border-color: var(--roxoAzulado);
+}
+
+.buscarLivro .lupa {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 22px;
+    pointer-events: none;
+    opacity: 0.4;
+    margin-top: 60px;
+}
+
+#destaques{
+    width: 57vw;
+    display: flex;
+    justify-content: flex-start;
+    gap: 58px;
+    margin-top: 80px;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+
+.h2_degrade {
+    font-size: 2.3rem;
+    font-weight: bold;
+    background: linear-gradient(90deg, var(--roxoAzulado), var(--verdeAgua));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+} 
+
+.livro_1, .livro_2, .livro_3, .livro_4, .livro_5, .livro_6, .livro_7, .livro_8, .livro_9, .livro_10,
+.livro_11, .livro_12, .livro_13, .livro_14, .livro_15, .livro_16, .livro_17, .livro_18, .livro_19,
+.livro_20, .livro_21, .livro_22, .livro_23, .livro_24 {
+    position: relative;
+}
+
+.livro_1 .capa1, .livro_2 .capa2, .livro_3 .capa3, .livro_4 .capa4, .livro_5 .capa5, .livro_6 .capa6, .livro_7 .capa7, .livro_8 .capa8, .livro_9 .capa9, .livro_10 .capa10,
+.livro_11 .capa11, .livro_12 .capa12, .livro_13 .capa13, .livro_14 .capa14, .livro_15 .capa15, .livro_16 .capa16, .livro_17 .capa17, .livro_18 .capa18, .livro_19 .capa19, 
+.livro_20 .capa20, .livro_21 .capa21, .livro_22 .capa22, .livro_23 .capa23, .livro_24 .capa24 {
+    margin-top: 30px;
+    width: 6vw;   
+    height: 180px;     
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    color: var(--azulEscuro);
+    font-family: "Montserrat-Regular", sans-serif; 
+    transition: transform 0.2s ease;
+}
+
+.livro_1:hover .capa1:hover, .livro_2:hover .capa2:hover, .livro_3:hover .capa3:hover, .livro_4:hover .capa4:hover, .livro_5:hover .capa5:hover, .livro_6:hover .capa6:hover, 
+.livro_7:hover .capa7:hover, .livro_8:hover .capa8:hover, .livro_9:hover .capa9:hover, .livro_10:hover .capa10:hover, .livro_11:hover .capa11:hover, .livro_12:hover .capa12:hover, 
+.livro_13:hover .capa13:hover, .livro_14:hover .capa14:hover, .livro_15:hover .capa15:hover, .livro_16:hover .capa16:hover, .livro_17:hover .capa17:hover,
+.livro_18:hover .capa18:hover, .livro_19:hover .capa19:hover, .livro_20:hover .capa20:hover, .livro_21:hover .capa21:hover, .livro_22:hover .capa22:hover,
+.livro_23:hover .capa23:hover, .livro_24:hover .capa24:hover {
+    transform: scale(1.03);
+}
+
+.faceDestaques{
+    margin-top: 65px;
+}
+
+#livros{
+    width: 57vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 58px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+
+.left-icons {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 33px;
+    z-index: 999;
+}
+/*  
+.left-icons .addUser-icon{
+    width: 47px;
+} */
+
+.left-icons .exit-icon{
+    width: 57px;
+}
+
+.left-icons .filter-icon{
+    margin-bottom: 636px;
+    width: 44px;
+    margin-left: 14px;
+}
+
+.right-icons {
+    position: fixed;
+    bottom: 20px;  
+    right: 20px;  
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 33px;
+    z-index: 999;
+}
+
+.right-icons .config-icon{
+    width: 44px;
+}
+
+.right-icons .ficha-icon{
+    width: 44px;
+}
+
+.right-icons .resLivro-icon{
+    margin-bottom: 320px;
+    width: 43px;
+}
+
+.right-icons .lidosLivros-icon{
+    width: 44px;
+}
+
+.right-icons .favLivros-icon{
+    width: 44px;
+}
+
+.right-icons .lendoLivros-icon{
+    width: 45px;
+}
+
+.linha-right{
+    position: fixed;
+    bottom: 20px;  
+    right: 80px;  
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    z-index: 999;
+    height: 760px;
+}
+
+.category-box {
+    position: fixed;
+    top: 187px;  
+    left: 100px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transform: scale(1.25);
+    transform-origin: top center;
+}
+
+.category-header {
+    display: inline-flex; 
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    width: fit-content;  
+}
+
+.category-header .h2{
+    width: 64px;
+}
+
+.seta-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+}
+
+.category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: var(--branco);
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 10px;
+    transition: all 0.35s cubic-bezier(0.25, 0.1, 0.25, 1.25);
+}
+
+.category-box.open .category-list {
+    opacity: 1;
+    max-height: 300px;
+    padding: 8px 10px;
+}
+
+.category-box.open .seta-icon {
+    transform: rotate(180deg);
+}
+
+.category-header h2 {
+    font-size: 1.2rem;   
+}
+
+.category-list p {
+    cursor: pointer;
+    padding: 2px 3px;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+}
+
+.category-list p:hover {
+    color: var(--verdeAgua);
+    font-weight: bold;
+    background: rgba(47, 214, 203, 0.15);
+    transform: translateX(3px);
+}
+
+/* ========================================= CSS LIMPO ========================================== */
+
+footer {
+    margin-top: 50px;
+    height: 50px;
+    background-color: var(--azulEscuro);
+    padding:16px 22px;
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+}
+
+#ajuda, #termos, #contato {
+    border:none;
+    color:var(--azulEscuro);
+    cursor:pointer;
+    border-radius: 8px;
+    background-color: #75ebe3;
+    width: 110px;
+    height: 35px;
+    gap: 25px;
+}
+
+footer.footer-home-container {
+    margin-top: 80px;
+    background-color: var(--azulEscuro);
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 -4px 18px rgba(0,0,0,0.15);
+}
+
+.footer-copy {
+    font-size: 0.9rem;
+    color: #cefcf9;
+}
+
+.footer-buttons {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.footer-buttons button {
+    border: none;
+    color: var(--azulEscuro);
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: #cefcf9;
+    width: 120px;
+    height: 38px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all .25s ease;
+}
+
+.footer-buttons button:hover {
+    background-color: var(--verdeAgua);
+    transform: translateY(-2px);
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.25);
+}
+
+.left-icons,
+.right-icons {
+    transition: transform .4s ease;
+}
+
+/* Sai para esquerda */
+.hide-left {
+    transform: translateX(-120px);
+}
+
+/* Sai para direita */
+.hide-right {
+    transform: translateX(120px);
+}
+
+/* ====== ANIMAÇÃO PARA A CATEGORY-BOX ====== */
+.category-box {
+    transition: transform .4s ease;
+}
+
+.hide-category {
+    transform: translateX(-240px);  /* ajustável */
+}
+
+/* ====== ANIMAÇÃO PARA A LINHA-RIGHT ====== */
+.linha-right {
+    transition: transform .4s ease;
+}
+
+.hide-line {
+    transform: translateX(190px); /* ajustável */
+}
+
+.fav {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 26px;
+    display: block;
+    cursor: pointer;
+    transition: transform .25s ease;
+    z-index: 9999;
+}
+
+.fav:hover {
+    transform: scale(1.12);
+}
+
+.fav.active {
+    transform: scale(1.25);
+}
+
+
+.sem-livros, .erro-livros {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-size: 1.2rem;
+}
+
+.erro-livros button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.erro-livros button:hover {
+    background-color: #0056b3;
+}
+
+.badge-views {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    z-index: 10;
+}
+
+
+/* ============================
+   ESTILO DO MODAL
+============================ */
+.modal-container {
+    display: none; /* Começa escondido */
+    position: fixed;
+    z-index: 1000; /* Fica na frente de tudo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fundo preto transparente */
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px); /* Efeito de desfoque no fundo */
+}
+
+.modal-content {
+    background-color: #fff;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    animation: aparecer 0.3s ease-out;
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fechar-modal {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.fechar-modal:hover {
+    color: #e74c3c;
+}
+
+.modal-body {
+    display: flex;
+    gap: 30px;
+    margin-top: 10px;
+}
+
+/* Responsivo para celular: Um embaixo do outro */
+@media (max-width: 700px) {
+    .modal-body { flex-direction: column; }
+    .modal-imagem { text-align: center; }
+    .modal-imagem img { max-width: 150px; }
+}
+
+.modal-imagem {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-imagem img {
+    width: 100%;
+    max-width: 250px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.status-badge {
+    margin-top: 10px;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: #27ae60; /* Verde */
+}
+
+.modal-info {
+    flex: 2;
+    color: #333; /* Texto escuro para leitura */
+}
+
+.modal-info h2 { margin-top: 0; color: #2c3e50; font-size: 24px; }
+.modal-info h3 { margin-top: 5px; color: #7f8c8d; font-size: 18px; font-weight: normal; }
+
+.modal-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 20px 0;
+    font-size: 14px;
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.modal-sinopse h4 { margin-bottom: 5px; color: #34495e; }
+.modal-sinopse p { 
+    font-size: 14px; 
+    line-height: 1.6; 
+    color: #555; 
+    max-height: 150px; 
+    overflow-y: auto; /* Rolagem se o texto for grande */
+}
+
+.btn-reservar {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-reservar:hover { background-color: #2980b9; }
+
+
+/* ============================
+   PADRONIZAÇÃO DAS CAPAS
+============================ */
+#livros div img {
+    width: 100%;           /* Largura total do card */
+    height: 300px;         /* ALTURA FIXA (Mude para 250px ou 350px se preferir) */
+    object-fit: cover;     /* A MÁGICA: Corta o excesso sem esticar/deformar */
+    object-position: top;  /* Prioriza mostrar o topo da capa (título) */
+    border-radius: 5px;    /* Cantos arredondados */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3); /* Sombra suave */
+}
