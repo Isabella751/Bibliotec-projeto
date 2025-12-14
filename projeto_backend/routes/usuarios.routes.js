@@ -1,3 +1,5 @@
+// usuarios.routes.js
+
 import express from "express"
 import {
     criarUsuario,
@@ -5,15 +7,24 @@ import {
     atualizarUsuario,
     obterUsuario,
     obterUsuarioPorEmail,
-    deletarUsuario
+    deletarUsuario,
+    // NOVO: Importar a função de definição de senha
+    definirSenhaPorToken 
 } from "../controllers/usuarios.controller.js"; 
 
 const router = express.Router();
 
 router.get("/", listarUsuarios);
-router.get("/email/:email", obterUsuarioPorEmail);  // ANTES de /:id para evitar conflito
+router.get("/email/:email", obterUsuarioPorEmail);
 router.get("/:id", obterUsuario);
+
+// Rotas de Ação
 router.post("/", criarUsuario);
+
+// NOVO: Rota para concluir o cadastro/definir a senha
+// O endpoint deve ser '/definir-senha'
+router.post("/definir-senha", definirSenhaPorToken); 
+
 router.put("/:id", atualizarUsuario);
 router.delete("/:id", deletarUsuario);
 

@@ -36,6 +36,9 @@ app.use("/login", loginRoutes);
 app.use("/senha", redSenha);
 app.use("/admins", adminRoutes);
 
+// server.js (trecho relevante)
+app.use("/usuarios", usuariosRoutes);
+
 // Rota principal
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'bibliotec.html'));
