@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (response.ok) {
                     if(msg) {
-                        msg.style.color = "#00ff88"; 
+                        msg.style.color = "#4a67df"; 
                         msg.textContent = "Livro cadastrado com sucesso!";
                     }
                     formLivro.reset(); 
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } catch (error) {
                 console.error(error);
                 if(msg) {
-                    msg.style.color = "#ff4d4d";
+                    msg.style.color = "#fd0000ff";
                     msg.textContent = "Erro: " + error.message;
                 }
             } finally {

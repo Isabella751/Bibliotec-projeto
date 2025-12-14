@@ -57,11 +57,11 @@ export async function criarLivro(req, res) {
 
         // 4. Inserção no Banco (Adicionado campo 'destaque')
         await db.execute(
-            `INSERT INTO livros 
-            (titulo, autor, genero, editora, ano_publicacao, isbn, idioma, formato, caminho_capa, classificacao, sinopse, ativo, destaque)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-            values
-        );
+    `INSERT INTO livros 
+    (titulo, autor, genero, editora, ano_publicacao, isbn, idioma, formato, caminho_capa, classificacao, sinopse, ativo, destaque, visualizacoes)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)`, 
+    values
+);
 
         return res.status(201).json({ mensagem: "Livro cadastrado com sucesso!" });
 
@@ -211,13 +211,19 @@ export async function registrarVisualizacao(req, res) {
     }
 }
 
+// livros.controller.js (Aproximadamente Linha 245)
+
 export async function obterDestaques(req, res) {
     try {
-        const limite = req.query.limite || 24; // Quantidade de destaques
+        const limite = req.query.limite || 24; // Quantidade máxima de destaques a exibir
 
+        // -----------------------------------------------------
+        // MODIFICAÇÃO CHAVE AQUI: Adicionamos a condição visualizacoes >= 10
+        // -----------------------------------------------------
         const [rows] = await db.execute(
             `SELECT * FROM livros 
-             WHERE ativo = 1 OR ativo IS NULL
+             WHERE (ativo = 1 OR ativo IS NULL) 
+             AND visualizacoes >= 10 
              ORDER BY visualizacoes DESC, ultima_visualizacao DESC
              LIMIT ?`,
             [parseInt(limite)]

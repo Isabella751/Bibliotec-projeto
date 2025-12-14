@@ -1,21 +1,30 @@
-/* css/cadastro.css */
+:root{
+      --menta:#E9F0EF;
+      --branco:#ffffff;
+      --azulEscuro:#26333D;
+      --roxoAzulado: #4a67df;
+      --verdeAgua:#2FD6CB;
+      --cinza:#6b7780;
+ }   
+
 body {
     font-family: 'Segoe UI', sans-serif;
-    background-color: #1a1a2e; /* Fundo escuro moderno */
-    color: #fff;
-    margin: 0;
-    padding: 20px;
+    background-color: var(--menta);
+    margin: 0; 
+    padding: 0;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center; 
 }
 
 .main-container {
-    background-color: #16213e;
+    background-color: #5de6dc;
     width: 100%;
     max-width: 900px;
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    margin-bottom: 5%;
 }
 
 header {
@@ -23,18 +32,48 @@ header {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
-    border-bottom: 1px solid #303a52;
+    border-bottom: 1px solid #707070;
     padding-bottom: 15px;
 }
 
-h1 { margin: 0; font-size: 24px; color: #4facfe; }
+.main-header .logo-image {
+    width: 15vw;
+    margin: 5px;
+    padding: 19px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.main-header .senai-image{
+    width: 9vw;
+    height: 5vh;
+    margin: 10px;
+    padding: 12px;
+    margin-left: auto;
+    margin-top: 20px;
+}
+
+.main-header {
+    width: 100%;
+    border: none;
+}
+
+h1 { margin: 0;
+    font-size: 24px;
+    background: linear-gradient(90deg, var(--roxoAzulado), #17ada3);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
 .btn-voltar {
-    color: #ccc;
+    color: var(--roxoAzulado);
     text-decoration: none;
     font-size: 14px;
 }
-.btn-voltar:hover { color: white; }
+.btn-voltar:hover { 
+    color: white; 
+}
 
 /* Grid Layout */
 .form-grid {
@@ -48,16 +87,24 @@ h1 { margin: 0; font-size: 24px; color: #4facfe; }
 }
 
 /* Inputs e Labels */
-.input-group { margin-bottom: 15px; }
-label { display: block; margin-bottom: 5px; font-size: 13px; color: #aeb6bf; }
+.input-group { 
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 13px;
+    color: #000000;
+}
 
 input, select, textarea {
     width: 100%;
     padding: 10px;
-    background-color: #0f3460;
-    border: 1px solid #303a52;
-    border-radius: 6px;
-    color: white;
+    background-color: #ffffff;
+    border-radius: 25px;
+    color: rgb(0, 0, 0);
+    border: none;
     font-size: 14px;
     box-sizing: border-box; /* Importante para não quebrar o layout */
 }
@@ -68,8 +115,16 @@ input:focus, textarea:focus {
 }
 
 /* Linhas com múltiplos inputs */
-.row-dupla { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-.row-tripla { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+.row-dupla {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+.row-tripla { 
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px; 
+}
 
 /* Preview da Imagem */
 .capa-preview {
@@ -91,11 +146,15 @@ input:focus, textarea:focus {
     object-fit: contain;
 }
 
-.capa-preview span { font-size: 12px; color: #555; margin-top: 5px; }
+.capa-preview span { 
+    font-size: 12px;
+    color: #555; 
+    margin-top: 5px; 
+}
 
 /* Checkboxes */
 .checkbox-group {
-    background: #9bb9dd;
+    background: var(--menta);
     padding: 15px;
     border-radius: 6px;
 }
@@ -105,13 +164,19 @@ input:focus, textarea:focus {
     margin-bottom: 10px;
     cursor: pointer;
 }
-.switch-label input { width: auto; margin-right: 10px; }
+.switch-label input { 
+    width: auto; 
+    margin-right: 10px;
+}
 
 /* Botão Salvar */
-.form-footer { margin-top: 20px; text-align: right; }
+.form-footer {
+    margin-top: 20px;
+    text-align: right; 
+}
 
 .btn-salvar {
-    background: linear-gradient(to right, #4facfe, #00f2fe);
+    background: linear-gradient(135deg, #17ada3, var(--roxoAzulado));
     color: white;
     padding: 12px 30px;
     border: none;
@@ -122,8 +187,12 @@ input:focus, textarea:focus {
     transition: transform 0.2s;
 }
 
-.btn-salvar:hover { transform: scale(1.05); }
+.btn-salvar:hover { 
+    transform: scale(1.05); 
+}
 
-.mensagem { float: left; font-size: 14px; margin-top: 10px; }
-
-
+.mensagem { 
+    float: left;
+    font-size: 14px; 
+    margin-top: 10px;
+}
