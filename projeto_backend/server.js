@@ -36,6 +36,7 @@ app.use("/login", loginRoutes);
 app.use("/senha", redSenha);
 app.use("/admins", adminRoutes);
 
+
 // server.js (trecho relevante)
 app.use("/usuarios", usuariosRoutes);
 
