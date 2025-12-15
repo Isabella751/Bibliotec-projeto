@@ -185,12 +185,13 @@ header {
 }
 
 .h2_degrade {
-    font-size: 2.3rem;
+    font-size: 4.0rem;
     font-weight: bold;
     background: linear-gradient(90deg, var(--roxoAzulado), var(--verdeAgua));
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    margin-bottom: 40px;
 }
 
 .faceDestaques {
@@ -198,6 +199,7 @@ header {
 }
 
 #livros {
+    height: 100%;
     width: 57vw;
     display: flex;
     align-items: center;
@@ -357,7 +359,7 @@ footer {
     padding: 16px 22px;
     display: flex;
     justify-content: space-between;
-    align-items: center; 
+    align-items: center;
 }
 
 
@@ -509,6 +511,47 @@ footer.footer-home-container {
 /* ============================
    ESTILO DO MODAL
 ============================ */
+
+#livros {
+    display: grid;
+    /* Isso aqui é a mágica: cria colunas que têm no mínimo 200px e no máximo o que der (1fr) */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    /* Espaço entre os livros */
+    width: 100%;
+    padding: 20px;
+}
+
+#livros {
+    display: grid;
+    /* O comando abaixo cria EXATAMENTE 3 colunas */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    /* Aumentei o espaço entre eles para ficar mais bonito */
+    width: 100%;
+    padding: 20px;
+
+    /* Opcional: limita a largura total para não ficar gigante em monitores ultrawide */
+    max-width: 1200px;
+    margin: 0 auto;
+    /* Centraliza o grid na tela */
+}
+
+.livro:hover {
+    transform: translateY(-5px);
+    /* Sobe um pouquinho quando passa o mouse */
+}
+
+.livro img {
+    width: 100%;
+    /* Aumente aqui para o tamanho que você quer. 400px ou 450px fica bem grande. */
+    height: 100%;
+    object-fit: cover;
+    /* Garante que a imagem não estique/deforme */
+    border-radius: 10px 10px 0 0;
+    /* Arredonda só em cima */
+}
+
 .modal-container {
     display: none;
     /* Começa escondido */
@@ -537,15 +580,18 @@ footer.footer-home-container {
     position: relative;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     animation: aparecer 0.3s ease-out;
-    
+
     /* Permite que o conteúdo verticalmente */
-    max-height: 90vh; /* Limita a altura máxima para 90% da tela */
-    overflow-y: auto; /* Adiciona barra de rolagem se o conteúdo ultrapassar 90vh */
-    
+    max-height: 90vh;
+    /* Limita a altura máxima para 90% da tela */
+    overflow-y: auto;
+    /* Adiciona barra de rolagem se o conteúdo ultrapassar 90vh */
+
     /* Garante que o conteúdo (body e formulário) fiquem em coluna */
     display: flex;
     flex-direction: column;
 }
+
 /* ---------------------------------------------------- */
 
 @keyframes aparecer {
@@ -580,7 +626,7 @@ footer.footer-home-container {
     gap: 30px;
     margin-top: 10px;
     /* Adicionado para garantir que o body não empurre a seção de reserva */
-    width: 100%; 
+    width: 100%;
 }
 
 /* Responsivo para celular: Um embaixo do outro */
@@ -684,25 +730,6 @@ footer.footer-home-container {
     background-color: #2980b9;
 }
 
-
-/* ============================
-   PADRONIZAÇÃO DAS CAPAS
-============================ */
-#livros div img {
-    width: 100%;
-    /* Largura total do card */
-    height: 100%;
-    /* ALTURA FIXA (Mude para 250px ou 350px se preferir) */
-    object-fit: cover;
-    /* A MÁGICA: Corta o excesso sem esticar/deformar */
-    object-position: top;
-    /* Prioriza mostrar o topo da capa (título) */
-    border-radius: 5px;
-    /* Cantos arredondados */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    /* Sombra suave */
-}
-
 /* ==================================== */
 /* ESTILOS PARA O MODAL DE RESERVA */
 /* ==================================== */
@@ -732,13 +759,14 @@ footer.footer-home-container {
 /* Container do formulário para destaque */
 .modal-reserva-form {
     /* 🛑 CORREÇÃO: Garante 100% de largura dentro do modal-content flex-column */
-    width: 100%; 
+    width: 100%;
     border-top: 2px solid #ccc;
     margin-top: 20px;
     padding: 20px;
     background-color: #f7f7f7;
     border-radius: 5px;
-    box-sizing: border-box; /* Adicionado para incluir padding no cálculo da largura */
+    box-sizing: border-box;
+    /* Adicionado para incluir padding no cálculo da largura */
 }
 
 .modal-reserva-form h4 {
@@ -776,3 +804,66 @@ footer.footer-home-container {
     box-sizing: border-box;
     /* Garante que padding não estoure a largura */
 }
+
+/* No final do arquivo css/inicio.css */
+@media (max-width: 768px) {
+    #livros {
+        /* No celular, muda para 1 coluna só */
+        grid-template-columns: 1fr;
+    }
+
+    .livro img {
+        /* No celular a imagem pode ser um pouco menor */
+        height: 350px;
+    }
+}
+
+
+
+/* RESPONSIVIDADE */
+@media (max-width: 1200px) {
+    #livros {
+        grid-template-columns: 1fr 1fr !important;
+        /* 2 colunas */
+        max-width: 1000px !important;
+    }
+
+    .livro img {
+        height: 500px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    #livros {
+        grid-template-columns: 1fr !important;
+        /* 1 coluna */
+        padding: 0 20px !important;
+        gap: 20px !important;
+    }
+
+    .livro img {
+        height: 400px !important;
+    }
+}
+
+.capa-container {
+    position: relative;
+    width: 70%;
+    margin: 0 auto;
+    height: 50%;
+}
+
+.livro img {
+    height: 400px !important;
+}
+
+#catalogo {
+    width: 57vw;
+    display: flex;
+    justify-content: flex-start;
+    gap: 58px;
+    margin-top: 80px;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+
