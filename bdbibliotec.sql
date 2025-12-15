@@ -224,8 +224,7 @@ INSERT INTO `usuarios` (`id`, `nome`, `cpf`, `email`, `senha`, `data_nascimento`
 	(9, 'Vitor Pimentel', '33575843791', 'vitorpimentel@gmail.com', 'vitor1234', '2009-05-04', '(55) 46754-7457', 'Técnico em Eletrônica', 'Aluno', NULL, NULL, '2025-12-08', 0, 0, NULL, NULL),
 	(13, 'Lorena Marques da Silva', '50125092857', 'llomarques1103@gmail.com', '12345678', '2007-03-11', '(11) 96783-0824', 'Técnico em Desenvolvimento de Sistemas', 'Aluno', NULL, NULL, '2025-12-09', 0, 0, NULL, NULL),
 	(19, 'Nicolly Nicastro', '45754165099', 'nickk45@gmail.com', 'nicastrocolly', '2008-05-05', '(11) 96723-3452', 'Técnico em Desenvolvimento de Sistemas', 'Aluno', NULL, NULL, '2025-12-12', 0, 0, NULL, NULL),
-	(21, 'Gabriel Lopes da Silva', '56367925066', 'gabriel0w0@yahoo.com', '12345678', '2006-04-23', NULL, 'Técnico em Desenvolvimento de Sistemas', 'Aluno', NULL, NULL, '2025-12-12', 0, 0, NULL, NULL),
-	(44, 'Isabella Leite dos Santos', '58049866866', 'isabella.leite562@gmail.com', NULL, '2009-02-09', NULL, 'Técnico em Desenvolvimento de Sistemas', 'Aluno', '712e3299b845b9113901c01fb1b7b4d8a83cb9bf', '2025-12-14 19:25:52', '2025-12-14', 0, 0, NULL, NULL);
+	(21, 'Gabriel Lopes da Silva', '56367925066', 'gabriel0w0@yahoo.com', '12345678', '2006-04-23', NULL, 'Técnico em Desenvolvimento de Sistemas', 'Aluno', NULL, NULL, '2025-12-12', 0, 0, NULL, NULL)
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
