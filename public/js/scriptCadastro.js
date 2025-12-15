@@ -1,5 +1,85 @@
-document.addEventListener("DOMContentLoaded", () => {
+// A função auxiliar getQueryParams não é mais necessária, mas mantemos ela aqui por precaução se outras partes do seu código usarem.
+function getQueryParams() {
+    const params = {};
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    for (const [key, value] of urlParams.entries()) {
+        params[key] = value;
+    }
+    return params;
+}
 
+// ==========================================================
+// FUNÇÃO CENTRAL DE CONTROLE DE CAMPOS E PERFIL
+// ==========================================================
+const perfilSelect = document.getElementById("perfil");
+
+function atualizarCamposBaseadoNoPerfil() {
+    if (!perfilSelect) return;
+    
+    // Pega o valor, tratando 'null' ou 'undefined' como vazio
+    const perfilValue = perfilSelect.value ? perfilSelect.value.toLowerCase() : '';
+
+    // Elementos dependentes do perfil
+    const dataNascimento = document.getElementById("data_nascimento") ? document.getElementById("data_nascimento").closest(".linha_cadastro") : null;
+    const celular = document.getElementById("celular") ? document.getElementById("celular").closest(".linha_cadastro") : null;
+    const curso = document.getElementById("curso") ? document.getElementById("curso").closest(".linha_cadastro") : null;
+    
+    // Elementos de Senha e Celular (Regras gerais)
+    const senhaContainer = document.getElementById("senha") ? document.getElementById("senha").closest(".linha_cadastro") : null;
+    const senhaLabel = document.querySelector('label[for="senha"]');
+    const senhaObrigatorio = senhaLabel ? senhaLabel.querySelector(".obrigatorio") : null;
+
+    // 1. CELULAR (sempre escondido)
+    if (celular) {
+        celular.style.display = "none";
+        document.getElementById("celular").value = "";
+    }
+    const celularObrigatorio = document.querySelector('label[for="celular"] .obrigatorio');
+    if (celularObrigatorio) {
+        celularObrigatorio.style.display = "none";
+    }
+
+    // 2. SENHA (sempre visível e obrigatória)
+    if (senhaContainer) senhaContainer.style.display = "flex";
+    if (senhaObrigatorio) senhaObrigatorio.style.display = "inline";
+
+    // 3. CAMPOS ESPECÍFICOS DE ALUNO (Data e Curso)
+
+    if (perfilValue === "admin") {
+        // Admin: esconde data, curso.
+        if (dataNascimento) dataNascimento.style.display = "none";
+        if (curso) curso.style.display = "none";
+        
+        // Limpa campos invisíveis para não enviar dados inválidos
+        if (document.getElementById("data_nascimento")) document.getElementById("data_nascimento").value = "";
+        if (document.getElementById("curso")) document.getElementById("curso").value = "";
+
+    } else {
+        // Aluno OU Perfil vazio (Valor inicial 'Selecione...'): mostra data, curso.
+        if (dataNascimento) dataNascimento.style.display = "flex";
+        if (curso) curso.style.display = "flex";
+    }
+}
+
+// Adiciona listener para mudanças no perfil
+if (perfilSelect) {
+    perfilSelect.addEventListener("change", atualizarCamposBaseadoNoPerfil);
+}
+// ==========================================================
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // A lógica de visibilidade do perfil foi removida. O campo estará sempre visível.
+
+    const perfilContainer = document.getElementById("perfil-container");
+    const perfilSelect = document.getElementById("perfil");
+
+    // O campo de perfil deve ter o estado inicial correto (mostrando data/curso se 'Selecione...' ou 'Aluno' estiver selecionado)
+    atualizarCamposBaseadoNoPerfil();
+
+    // --- Lógica de asteriscos e validação visual de campos ---
     const campos = document.querySelectorAll(".info-cadastro input, .info-cadastro select");
 
     campos.forEach(campo => {
@@ -12,171 +92,97 @@ document.addEventListener("DOMContentLoaded", () => {
             if (campo.value.trim() !== "") {
                 asterisco.style.visibility = "hidden";
             } else {
-                asterisco.style.visibility = "visible";
+                // Não mostra o asterisco se o campo estiver escondido
+                const linhaCadastro = campo.closest(".linha_cadastro");
+                
+                // Verifica se a linha não está escondida
+                const isHidden = linhaCadastro.style.display === 'none' || 
+                                 linhaCadastro.style.visibility === 'hidden';
+
+                if (!isHidden) {
+                     asterisco.style.visibility = "visible";
+                }
             }
         });
     });
 
-});
+    // --- O restante do script (máscaras, finalização e envio de dados) ---
 
-const senhaInput = document.getElementById("senha");
-const toggleSenha = document.getElementById("toggleSenha");
+    const senhaInput = document.getElementById("senha");
+    const toggleSenha = document.getElementById("toggleSenha");
 
-if (toggleSenha && senhaInput) {
-    toggleSenha.addEventListener("click", () => {
-        const tipoAtual = senhaInput.getAttribute("type");
+    if (toggleSenha && senhaInput) {
+        toggleSenha.addEventListener("click", () => {
+            const tipoAtual = senhaInput.getAttribute("type");
 
-        if (tipoAtual === "password") {
-            senhaInput.setAttribute("type", "text");
-            toggleSenha.textContent = "visibility_off";
-        } else {
-            senhaInput.setAttribute("type", "password");
-            toggleSenha.textContent = "visibility";
-        }
-    });
-}
-
-const celularInput = document.getElementById("celular");
-if (celularInput) {
-    celularInput.addEventListener("input", function (e) {
-        let valor = e.target.value;
-
-        valor = valor.replace(/\D/g, "");
-
-        if (valor.length > 11) valor = valor.slice(0, 11);
-
-        let formatado = "";
-
-        if (valor.length > 0) formatado = "(" + valor.substring(0, 2);
-        if (valor.length >= 3) formatado += ") " + valor.substring(2, 7);
-        if (valor.length >= 8) formatado += "-" + valor.substring(7, 11);
-
-        e.target.value = formatado;
-    });
-}
-
-
-const cpfInput = document.getElementById("cpf");
-if (cpfInput) {
-    cpfInput.addEventListener("input", function (e) {
-        let valor = e.target.value;
-
-        valor = valor.replace(/\D/g, "");
-
-        if (valor.length > 11) valor = valor.slice(0, 11);
-
-        let formatado = "";
-
-        if (valor.length > 0) formatado = valor.substring(0, 3);
-        if (valor.length >= 4) formatado += "." + valor.substring(3, 6);
-        if (valor.length >= 7) formatado += "." + valor.substring(6, 9);
-        if (valor.length >= 10) formatado += "-" + valor.substring(9, 11);
-
-        e.target.value = formatado;
-    });
-}
-
-
-function finalizarCadastro() {
-
-    if (window.opener && !window.opener.closed) {
-        window.opener.location.href = "inicio.html";
+            if (tipoAtual === "password") {
+                senhaInput.setAttribute("type", "text");
+                toggleSenha.textContent = "visibility_off";
+            } else {
+                senhaInput.setAttribute("type", "password");
+                toggleSenha.textContent = "visibility";
+            }
+        });
     }
 
-    window.close();
-}
+    const celularInput = document.getElementById("celular");
+    if (celularInput) {
+        celularInput.addEventListener("input", function (e) {
+            let valor = e.target.value;
 
-// Impedir números no campo nome
-const nomeInput = document.getElementById("nome");
-if (nomeInput) {
-    nomeInput.addEventListener("input", () => {
-        nomeInput.value = nomeInput.value.replace(/[^A-Za-zÀ-ÿ\s]/g, "");
-    });
-}
+            valor = valor.replace(/\D/g, "");
 
+            if (valor.length > 11) valor = valor.slice(0, 11);
 
-// Controlador dinâmico de campos baseado no perfil selecionado
-const perfilSelect = document.getElementById("perfil");
+            let formatado = "";
 
-function atualizarCamposBaseadoNoPerfil() {
-    if (!perfilSelect) return;
-    
-    const perfilValue = perfilSelect.value.toLowerCase();
+            if (valor.length > 0) formatado = "(" + valor.substring(0, 2);
+            if (valor.length >= 3) formatado += ") " + valor.substring(2, 7);
+            if (valor.length >= 8) formatado += "-" + valor.substring(7, 11);
 
-    // Elementos
-    const dataNascimento = document.getElementById("data_nascimento") ? document.getElementById("data_nascimento").closest(".linha_cadastro") : null;
-    const celular = document.getElementById("celular") ? document.getElementById("celular").closest(".linha_cadastro") : null;
-    const curso = document.getElementById("curso") ? document.getElementById("curso").closest(".linha_cadastro") : null;
-    const senhaContainer = document.getElementById("senha") ? document.getElementById("senha").closest(".linha_cadastro") : null;
-    const senhaLabel = document.querySelector('label[for="senha"]');
-    const celularLabel = document.querySelector('label[for="celular"]');
-    
-    // REQUISITO ATENDIDO: Celular não é pedido para Admin e Aluno.
-    if (celular) {
-        celular.style.display = "none";
-        document.getElementById("celular").value = "";
-    }
-    
-    // Remove o asterisco de obrigatoriedade do celular (se existir)
-    const celularObrigatorio = celularLabel ? celularLabel.querySelector(".obrigatorio") : null;
-    if (celularObrigatorio) {
-        celularObrigatorio.style.display = "none";
+            e.target.value = formatado;
+        });
     }
 
-    if (perfilValue === "admin") {
-        // Admin: esconde data, curso. MOSTRA senha.
-        if (dataNascimento) dataNascimento.style.display = "none";
-        if (curso) curso.style.display = "none";
-        if (senhaContainer) senhaContainer.style.display = "flex";
 
-        // Limpa campos invisíveis
-        if (document.getElementById("data_nascimento")) document.getElementById("data_nascimento").value = "";
-        if (document.getElementById("curso")) document.getElementById("curso").value = "";
+    const cpfInput = document.getElementById("cpf");
+    if (cpfInput) {
+        cpfInput.addEventListener("input", function (e) {
+            let valor = e.target.value;
 
-        // Mostra o asterisco da senha
-        const senhaObrigatorio = senhaLabel ? senhaLabel.querySelector(".obrigatorio") : null;
-        if (senhaObrigatorio) {
-            senhaObrigatorio.style.display = "inline";
-        }
-    } else if (perfilValue === "aluno") {
-        // Aluno: mostra data, curso. ESCONDE senha.
-        if (dataNascimento) dataNascimento.style.display = "flex";
-        if (curso) curso.style.display = "flex";
-        if (senhaContainer) senhaContainer.style.display = "none";
+            valor = valor.replace(/\D/g, "");
 
-        // Limpa campo invisível
-        if (document.getElementById("senha")) document.getElementById("senha").value = "";
+            if (valor.length > 11) valor = valor.slice(0, 11);
 
-        // Mostra o asterisco da senha (embora o campo esteja escondido)
-        const senhaObrigatorio = senhaLabel ? senhaLabel.querySelector(".obrigatorio") : null;
-        if (senhaObrigatorio) {
-            senhaObrigatorio.style.display = "inline";
-        }
-    } else {
-        // Sem seleção: mostra data, curso. ESCONDE senha.
-        if (dataNascimento) dataNascimento.style.display = "flex";
-        if (curso) curso.style.display = "flex";
-        if (senhaContainer) senhaContainer.style.display = "none";
+            let formatado = "";
 
-        // Limpa campo invisível
-        if (document.getElementById("senha")) document.getElementById("senha").value = "";
+            if (valor.length > 0) formatado = valor.substring(0, 3);
+            if (valor.length >= 4) formatado += "." + valor.substring(3, 6);
+            if (valor.length >= 7) formatado += "." + valor.substring(6, 9);
+            if (valor.length >= 10) formatado += "-" + valor.substring(9, 11);
 
-        const senhaObrigatorio = senhaLabel ? senhaLabel.querySelector(".obrigatorio") : null;
-        if (senhaObrigatorio) {
-            senhaObrigatorio.style.display = "inline";
-        }
+            e.target.value = formatado;
+        });
     }
-}
-
-// Adiciona listener para mudanças no perfil
-if (perfilSelect) {
-    perfilSelect.addEventListener("change", atualizarCamposBaseadoNoPerfil);
-}
 
 
-// Chamar a função no carregamento para esconder campos inicialmente
-document.addEventListener("DOMContentLoaded", () => {
-    atualizarCamposBaseadoNoPerfil();
+    function finalizarCadastro() {
+
+        if (window.opener && !window.opener.closed) {
+            window.opener.location.href = "inicio.html";
+        }
+
+        window.close();
+    }
+
+    // Impedir números no campo nome
+    const nomeInput = document.getElementById("nome");
+    if (nomeInput) {
+        nomeInput.addEventListener("input", () => {
+            nomeInput.value = nomeInput.value.replace(/[^A-Za-zÀ-ÿ\s]/g, "");
+        });
+    }
+
     const btn = document.getElementById("btnCadastrar");
     const formCadastro = document.getElementById("formCadastro");
 
@@ -196,105 +202,87 @@ document.addEventListener("DOMContentLoaded", () => {
             const senha = document.getElementById("senha") ? document.getElementById("senha").value.trim() : "";
             const data_nascimento = document.getElementById("data_nascimento") ? document.getElementById("data_nascimento").value : "";
             const curso = document.getElementById("curso") ? document.getElementById("curso").value : "";
-            const perfil = document.getElementById("perfil") ? document.getElementById("perfil").value : "";
+            
+            // LÊ O PERFIL ATUAL
+            const perfil = document.getElementById("perfil") ? document.getElementById("perfil").value : ""; 
 
             // Validações
 
-            // Nome obrigatório
             if (!nome) {
                 alert("O nome é obrigatório.");
                 return;
             }
-
-            //  Nome sem números
             if (!/^[A-Za-zÀ-ÿ\s]+$/.test(nome)) {
                 alert("O nome não pode conter números ou caracteres inválidos.");
                 return;
             }
 
-            // CPF obrigatório
+            const cpfLimpo = cpf.replace(/\D/g, "");
             if (!cpf) {
                 alert("O CPF é obrigatório.");
                 return;
             }
-
-            //  CPF com 11 números (antes de formatar)
-            const cpfLimpo = cpf.replace(/\D/g, "");
             if (cpfLimpo.length !== 11) {
                 alert("O CPF deve conter 11 números.");
                 return;
             }
 
-            // Email obrigatório
             if (!email) {
                 alert("O email é obrigatório.");
                 return;
             }
-
-            //  Email válido
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
                 alert("Digite um email válido (exemplo: usuario@gmail.com).");
                 return;
             }
 
-            //  Perfil obrigatório
+            // Validação de perfil
             if (!perfil) {
                 alert("Selecione um perfil.");
                 return;
             }
-
+            
             // Normaliza perfil
             const perfilNormalizado = String(perfil).toLowerCase();
 
-            // Senha obrigatória APENAS para admins
-            if (perfilNormalizado === "admin") {
-                if (!senha) {
-                    alert("A senha é obrigatória para Admin.");
-                    return;
-                }
-
-                //  Senha com mínimo 8 caracteres
-                if (senha.length < 8) {
-                    alert("A senha deve ter no mínimo 8 caracteres.");
-                    return;
-                }
+            // SENHA É OBRIGATÓRIA PARA ADMIN E ALUNO
+            if (!senha) {
+                alert("A senha é obrigatória.");
+                return;
+            }
+            if (senha.length < 8) {
+                alert("A senha deve ter no mínimo 8 caracteres.");
+                return;
             }
 
-            //  Curso e Data obrigatórios APENAS para alunos
+            // Curso e Data obrigatórios APENAS para alunos
             if (perfilNormalizado === "aluno") {
                 if (!curso) {
                     alert("Selecione um curso.");
                     return;
                 }
-
-                //  Data obrigatória
                 if (!data_nascimento) {
                     alert("Informe sua data de nascimento.");
                     return;
                 }
             }
             
-            // Monta o payload, excluindo celular, data_nascimento e curso (se não for aluno) e senha (se não for admin)
+            // Monta o payload
             const payload = {
                 nome,
                 cpf,
                 email,
-                perfil
+                senha, 
+                perfil: perfilNormalizado // Garante que o valor enviado é 'aluno' ou 'admin'
             };
-            
-            if (perfilNormalizado === "admin") {
-                payload.senha = senha;
-            }
             
             if (perfilNormalizado === "aluno") {
                 payload.data_nascimento = data_nascimento;
                 payload.curso = curso;
             }
-            // Celular não é mais incluído no payload.
 
             try {
-                // A senha é enviada em texto puro, o backend deve fazer o hashing
                 const resposta = await fetch("http://localhost:3000/usuarios", {
                     method: "POST",
                     headers: {
@@ -310,18 +298,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
 
-                // Salva o email no localStorage após cadastro bem-sucedido
-                console.log("Cadastro realizado com sucesso! Email:", email);
-                localStorage.setItem("emailUsuario", email);
-                localStorage.setItem("perfilUsuario", perfil);
-                console.log("Email salvo no localStorage:", localStorage.getItem("emailUsuario"));
-                console.log("Perfil salvo no localStorage:", localStorage.getItem("perfilUsuario"));
-
-                // Exibe mensagem de sucesso sem redirecionar
                 alert("Cadastro realizado com sucesso!");
                 
                 // Limpa o formulário
                 if (formCadastro) formCadastro.reset();
+                
+                // Reconfigura o estado inicial do perfil e campos (volta para o estado 'Selecione...')
+                if (perfilSelect) perfilSelect.value = '';
                 atualizarCamposBaseadoNoPerfil();
                 
                 // Restaura os asteriscos
@@ -329,9 +312,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 asteriscos.forEach(asterisco => {
                     const input = asterisco.closest(".linha_cadastro").querySelector("input, select");
                     if (input && input.value.trim() === "") {
-                        asterisco.style.visibility = "visible";
+                        // Só mostra se o campo não estiver escondido
+                         const linha = input.closest(".linha_cadastro");
+                         if (!linha || linha.style.display !== 'none') {
+                             asterisco.style.visibility = "visible";
+                         }
                     }
                 });
+
 
             } catch (erro) {
                 console.error("Erro na requisição:", erro);
@@ -345,8 +333,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (formCadastro && btn) {
         formCadastro.addEventListener("keydown", function (e) {
             if (e.key === "Enter") {
-                e.preventDefault(); // impede o form de recarregar
-                btn.click(); // aciona o botão
+                e.preventDefault(); 
+                btn.click(); 
             }
         });
     }

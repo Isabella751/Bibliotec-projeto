@@ -294,19 +294,3 @@ header {
 .icone-senha:hover {
     color: #000;
 }
-
-.leftPlant {
-    position: absolute;
-    bottom: 340px;
-    width: 600px;
-    z-index: -1;
-    left: -379px;
-}
-
-.rightPlant {
-    position: absolute;
-    bottom: 0px;
-    width: 210px;
-    z-index: -1;
-    right: -339px;
-}

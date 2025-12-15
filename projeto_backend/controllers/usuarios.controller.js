@@ -56,7 +56,7 @@ function validarData(dataStr) {
     return true;
 }
 
-// Função auxiliar para enviar o email de definição de senha
+// Função auxiliar para enviar o email de definição de senha (Ainda existe, mas é ignorada no cadastro de Aluno)
 async function enviarEmailDefinirSenha(email, token) {
     // Calcula a data/hora de expiração (15 minutos)
     const dataExpiracao = new Date(Date.now() + 15 * 60 * 1000).toLocaleString('pt-BR', {
@@ -142,21 +142,29 @@ export async function criarUsuario(req, res) {
             nome,
             cpf,
             email,
-            senha, // Para Admin, será a senha; Para Aluno, será ""
+            senha, // Agora obrigatória para Admin E Aluno
             data_nascimento,
             celular,
             curso,
             perfil: perfilRecebido,
         } = req.body;
 
+        // O perfil padrão ainda será 'Aluno' se não for explicitamente 'Admin'
         const perfil = perfilRecebido && String(perfilRecebido).toLowerCase() === "admin" ? "Admin" : "Aluno";
         
         // ==========================================================
-        // VALIDAÇÕES
+        // VALIDAÇÕES OBRIGATÓRIAS
         // ==========================================================
         if (!nome || !email || !cpf) {
             return res.status(400).json({ erro: "Campos obrigatórios: Nome, Email, CPF." });
         }
+        
+        // REQUISITO: SENHA É OBRIGATÓRIA PARA ADMIN E ALUNO
+        if (!senha || senha.length < 8) {
+            return res.status(400).json({ erro: "A senha é obrigatória e deve ter no mínimo 8 caracteres." });
+        }
+
+        // Validações de nome, CPF, e email (mantidas)
         if (!/^[A-Za-zÀ-ÿ\s]+$/.test(nome)) {
             return res.status(400).json({ erro: "Nome inválido. Use apenas letras." });
         }
@@ -165,7 +173,7 @@ export async function criarUsuario(req, res) {
             return res.status(400).json({ erro: "CPF inválido!" });
         }
         
-        // Verifica se CPF ou email já existe
+        // Verifica se CPF ou email já existe (mantida)
         const [usuariosCpf] = await db.execute("SELECT cpf FROM usuarios WHERE cpf = ?", [cpfLimpo]);
         const [adminsCpf] = await db.execute("SELECT cpf FROM admins WHERE cpf = ?", [cpfLimpo]);
         if (usuariosCpf.length > 0 || adminsCpf.length > 0) {
@@ -178,29 +186,19 @@ export async function criarUsuario(req, res) {
         }
         // ==========================================================
 
+        const senhaTextoPuro = senha; // Armazenamento da senha em TEXTO PURO (RISCO DE SEGURANÇA)
 
-        let senhaFinal = null;
-        let tokenVerificacao = null;
-        let expiracaoToken = null;
 
         if (perfil === "Admin") {
-            // Admin: Senha é obrigatória, armazenada em TEXTO PURO.
-            if (!senha || senha.length < 8) {
-                return res.status(400).json({ erro: "Senha de Admin deve ter no mínimo 8 caracteres." });
-            }
-            
-            // SENHA EM TEXTO PURO (RISCO DE SEGURANÇA)
-            senhaFinal = senha; 
-
-            // Insere na tabela admins
+            // Admin: Insere na tabela admins
             await db.execute(
                 "INSERT INTO admins (nome, cpf, email, senha, perfil) VALUES (?, ?, ?, ?, ?)",
-                [nome, cpfLimpo, email, senhaFinal, perfil]
+                [nome, cpfLimpo, email, senhaTextoPuro, perfil]
             );
             return res.status(201).json({ mensagem: "Admin criado com sucesso!" });
 
         } else if (perfil === "Aluno") {
-            // Aluno: Senha é ignorada, gera token e dispara e-mail.
+            // Aluno: Senha é fornecida no formulário, não precisa de token.
             if (!data_nascimento || !curso) {
                 return res.status(400).json({ erro: "Campos obrigatórios para Aluno: Data de Nascimento e Curso." });
             }
@@ -208,39 +206,32 @@ export async function criarUsuario(req, res) {
                 return res.status(400).json({ erro: "Data de nascimento inválida!" });
             }
             
-            // Gerar Token e Data de Expiração
-            tokenVerificacao = crypto.randomBytes(20).toString('hex');
-            expiracaoToken = new Date(Date.now() + 15 * 60 * 1000).toISOString().slice(0, 19).replace('T', ' '); 
-            
             const celularValue = emptyToNull(celular);
 
-            // 1. Insere o usuário com senha NULL e token de verificação
+            // 1. Insere o usuário com a senha fornecida. Token e Expiração são NULL.
             await db.execute(
                 `INSERT INTO usuarios (nome, cpf, email, senha, data_nascimento, celular, curso, perfil, token_verificacao, expiracao_token) 
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, NULL, NULL)`,
                 [
-                    nome, cpfLimpo, email, senhaFinal, data_nascimento, 
-                    celularValue, curso, perfil, tokenVerificacao, expiracaoToken
+                    nome, cpfLimpo, email, senhaTextoPuro, data_nascimento, 
+                    celularValue, curso, perfil
                 ]
             );
             
-            // 2. Envia o email (Pode ser a causa do ECONNRESET, então vamos mantê-lo)
-            await enviarEmailDefinirSenha(email, tokenVerificacao);
+            // 2. Não há mais envio de e-mail de definição de senha para o Aluno.
 
             return res.status(201).json({ 
-                mensagem: "Cadastro de Aluno realizado. Email enviado para definição de senha!" 
+                mensagem: "Cadastro de Aluno realizado com sucesso! Você já pode fazer login." 
             });
         }
     } catch (err) {
         if (err.code === "ER_DUP_ENTRY") {
             return res.status(400).json({ erro: "CPF ou email já está cadastrado!" });
         }
-        // Registra o erro detalhado no console para rastreamento de ECONNRESET
         console.error("Erro no criarUsuario:", err.message); 
         res.status(500).json({ erro: "Erro interno do servidor. Detalhe: " + err.message });
     }
 }
-
 
 export async function definirSenhaPorToken(req, res) {
     try {
@@ -468,7 +459,7 @@ export async function deletarUsuario(req, res) {
     }
 }
 
-// --- Adicione esta nova função ao final do seu usuario.controller.js ---
+// --- Funções de Login ---
 
 export async function loginUsuario(req, res) {
     try {
@@ -507,7 +498,6 @@ export async function loginUsuario(req, res) {
         }
         
         // 3. Verifica a senha (em TEXTO PURO, conforme seu código)
-        // ATENÇÃO: Se você tivesse criptografia, usaria uma função de comparação de hash aqui.
         if (usuario.senha !== senha) {
              return res.status(401).json({ erro: "Email ou senha incorretos." });
         }
@@ -517,7 +507,6 @@ export async function loginUsuario(req, res) {
             mensagem: "Login realizado com sucesso!",
             userId: usuario.id,
             perfil: perfil
-            // Não estamos gerando Token JWT aqui para simplicidade, apenas o ID.
         });
 
     } catch (err) {
