@@ -4,7 +4,7 @@ import {
     listarReservas,
     obterReserva,
     excluirReserva,
-    devolverLivro // Adicionado
+    
 } from "../controllers/reservas.controller.js";
 
 const router = express.Router();

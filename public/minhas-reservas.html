@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Reservas - Biblio Tec</title>
+    
+    <link rel="stylesheet" href="css/inicio.css">
+    
+    <style>
+        /* Pequenos ajustes exclusivos desta página */
+        .header-reservas {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .btn-voltar {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            border: 1px solid #ccc;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+        .btn-voltar:hover { background: #eee; }
+
+        /* Cores para o status da reserva */
+        .status-ativo { color: #27ae60; font-weight: bold; }
+        .status-atrasado { color: #c0392b; font-weight: bold; }
+        .data-info { font-size: 0.9rem; color: #555; margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+    <header class="header-reservas">
+        <div class="logo">
+            <h2 style="color:#007bff; margin:0;">BIBLIO TEC</h2>
+        </div>
+        <h1>Minhas Reservas</h1>
+        <a href="inicio.html" class="btn-voltar">⬅ Voltar</a>
+    </header>
+
+    <main>
+        <div id="livros">
+            <p style="color: #666; width: 100%; text-align: center; margin-top: 50px;">
+                Carregando suas reservas...
+            </p>
+        </div>
+    </main>
+
+    <script>
+        // CONFIGURAÇÃO
+        const BASE_URL = 'http://localhost:3000'; 
+        // Ajuste a rota conforme seu backend. Geralmente é /reservas/usuario/:id
+        const API_MINHAS_RESERVAS = `${BASE_URL}/reservas/usuario`; 
+
+        document.addEventListener("DOMContentLoaded", carregarReservas);
+
+        async function carregarReservas() {
+            const container = document.getElementById('livros');
+            const userId = localStorage.getItem('userId');
+
+            // 1. Verifica login
+            if (!userId) {
+                alert("Você precisa estar logado.");
+                window.location.href = 'index.html';
+                return;
+            }
+
+            try {
+                // 2. Busca as reservas do usuário
+                // OBS: O backend precisa ter uma rota que receba o ID do usuário e retorne os livros
+                const response = await fetch(`${API_MINHAS_RESERVAS}/${userId}`);
+                
+                if (!response.ok) throw new Error("Erro ao buscar reservas");
+                
+                const reservas = await response.json();
+
+                container.innerHTML = ''; // Limpa o "Carregando..."
+
+                if (reservas.length === 0) {
+                    container.innerHTML = '<p style="text-align:center; width:100%; font-size:1.2rem; margin-top:30px;">Você ainda não tem reservas.</p>';
+                    return;
+                }
+
+                // 3. Cria os cards (Reutilizando a estrutura que criamos antes)
+                reservas.forEach(reserva => {
+                    // O objeto 'reserva' deve trazer os dados do livro junto (join no backend)
+                    // Ex: reserva.livro_titulo, reserva.caminho_capa, etc.
+                    
+                    const card = document.createElement('div');
+                    card.className = 'card-livro'; // Classe do seu CSS padrão
+                    
+                    // Formata datas
+                    const dataRet = new Date(reserva.data_retirada).toLocaleDateString('pt-BR');
+                    const dataDev = new Date(reserva.data_devolucao_prevista).toLocaleDateString('pt-BR');
+                    
+                    // Lógica simples de status
+                    const hoje = new Date();
+                    const devolucaoObj = new Date(reserva.data_devolucao_prevista);
+                    let statusTexto = '<span class="status-ativo">Em Andamento</span>';
+                    
+                    if (hoje > devolucaoObj) {
+                        statusTexto = '<span class="status-atrasado">Atrasado</span>';
+                    }
+
+                    // Previne erro se a capa vier nula
+                    const capa = reserva.caminho_capa || './images/placeholder.png';
+
+                    card.innerHTML = `
+                        <div class="box-capa">
+                            <img class="capa-img" src="${capa}" alt="Capa">
+                        </div>
+
+                        <div class="box-info">
+                            <p class="titulo-livro">${reserva.titulo_livro || "Livro Reservado"}</p>
+                            
+                            <div class="data-info">
+                                <p>📅 Retirada: <strong>${dataRet}</strong></p>
+                                <p>🏁 Devolução: <strong>${dataDev}</strong></p>
+                            </div>
+                            
+                            <div style="margin-top:10px;">
+                                ${statusTexto}
+                            </div>
+                        </div>
+                    `;
+                    
+                    container.appendChild(card);
+                });
+
+            } catch (erro) {
+                console.error(erro);
+                container.innerHTML = '<p style="color:red; text-align:center;">Erro ao carregar reservas.</p>';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,11 +1,11 @@
 // ============================
 // CONFIGURAÇÃO DA API
 // ============================
-const BASE_URL = 'http://localhost:3000'; 
-const API_URL = `${BASE_URL}/livros`; 
-const API_DESTAQUES = `${BASE_URL}/livros/destaques`; 
+const BASE_URL = 'http://localhost:3000';
+const API_URL = `${BASE_URL}/livros`;
+const API_DESTAQUES = `${BASE_URL}/livros/destaques`;
 const API_BUSCA = `${BASE_URL}/livros/busca`;
-const API_RESERVAS = `${BASE_URL}/reservas`; 
+const API_RESERVAS = `${BASE_URL}/reservas`;
 
 // O ID É OBTIDO DINAMICAMENTE
 const coresCoracao = ['coracaoVazioAzul.png', 'coracaoVazioVerde.png'];
@@ -15,13 +15,13 @@ const coresCoracao = ['coracaoVazioAzul.png', 'coracaoVazioVerde.png'];
 // ============================
 function obterUsuarioLogadoId() {
     // Busca o ID do usuário no localStorage (setado após o login)
-    const id = localStorage.getItem('userId'); 
+    const id = localStorage.getItem('userId');
     if (id) {
         return parseInt(id);
     }
     // Se não encontrar, retorna nulo e a função de reserva é abortada
     console.error("ID do usuário logado não encontrado! Faça o login.");
-    return null; 
+    return null;
 }
 
 
@@ -42,15 +42,15 @@ window.addEventListener("scroll", function () {
     }
 
     if (window.scrollY > 50) {
-        if(leftIcons) leftIcons.classList.add("hide-left");
-        if(rightIcons) rightIcons.classList.add("hide-right");
-        if(categoryBox) categoryBox.classList.add("hide-category");
-        if(lineRight) lineRight.classList.add("hide-line");
+        if (leftIcons) leftIcons.classList.add("hide-left");
+        if (rightIcons) rightIcons.classList.add("hide-right");
+        if (categoryBox) categoryBox.classList.add("hide-category");
+        if (lineRight) lineRight.classList.add("hide-line");
     } else {
-        if(leftIcons) leftIcons.classList.remove("hide-left");
-        if(rightIcons) rightIcons.classList.remove("hide-right");
-        if(categoryBox) categoryBox.classList.remove("hide-category");
-        if(lineRight) lineRight.classList.remove("hide-line");
+        if (leftIcons) leftIcons.classList.remove("hide-left");
+        if (rightIcons) rightIcons.classList.remove("hide-right");
+        if (categoryBox) categoryBox.classList.remove("hide-category");
+        if (lineRight) lineRight.classList.remove("hide-line");
     }
 });
 
@@ -60,14 +60,14 @@ window.addEventListener("scroll", function () {
 async function carregarDestaques() {
     try {
         // Chamando API_URL para buscar todos os livros, incluindo os indisponíveis (ativo=0)
-        const response = await fetch(`${API_URL}?limite=24`); 
+        const response = await fetch(`${API_URL}?limite=24`);
         if (!response.ok) throw new Error('Erro ao buscar destaques');
         const livros = await response.json();
         atualizarTitulo('Livros em Destaque');
-        
+
         // NENHUM FILTRO APLICADO AQUI - EXIBE TODOS (Disponíveis e Indisponíveis)
-        exibirLivros(livros); 
-        
+        exibirLivros(livros);
+
     } catch (erro) {
         console.error('Erro ao carregar destaques:', erro);
         mostrarErro('Não foi possível carregar os destaques.');
@@ -84,7 +84,7 @@ async function buscarLivros(termoBusca) {
         if (!response.ok) throw new Error('Erro na busca');
         const livrosEncontrados = await response.json();
         atualizarTitulo(`Resultados para: "${termoBusca}"`);
-        exibirLivros(livrosEncontrados); 
+        exibirLivros(livrosEncontrados);
     } catch (erro) {
         console.error('Erro na busca:', erro);
         mostrarErro('Erro ao realizar a busca.');
@@ -98,7 +98,7 @@ async function filtrarPorCategoria(genero) {
     try {
         const response = await fetch(`${API_BUSCA}?q=${genero}`);
         const livros = await response.json();
-        const livrosFiltrados = livros.filter(l => 
+        const livrosFiltrados = livros.filter(l =>
             l.genero && l.genero.toLowerCase().includes(genero.toLowerCase())
         );
         atualizarTitulo(`Categoria: ${genero}`);
@@ -115,70 +115,70 @@ async function filtrarPorCategoria(genero) {
 function exibirLivros(livros) {
     const container = document.getElementById('livros');
     container.innerHTML = '';
-    
+
     if (!livros || livros.length === 0) {
         container.innerHTML = '<p class="sem-livros" style="color:white; padding:20px;">Nenhum livro encontrado.</p>';
         return;
     }
-    
+
     livros.forEach((livro, index) => {
         const livroCard = criarCardLivro(livro, index);
         container.appendChild(livroCard);
     });
-    
+
     inicializarCoracoes();
 }
 
 function criarCardLivro(livro, index) {
     const div = document.createElement('div');
-    div.className = `livro_${index + 1}`; 
-    
-    const caminhoCapa = (livro.caminho_capa && livro.caminho_capa.length > 5) 
-        ? livro.caminho_capa 
-        : './images/placeholder.png'; 
-    
+    // Adicionei uma classe padrão 'card-livro' para facilitar o CSS
+    div.className = `card-livro livro_${index + 1}`;
+
+    const caminhoCapa = (livro.caminho_capa && livro.caminho_capa.length > 5)
+        ? livro.caminho_capa
+        : './images/placeholder.png';
+
     const corCoracao = coresCoracao[index % 2];
-    
-    // BADGE DE STATUS PARA LIVROS INDISPONÍVEIS (SE ATIVO=0)
+
+    // BADGES
     let badgeStatus = '';
     if (livro.ativo == 0) {
-        badgeStatus = `<div style="position:absolute; top:5px; left:5px; background:rgb(204, 0, 0); color:white; padding:2px 5px; border-radius:4px; font-size:10px; z-index: 10;">INDISPONÍVEL</div>`;
+        badgeStatus = `<div class="badge-status">INDISPONÍVEL</div>`;
     }
-    
-    const badgeVisualizacoes = livro.visualizacoes > 0 
-        ? `<div style="position:absolute; top:5px; right:5px; background:rgba(0,0,0,0.7); color:white; padding:2px 5px; border-radius:4px; font-size:10px; z-index: 10;">${livro.visualizacoes} 👁️</div>` 
-        : ''; 
 
-    div.style.position = "relative"; 
+    const badgeVisualizacoes = livro.visualizacoes > 0
+        ? `<div class="badge-visu">${livro.visualizacoes} 👁️</div>`
+        : '';
 
     div.innerHTML = `
-        <div class="capa-container" style="position: relative; width: 40%; margin: 0 auto;"> 
+        <div class="box-capa"> 
             ${badgeVisualizacoes}
             ${badgeStatus}
-            <img class="capa${index + 1}" 
-                  src="${caminhoCapa}" 
-                  alt="${livro.titulo}"
-                  title="${livro.titulo} - ${livro.autor}"
-                  style="cursor: pointer; width: 100%; height: 100%; border-radius: 5px;">
+            
+            <img class="capa-img" 
+                 src="${caminhoCapa}" 
+                 alt="${livro.titulo}"
+                 title="${livro.titulo} - ${livro.autor}">
             
             <img class="fav" 
-                  src="./images/${corCoracao}" 
-                  alt="favorito"
-                  data-livro-id="${livro.id}"
-                  style="cursor: pointer; position: absolute; bottom: 5px; right: 5px; width: 30px; height: 30px; z-index: 10;">
+                 src="./images/${corCoracao}" 
+                 alt="favorito"
+                 data-livro-id="${livro.id}">
         </div>
 
-        <div style="color: black; font-size: 12px; text-align: center; margin-top: 5px;">
-            ${livro.titulo.substring(0, 20)}${livro.titulo.length > 20 ? '...' : ''}
+        <div class="box-info">
+            <p class="titulo-livro">${livro.titulo}</p>
+            <p class="autor-livro">${livro.autor}</p>
         </div>
     `;
-    
-    const imgCapa = div.querySelector(`.capa${index + 1}`);
+
+    // Adiciona evento de clique na imagem
+    const imgCapa = div.querySelector(`.capa-img`);
     imgCapa.addEventListener('click', () => {
-        registrarVisualizacao(livro.id); 
-        abrirDetalhesLivro(livro); 
+        registrarVisualizacao(livro.id);
+        abrirDetalhesLivro(livro);
     });
-    
+
     return div;
 }
 
@@ -192,7 +192,7 @@ function abrirDetalhesLivro(livro) {
     const reservaFormContainer = document.getElementById("reservaFormContainer");
     const msgReserva = document.getElementById("msgReserva");
     const formReserva = document.getElementById("formReserva");
-    
+
     // --- 1. Reset de Estado ---
     if (formReserva) formReserva.reset();
     if (msgReserva) msgReserva.textContent = '';
@@ -211,14 +211,14 @@ function abrirDetalhesLivro(livro) {
     document.getElementById("mEditora").textContent = livro.editora || "--";
     document.getElementById("mIsbn").textContent = livro.isbn || "--";
     document.getElementById("mSinopse").textContent = livro.sinopse || "Sinopse não disponível.";
-    
+
     const imgModal = document.getElementById("mCapa");
-    imgModal.src = (livro.caminho_capa && livro.caminho_capa.length > 5) 
-        ? livro.caminho_capa 
+    imgModal.src = (livro.caminho_capa && livro.caminho_capa.length > 5)
+        ? livro.caminho_capa
         : "./images/placeholder.png";
 
     const statusBadge = document.getElementById("mStatus");
-    if (statusBadge) { 
+    if (statusBadge) {
         if (livro.ativo == 1) {
             statusBadge.textContent = "Disponível";
             statusBadge.style.backgroundColor = "#27ae60";
@@ -227,31 +227,31 @@ function abrirDetalhesLivro(livro) {
             // LÓGICA: Indisponível e desabilita o botão
             statusBadge.textContent = "Indisponível (Reservado)";
             statusBadge.style.backgroundColor = "#ff1900ff";
-            
+
             if (btnAbrirReserva) {
                 btnAbrirReserva.textContent = 'Indisponível para Reserva';
                 btnAbrirReserva.style.backgroundColor = "#cc0000";
                 btnAbrirReserva.disabled = true;
-                btnAbrirReserva.style.display = 'block'; 
+                btnAbrirReserva.style.display = 'block';
             }
         }
     }
 
     // 3. Mostrar o Modal
-    if(modal) modal.style.display = "flex";
+    if (modal) modal.style.display = "flex";
 
     // 4. Configurar eventos de fechar
     const btnFechar = document.querySelector(".fechar-modal");
     if (btnFechar) {
-        btnFechar.onclick = () => { if(modal) modal.style.display = "none"; };
+        btnFechar.onclick = () => { if (modal) modal.style.display = "none"; };
     }
 
     window.onclick = (event) => {
         if (event.target == modal) { modal.style.display = "none"; }
     };
-    
+
     // 5. LÓGICA DO BOTÃO E FORMULÁRIO DE RESERVA
-    if (btnAbrirReserva && livro.ativo == 1 && !btnAbrirReserva.disabled) { 
+    if (btnAbrirReserva && livro.ativo == 1 && !btnAbrirReserva.disabled) {
         btnAbrirReserva.onclick = () => {
             // Verifica se o usuário está logado antes de abrir o formulário
             if (!obterUsuarioLogadoId()) {
@@ -261,21 +261,21 @@ function abrirDetalhesLivro(livro) {
             }
             if (reservaFormContainer) reservaFormContainer.style.display = 'block';
             btnAbrirReserva.style.display = 'none';
-            if (msgReserva) msgReserva.textContent = ''; 
+            if (msgReserva) msgReserva.textContent = '';
         };
     }
-    
+
     if (formReserva) {
         formReserva.onsubmit = (e) => {
             e.preventDefault();
-            
+
             const dataRetiradaInput = document.getElementById("dataRetirada");
             const emailConfirmaInput = document.getElementById("emailConfirma");
 
             if (dataRetiradaInput && emailConfirmaInput) {
                 const dataRetirada = dataRetiradaInput.value;
                 const emailConfirma = emailConfirmaInput.value;
-            
+
                 finalizarReserva(livro.id, dataRetirada, emailConfirma);
             }
         };
@@ -287,16 +287,16 @@ async function finalizarReserva(livroId, dataRetirada, emailConfirma) {
     const msgReserva = document.getElementById("msgReserva");
     const reservaFormContainer = document.getElementById("reservaFormContainer");
     const btnAbrirReserva = document.getElementById("btnAbrirReserva");
-    const formReserva = document.getElementById("formReserva"); 
+    const formReserva = document.getElementById("formReserva");
 
     // --- OBTENDO O ID DO USUÁRIO DINAMICAMENTE ---
     const usuario_id = obterUsuarioLogadoId();
     if (!usuario_id) {
-        if(msgReserva) {
+        if (msgReserva) {
             msgReserva.style.color = 'red';
             msgReserva.textContent = "Erro: Usuário não logado. Por favor, faça o login.";
         }
-        if(formReserva) Array.from(formReserva.elements).forEach(el => el.disabled = false);
+        if (formReserva) Array.from(formReserva.elements).forEach(el => el.disabled = false);
         return;
     }
     // ---------------------------------------------
@@ -304,14 +304,14 @@ async function finalizarReserva(livroId, dataRetirada, emailConfirma) {
     // --- CORREÇÃO DA VALIDAÇÃO DE DATA (HOJE ou FUTURO) ---
     const dataRetiradaObj = new Date(dataRetirada);
     const dataAtual = new Date();
-    
+
     // Zera as horas para comparar apenas o dia
-    dataAtual.setHours(0, 0, 0, 0); 
+    dataAtual.setHours(0, 0, 0, 0);
     dataRetiradaObj.setHours(0, 0, 0, 0);
 
     // Compara se a data de retirada é anterior ao dia de hoje
     if (dataRetiradaObj.getTime() < dataAtual.getTime()) {
-        if(msgReserva) {
+        if (msgReserva) {
             msgReserva.style.color = 'red';
             msgReserva.textContent = "A data de retirada deve ser no presente ou no futuro.";
         }
@@ -321,12 +321,12 @@ async function finalizarReserva(livroId, dataRetirada, emailConfirma) {
 
 
     try {
-        if(msgReserva) {
+        if (msgReserva) {
             msgReserva.style.color = 'yellow';
             msgReserva.textContent = "Processando reserva...";
         }
-        
-        if(formReserva) Array.from(formReserva.elements).forEach(el => el.disabled = true);
+
+        if (formReserva) Array.from(formReserva.elements).forEach(el => el.disabled = true);
 
 
         const response = await fetch(API_RESERVAS, {
@@ -344,56 +344,56 @@ async function finalizarReserva(livroId, dataRetirada, emailConfirma) {
 
         const data = await response.json();
 
-        if(formReserva) Array.from(formReserva.elements).forEach(el => el.disabled = false);
-        
+        if (formReserva) Array.from(formReserva.elements).forEach(el => el.disabled = false);
+
         if (response.ok) {
-             if(formReserva) formReserva.reset(); 
-             if(reservaFormContainer) reservaFormContainer.style.display = 'none'; 
-            
-            if(msgReserva) {
+            if (formReserva) formReserva.reset();
+            if (reservaFormContainer) reservaFormContainer.style.display = 'none';
+
+            if (msgReserva) {
                 const dataPrevistaFormatada = data.data_devolucao_prevista.split('-').reverse().join('/');
-                
+
                 msgReserva.style.color = 'green';
                 msgReserva.innerHTML = `✅ ${data.msg} <br> Devolução prevista: **${dataPrevistaFormatada}**`;
             }
-            if(btnAbrirReserva) {
+            if (btnAbrirReserva) {
                 document.getElementById("mStatus").textContent = "Indisponível (Reservado)";
                 document.getElementById("mStatus").style.backgroundColor = "#ff1900ff";
-                
+
                 btnAbrirReserva.style.display = 'block';
-                btnAbrirReserva.textContent = 'Reservado!'; 
+                btnAbrirReserva.textContent = 'Reservado!';
                 btnAbrirReserva.style.backgroundColor = "#cc0000";
-                btnAbrirReserva.disabled = true; 
+                btnAbrirReserva.disabled = true;
             }
-            
+
             // Recarrega os dados para atualizar o status do card na lista
-            setTimeout(carregarDestaques, 1000); 
+            setTimeout(carregarDestaques, 1000);
 
             setTimeout(() => {
-                if(msgReserva) msgReserva.textContent = ''; 
-            }, 8000); 
+                window.location.href = 'minhas-reservas.html'; // <--- Verifique se o nome bate com o arquivo
+            }, 2000);
 
         } else {
-            if(msgReserva) {
+            if (msgReserva) {
                 msgReserva.style.color = 'red';
-                msgReserva.innerHTML = `❌ Erro ao reservar: **${data.erro || "Falha na comunicação com o servidor."}**`;
+                msgReserva.innerHTML = ` Erro ao reservar: **${data.erro || "Falha na comunicação com o servidor."}**`;
             }
-            if(btnAbrirReserva) {
-                 btnAbrirReserva.style.display = 'none'; 
-                 if(reservaFormContainer) reservaFormContainer.style.display = 'block';
+            if (btnAbrirReserva) {
+                btnAbrirReserva.style.display = 'none';
+                if (reservaFormContainer) reservaFormContainer.style.display = 'block';
             }
         }
 
     } catch (erro) {
         console.error('Erro na requisição de reserva:', erro);
-        if(formReserva) Array.from(formReserva.elements).forEach(el => el.disabled = false);
-        
-        if(msgReserva) {
+        if (formReserva) Array.from(formReserva.elements).forEach(el => el.disabled = false);
+
+        if (msgReserva) {
             msgReserva.style.color = 'red';
             msgReserva.textContent = 'Erro de conexão ou servidor. Tente novamente.';
         }
-        if(btnAbrirReserva) btnAbrirReserva.style.display = 'none';
-        if(reservaFormContainer) reservaFormContainer.style.display = 'block';
+        if (btnAbrirReserva) btnAbrirReserva.style.display = 'none';
+        if (reservaFormContainer) reservaFormContainer.style.display = 'block';
     }
 }
 
@@ -431,7 +431,7 @@ function inicializarCoracoes() {
 
 // Inicialização
 document.addEventListener("DOMContentLoaded", () => {
-    
+
     const params = new URLSearchParams(window.location.search);
     const termoURL = params.get("busca");
 
@@ -442,7 +442,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
         carregarDestaques();
     }
-    
+
     const catHeader = document.querySelector('.category-header');
     const catBox = document.querySelector('.category-box');
     if (catHeader && catBox) {
@@ -452,16 +452,16 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll('.category-list p').forEach(p => {
         p.addEventListener('click', () => {
             filtrarPorCategoria(p.textContent.trim());
-            if(catBox) catBox.classList.remove('open');
+            if (catBox) catBox.classList.remove('open');
         });
     });
-    
+
     const formBusca = document.querySelector(".busca");
     const inputBusca = document.getElementById("busca");
 
     if (formBusca) {
         formBusca.addEventListener('submit', (e) => {
-            e.preventDefault(); 
+            e.preventDefault();
             const termo = inputBusca.value.trim();
             if (termo) {
                 window.history.pushState({}, "", `?busca=${termo}`);
@@ -471,7 +471,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
-    
+
     if (inputBusca) {
         let timeout;
         inputBusca.addEventListener("input", (e) => {
@@ -483,7 +483,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else if (termo.length === 0) {
                     carregarDestaques();
                 }
-            }, 500); 
+            }, 500);
         });
     }
 });

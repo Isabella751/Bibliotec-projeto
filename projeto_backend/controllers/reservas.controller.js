@@ -253,3 +253,32 @@ async function verificarDevolucaoCompleta(emprestimo_id) {
       [emprestimo_id]
     );
 }
+
+// Função para listar os livros que um usuário reservou
+export async function buscarReservasUsuario(req, res) {
+    try {
+        const { id } = req.params; // Pega o ID do usuário da URL
+
+        // Faz o JOIN para pegar os dados da reserva + nome do livro e capa
+        const [reservas] = await db.execute(
+            `SELECT 
+                r.id AS reserva_id,
+                r.data_retirada,
+                r.data_devolucao_prevista,
+                r.status,
+                l.titulo AS titulo_livro,
+                l.caminho_capa
+             FROM reservas r
+             JOIN livros l ON r.livro_id = l.id
+             WHERE r.usuario_id = ?
+             ORDER BY r.data_retirada DESC`,
+            [id]
+        );
+
+        return res.status(200).json(reservas);
+
+    } catch (err) {
+        console.error("Erro ao buscar reservas:", err);
+        return res.status(500).json({ erro: "Erro ao buscar suas reservas." });
+    }
+}
