@@ -6,9 +6,77 @@ const API_URL = `${BASE_URL}/livros`;
 const API_DESTAQUES = `${BASE_URL}/livros/destaques`; 
 const API_BUSCA = `${BASE_URL}/livros/busca`;
 const API_RESERVAS = `${BASE_URL}/reservas`; 
+const API_FAVORITOS = `${BASE_URL}/favoritos`;
 
-// O ID É OBTIDO DINAMICAMENTE
-const coresCoracao = ['coracaoVazioAzul.png', 'coracaoVazioVerde.png'];
+// ============================
+// FUNÇÃO PARA VERIFICAR SE LIVRO ESTÁ FAVORITADO
+// ============================
+async function verificarFavorito(usuario_id, livro_id) {
+    try {
+        const response = await fetch(`${API_FAVORITOS}?usuario_id=${usuario_id}`);
+        if (!response.ok) {
+            console.log(`Verificar favorito falhou: ${response.status}`);
+            return null;
+        }
+        const favoritos = await response.json();
+        const fav = favoritos.find(f => f.livro_id == livro_id);
+        console.log(`Favoritos do usuário: ${JSON.stringify(favoritos)}, Livro ${livro_id} favoritado com id: ${fav ? fav.id : null}`);
+        return fav ? fav.id : null;
+    } catch (erro) {
+        console.error('Erro ao verificar favorito:', erro);
+        return null;
+    }
+}
+
+// ============================
+// FUNÇÃO PARA FAVORITAR/DESFAVORITAR
+// ============================
+async function toggleFavorito(livro_id, btnFavorito) {
+    const usuario_id = obterUsuarioLogadoId();
+    if (!usuario_id) {
+        alert("Você precisa estar logado para favoritar livros. Redirecionando para o login.");
+        window.location.href = 'index.html';
+        return;
+    }
+
+    const isFavoritado = await verificarFavorito(usuario_id, livro_id);
+    console.log(`Usuário ${usuario_id}, Livro ${livro_id}, Está favoritado: ${isFavoritado}`);
+
+    try {
+        if (isFavoritado) {
+            // Desfavoritar: DELETE
+            const response = await fetch(`${API_FAVORITOS}/${usuario_id}/${livro_id}`, {
+                method: 'DELETE'
+            });
+            if (response.ok) {
+                btnFavorito.textContent = '❤️ Favoritar';
+                btnFavorito.style.backgroundColor = '#007bff';
+                alert('Livro removido dos favoritos!');
+            } else {
+                const data = await response.json();
+                alert(`Erro ao remover favorito: ${data.erro || 'Falha na comunicação.'}`);
+            }
+        } else {
+            // Favoritar: POST
+            const response = await fetch(API_FAVORITOS, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usuario_id, livro_id })
+            });
+            if (response.ok) {
+                btnFavorito.textContent = '💔 Desfavoritar';
+                btnFavorito.style.backgroundColor = '#dc3545';
+                alert('Livro favoritado com sucesso!');
+            } else {
+                const data = await response.json();
+                alert(`Erro: ${data.erro || 'Falha ao favoritar.'}`);
+            }
+        }
+    } catch (erro) {
+        console.error('Erro na operação de favorito:', erro);
+        alert(`Erro de conexão: ${erro.message}. Verifique se o servidor está rodando.`);
+    }
+}
 
 // ============================
 // 1. FUNÇÃO PARA OBTER O ID DO USUÁRIO DINAMICAMENTE
@@ -16,8 +84,11 @@ const coresCoracao = ['coracaoVazioAzul.png', 'coracaoVazioVerde.png'];
 function obterUsuarioLogadoId() {
     // Busca o ID do usuário no localStorage (setado após o login)
     const id = localStorage.getItem('userId'); 
+    console.log(`ID do usuário no localStorage: "${id}"`);
     if (id) {
-        return parseInt(id);
+        const parsed = parseInt(id);
+        console.log(`ID parseado: ${parsed}`);
+        return parsed;
     }
     // Se não encontrar, retorna nulo e a função de reserva é abortada
     console.error("ID do usuário logado não encontrado! Faça o login.");
@@ -126,7 +197,6 @@ function exibirLivros(livros) {
         container.appendChild(livroCard);
     });
     
-    inicializarCoracoes();
 }
 
 function criarCardLivro(livro, index) {
@@ -136,8 +206,6 @@ function criarCardLivro(livro, index) {
     const caminhoCapa = (livro.caminho_capa && livro.caminho_capa.length > 5) 
         ? livro.caminho_capa 
         : './images/placeholder.png'; 
-    
-    const corCoracao = coresCoracao[index % 2];
     
     // BADGE DE STATUS PARA LIVROS INDISPONÍVEIS (SE ATIVO=0)
     let badgeStatus = '';
@@ -161,11 +229,6 @@ function criarCardLivro(livro, index) {
                   title="${livro.titulo} - ${livro.autor}"
                   style="cursor: pointer; width: 100%; height: 100%; border-radius: 5px;">
             
-            <img class="fav" 
-                  src="./images/${corCoracao}" 
-                  alt="favorito"
-                  data-livro-id="${livro.id}"
-                  style="cursor: pointer; position: absolute; bottom: 5px; right: 5px; width: 30px; height: 30px; z-index: 10;">
         </div>
 
         <div style="color: black; font-size: 12px; text-align: center; margin-top: 5px;">
@@ -210,6 +273,7 @@ function abrirDetalhesLivro(livro) {
     document.getElementById("mAno").textContent = livro.ano_publicacao || "--";
     document.getElementById("mEditora").textContent = livro.editora || "--";
     document.getElementById("mIsbn").textContent = livro.isbn || "--";
+    document.getElementById("mFormato").textContent = livro.formato || "--";
     document.getElementById("mSinopse").textContent = livro.sinopse || "Sinopse não disponível.";
     
     const imgModal = document.getElementById("mCapa");
@@ -279,6 +343,28 @@ function abrirDetalhesLivro(livro) {
                 finalizarReserva(livro.id, dataRetirada, emailConfirma);
             }
         };
+    }
+
+    // 6. CONFIGURAR BOTÃO DE FAVORITO
+    const btnFavorito = document.getElementById("btnFavorito");
+    if (btnFavorito) {
+        const usuario_id = obterUsuarioLogadoId();
+        if (usuario_id) {
+            verificarFavorito(usuario_id, livro.id).then(isFavoritado => {
+                if (isFavoritado) {
+                    btnFavorito.textContent = '💔 Desfavoritar';
+                    btnFavorito.style.backgroundColor = '#dc3545';
+                } else {
+                    btnFavorito.textContent = '❤️ Favoritar';
+                    btnFavorito.style.backgroundColor = '#007bff';
+                }
+            });
+        } else {
+            btnFavorito.textContent = '❤️ Favoritar';
+            btnFavorito.style.backgroundColor = '#007bff';
+        }
+
+        btnFavorito.onclick = () => toggleFavorito(livro.id, btnFavorito);
     }
 }
 
@@ -413,20 +499,6 @@ function atualizarTitulo(texto) {
 function mostrarErro(mensagem) {
     const container = document.getElementById('livros');
     container.innerHTML = `<div style="color:white; text-align:center; padding:20px;">${mensagem} <br> <button onclick="carregarDestaques()">Voltar</button></div>`;
-}
-
-function inicializarCoracoes() {
-    document.querySelectorAll(".fav").forEach(fav => {
-        fav.addEventListener("click", (e) => {
-            e.stopPropagation();
-            const isBlue = fav.src.includes("Azul");
-            if (fav.src.includes("Vazio")) {
-                fav.src = isBlue ? "./images/coracaoPreenchidoAzul.png" : "./images/coracaoPreenchidoVerde.png";
-            } else {
-                fav.src = isBlue ? "./images/coracaoVazioAzul.png" : "./images/coracaoVazioVerde.png";
-            }
-        });
-    });
 }
 
 // Inicialização

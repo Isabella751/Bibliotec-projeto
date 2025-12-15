@@ -35,6 +35,9 @@ body {
     animation: fadeIn 0.8s ease forwards;
     font-family: "Montserrat-Regular", sans-serif;
     padding-top: 120px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 @keyframes fadeIn {
@@ -64,6 +67,7 @@ header {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
     backdrop-filter: blur(6px);
 }
+
 
 .main-header .logo-image {
     width: 15vw;
@@ -187,95 +191,6 @@ header {
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-}
-
-.livro_1,
-.livro_2,
-.livro_3,
-.livro_4,
-.livro_5,
-.livro_6,
-.livro_7,
-.livro_8,
-.livro_9,
-.livro_10,
-.livro_11,
-.livro_12,
-.livro_13,
-.livro_14,
-.livro_15,
-.livro_16,
-.livro_17,
-.livro_18,
-.livro_19,
-.livro_20,
-.livro_21,
-.livro_22,
-.livro_23,
-.livro_24 {
-    position: relative;
-}
-
-.livro_1 .capa1,
-.livro_2 .capa2,
-.livro_3 .capa3,
-.livro_4 .capa4,
-.livro_5 .capa5,
-.livro_6 .capa6,
-.livro_7 .capa7,
-.livro_8 .capa8,
-.livro_9 .capa9,
-.livro_10 .capa10,
-.livro_11 .capa11,
-.livro_12 .capa12,
-.livro_13 .capa13,
-.livro_14 .capa14,
-.livro_15 .capa15,
-.livro_16 .capa16,
-.livro_17 .capa17,
-.livro_18 .capa18,
-.livro_19 .capa19,
-.livro_20 .capa20,
-.livro_21 .capa21,
-.livro_22 .capa22,
-.livro_23 .capa23,
-.livro_24 .capa24 {
-    margin-top: 30px;
-    width: 6vw;
-    height: 180px;
-    border-radius: 12px;
-    display: flex;
-    justify-content: space-between;
-    color: var(--azulEscuro);
-    font-family: "Montserrat-Regular", sans-serif;
-    transition: transform 0.2s ease;
-}
-
-.livro_1:hover .capa1:hover,
-.livro_2:hover .capa2:hover,
-.livro_3:hover .capa3:hover,
-.livro_4:hover .capa4:hover,
-.livro_5:hover .capa5:hover,
-.livro_6:hover .capa6:hover,
-.livro_7:hover .capa7:hover,
-.livro_8:hover .capa8:hover,
-.livro_9:hover .capa9:hover,
-.livro_10:hover .capa10:hover,
-.livro_11:hover .capa11:hover,
-.livro_12:hover .capa12:hover,
-.livro_13:hover .capa13:hover,
-.livro_14:hover .capa14:hover,
-.livro_15:hover .capa15:hover,
-.livro_16:hover .capa16:hover,
-.livro_17:hover .capa17:hover,
-.livro_18:hover .capa18:hover,
-.livro_19:hover .capa19:hover,
-.livro_20:hover .capa20:hover,
-.livro_21:hover .capa21:hover,
-.livro_22:hover .capa22:hover,
-.livro_23:hover .capa23:hover,
-.livro_24:hover .capa24:hover {
-    transform: scale(1.03);
 }
 
 .faceDestaques {
@@ -442,8 +357,9 @@ footer {
     padding: 16px 22px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: center; 
 }
+
 
 #ajuda,
 #termos,
@@ -732,7 +648,7 @@ footer.footer-home-container {
     gap: 10px;
     margin: 20px 0;
     font-size: 14px;
-    background: #f8f9fa;
+    background: #e9ecef;
     padding: 10px;
     border-radius: 8px;
 }
