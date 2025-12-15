@@ -18,7 +18,7 @@ body {
 }
 
 .main-container {
-    background-color: #5de6dc;
+    background-color: #ffffff;
     width: 100%;
     max-width: 900px;
     padding: 30px;
@@ -101,12 +101,12 @@ label {
 input, select, textarea {
     width: 100%;
     padding: 10px;
-    background-color: #ffffff;
+    background-color: #eeecec;
     border-radius: 25px;
     color: rgb(0, 0, 0);
-    border: none;
+    border-color: #4a67df;
     font-size: 14px;
-    box-sizing: border-box; /* Importante para não quebrar o layout */
+    box-sizing: border-box;
 }
 
 input:focus, textarea:focus {
