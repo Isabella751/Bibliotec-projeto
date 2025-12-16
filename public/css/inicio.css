@@ -225,7 +225,7 @@ header {
 }
 
 .left-icons .filter-icon {
-    margin-bottom: 636px;
+    margin-bottom: 741px;
     width: 44px;
     margin-left: 14px;
 }
@@ -251,7 +251,7 @@ header {
 }
 
 .right-icons .resLivro-icon {
-    margin-bottom: 320px;
+    margin-bottom: 415px;
     width: 43px;
 }
 
@@ -275,7 +275,7 @@ header {
     justify-content: flex-end;
     align-items: flex-end;
     z-index: 999;
-    height: 760px;
+    height: 875px;
 }
 
 .category-box {
@@ -514,42 +514,84 @@ footer.footer-home-container {
 
 #livros {
     display: grid;
-    /* Isso aqui é a mágica: cria colunas que têm no mínimo 200px e no máximo o que der (1fr) */
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-    /* Espaço entre os livros */
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 25px;
     width: 100%;
     padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
-#livros {
+#livrosCatalogo {
     display: grid;
-    /* O comando abaixo cria EXATAMENTE 3 colunas */
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    /* Aumentei o espaço entre eles para ficar mais bonito */
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 25px;
     width: 100%;
     padding: 20px;
-
-    /* Opcional: limita a largura total para não ficar gigante em monitores ultrawide */
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    /* Centraliza o grid na tela */
+}
+
+/* Estilo uniforme para os cards de livros */
+.card-livro {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.card-livro:hover {
+    transform: translateY(-8px);
+}
+
+.box-capa {
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box-capa img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.box-info {
+    padding: 12px;
+    background-color: var(--branco);
+    text-align: center;
+    flex-grow: 1;
+}
+
+.titulo-livro {
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    color: #333 !important;
+    margin: 0 !important;
+    line-height: 1.4;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .livro:hover {
     transform: translateY(-5px);
-    /* Sobe um pouquinho quando passa o mouse */
 }
 
 .livro img {
     width: 100%;
-    /* Aumente aqui para o tamanho que você quer. 400px ou 450px fica bem grande. */
-    height: 100%;
+    height: 320px;
     object-fit: cover;
-    /* Garante que a imagem não estique/deforme */
-    border-radius: 10px 10px 0 0;
-    /* Arredonda só em cima */
+    border-radius: 8px;
 }
 
 .modal-container {
@@ -823,47 +865,31 @@ footer.footer-home-container {
 /* RESPONSIVIDADE */
 @media (max-width: 1200px) {
     #livros {
-        grid-template-columns: 1fr 1fr !important;
-        /* 2 colunas */
-        max-width: 1000px !important;
-    }
-
-    .livro img {
-        height: 500px !important;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+        max-width: 1200px !important;
+        gap: 20px !important;
     }
 }
 
 @media (max-width: 768px) {
     #livros {
-        grid-template-columns: 1fr !important;
-        /* 1 coluna */
-        padding: 0 20px !important;
-        gap: 20px !important;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+        padding: 15px !important;
+        gap: 15px !important;
     }
-
-    .livro img {
-        height: 400px !important;
+    
+    .box-capa {
+        height: 260px;
+    }
+    
+    .titulo-livro {
+        font-size: 13px !important;
     }
 }
 
 .capa-container {
     position: relative;
-    width: 70%;
-    margin: 0 auto;
-    height: 50%;
-}
-
-.livro img {
-    height: 400px !important;
-}
-
-#catalogo {
-    width: 57vw;
-    display: flex;
-    justify-content: flex-start;
-    gap: 58px;
-    margin-top: 80px;
-    flex-wrap: wrap;
+    width: 100%;
     margin: 0 auto;
 }
 

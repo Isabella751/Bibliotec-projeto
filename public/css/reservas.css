@@ -1,0 +1,32 @@
+/* reservas.css - estilos básicos inspirados na tela de favoritos */
+:root{ --menta:#E9F0EF; --branco:#ffffff; --azulEscuro:#26333D; --roxoAzulado: #4a67df; --verdeAgua:#2FD6CB; }
+html,body{margin:0;padding:0;background:linear-gradient(135deg,var(--menta),#ecf5f5);color:var(--azulEscuro);font-family:Arial,Helvetica,sans-serif}
+.main-header{display:flex;justify-content:space-between;align-items:center;padding:12px 20px}
+.reservas-page{max-width:1100px;margin:24px auto;padding:0 16px}
+.user-section h2, .res-section h2{margin:8px 0 12px 0}
+.user-card{background:var(--branco);padding:14px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.06);margin-bottom:18px}
+.user-details{display:flex;gap:18px;flex-wrap:wrap}
+.user-field{font-size:0.95rem}
+.carousel-wrapper{overflow:hidden}
+.reservas-carousel{display:flex;gap:14px;overflow-x:auto;padding:12px}
+.book-card{min-width:190px;width:190px;background:#fff;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,0.08);padding:12px;cursor:pointer}
+.book-cover{width:100%;height:260px;object-fit:cover;border-radius:6px}
+.book-title{font-size:0.95rem;margin:8px 0 0 0;color:#333}
+.no-reservations{text-align:center;color:#666;margin-top:14px}
+/* Modal */
+.modal-container{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;z-index:1000}
+.modal-content{background:#fff;border-radius:12px;max-width:1100px;width:95%;padding:22px;box-shadow:0 12px 30px rgba(0,0,0,0.12);}
+.fechar-modal{float:right;font-size:26px;cursor:pointer}
+.modal-body{display:flex;gap:18px}
+.modal-imagem img{width:320px;height:420px;object-fit:cover;border-radius:6px;box-shadow:0 8px 18px rgba(0,0,0,0.12)}
+.modal-info{flex:1}
+.status-badge{display:inline-block;padding:6px 10px;border-radius:8px;color:#fff;margin-top:8px}
+.modal-meta p{margin:6px 0}
+.modal-sinopse{margin-top:12px}
+@media(max-width:720px){.modal-body{flex-direction:column}.modal-imagem img{width:100%;height:auto}}
+
+/* Ajustes de tipografia para destacar o modal */
+.modal-info h2{font-size:30px;margin-top:0;color:#2c3e50}
+.modal-info h3{font-size:20px;margin-top:6px;color:#6b7280}
+.modal-meta{font-size:16px}
+

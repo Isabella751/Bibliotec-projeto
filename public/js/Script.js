@@ -193,14 +193,27 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (response.ok) {
                     // SUCESSO NO LOGIN!
                     
-                    // 1. Salva o ID do usuário no localStorage
+                    // 1. Salva o ID do usuário e perfil no localStorage
                     localStorage.setItem('userId', data.userId);
-                    localStorage.setItem('perfil', data.perfil); // Salva o perfil para futuras checagens
-
-                    alert(`Login de ${data.perfil} (ID: ${data.userId}) realizado com sucesso!`);
+                    localStorage.setItem('perfil', data.perfil);
                     
-                    // 2. Redireciona para a tela principal (biblioteca)
-                    window.location.href = 'bibliotec.html'; 
+                    // 2. Limpa conflitos de login antigo
+                    localStorage.removeItem('emailUsuario');
+                    localStorage.removeItem('emailadmin');
+
+                    console.log(`Login de ${data.perfil} (ID: ${data.userId}) realizado com sucesso!`);
+                    
+                    // 3. Redireciona baseado no perfil/tipo
+                    if (data.perfil === "Admin") {
+                        localStorage.setItem("emailadmin", data.email);
+                        window.location.href = 'inicioAdmin.html';
+                    } else if (data.perfil === "Aluno") {
+                        localStorage.setItem("emailUsuario", data.email);
+                        window.location.href = 'inicio.html';
+                    } else {
+                        // Fallback para biblioteca se não souber o tipo
+                        window.location.href = 'bibliotec.html';
+                    }
 
                 } else {
                     // ERRO NO LOGIN (Email/Senha incorretos, etc.)

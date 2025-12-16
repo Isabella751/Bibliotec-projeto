@@ -55,7 +55,7 @@ body {
     object-fit: contain;
     z-index: 10;
     margin-top: 300px;
-    margin-left: 819px;
+    margin-left: 895px;
     padding: 5px;
     left: 330px;
 }
@@ -320,10 +320,10 @@ body {
     display: flex;
     justify-content: flex-start;
     border-right: 1px solid rgba(0, 0, 0, 0.05);
-    transform: scale(1.65);
+    transform: scale(1.75);
     position: relative;
     z-index: 3;
-    margin-left: 900px;
+    margin-left: 1100px;
     transform-origin: top center;
 }
 

@@ -106,3 +106,23 @@ export async function excluirFavorito(req, res) {
         res.status(500).json({ erro: err.message });
     }
 };
+
+export async function verificarFavorito(req, res) {
+    try {
+        const { usuario_id, livro_id } = req.params;
+        
+        if (!usuario_id || !livro_id) {
+            return res.status(400).json({ erro: "usuario_id e livro_id são obrigatórios." });
+        }
+
+        const [rows] = await db.execute(
+            "SELECT * FROM favoritos WHERE usuario_id = ? AND livro_id = ?",
+            [parseInt(usuario_id), parseInt(livro_id)]
+        );
+
+        const isFavorito = rows && rows.length > 0;
+        return res.json({ isFavorito });
+    } catch (err) {
+        res.status(500).json({ erro: err.message });
+    }
+};

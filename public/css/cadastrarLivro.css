@@ -18,7 +18,7 @@ body {
 }
 
 .main-container {
-    background-color: #5de6dc;
+    background-color: var(--branco);
     width: 100%;
     max-width: 900px;
     padding: 30px;
@@ -101,7 +101,7 @@ label {
 input, select, textarea {
     width: 100%;
     padding: 10px;
-    background-color: #ffffff;
+    background-color: #e0e0e0;
     border-radius: 25px;
     color: rgb(0, 0, 0);
     border: none;

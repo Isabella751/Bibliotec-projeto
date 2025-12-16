@@ -1,0 +1,142 @@
+/* Tela Favoritos - estilos básicos */
+:root{
+    --bg: #E9F0EF;
+    --white: #ffffff;
+    --card-bg: #fff;
+    --accent: #4a67df;
+}
+
+body{
+    background: var(--bg);
+    font-family: 'Montserrat-Regular', Arial, sans-serif;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #707070;
+    padding-bottom: 15px;
+}
+
+.main-header .logo-image {
+    width: 15vw;
+    margin: 5px;
+    padding: 19px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.main-header .senai-image{
+    width: 9vw;
+    height: 5vh;
+    margin: 10px;
+    padding: 12px;
+    margin-left: auto;
+    margin-top: 20px;
+}
+
+.main-header {
+    width: 100%;
+    border: none;
+}
+
+.favorites-page{
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    padding: 20px;
+}
+
+.user-section h2, .fav-section h2{
+    color: var(--accent);
+    margin-bottom: 12px;
+}
+
+.user-card{
+    display: flex;
+    flex-direction: column;
+    background: var(--card-bg);
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    margin-bottom: 24px;
+}
+
+.user-details{ display:flex; flex-direction:column; gap:6px; justify-content:center; }
+
+.user-field{
+    min-width: 220px;
+    color: #333;
+}
+
+.carousel-wrapper{
+    overflow: hidden;
+    padding: 8px 0;
+}
+
+.favorites-carousel{
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.favorites-carousel::-webkit-scrollbar{ height: 8px; }
+.favorites-carousel::-webkit-scrollbar-thumb{ background: rgba(0,0,0,0.15); border-radius:8px; }
+
+.book-card{
+    flex: 0 0 220px;
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.book-cover{
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    display: block;
+}
+
+.book-info{
+    padding: 10px;
+    text-align: center;
+}
+
+.book-title{
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.no-favorites{
+    margin-top: 12px;
+    color: #666;
+}
+
+/* Modal styles (lightweight, consistent with inicio) */
+.modal-container{
+    display:none; position:fixed; inset:0; background: rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:2000;
+}
+.modal-content{ background:#fff; width:90%; max-width:900px; border-radius:12px; padding:18px; box-shadow:0 10px 30px rgba(0,0,0,0.3); }
+.fechar-modal{ position:absolute; right:26px; top:20px; font-size:26px; cursor:pointer; }
+.modal-body{ display:flex; gap:20px; }
+.modal-imagem img{ width:100%; max-width:260px; border-radius:8px; }
+.status-badge{ margin-top:10px; padding:6px 12px; border-radius:16px; color:#fff; background:#27ae60; display:inline-block; }
+.btn-desfavoritar{ margin-top:12px; background:#e74c3c; color:#fff; border:none; padding:10px 12px; border-radius:8px; cursor:pointer; }
+
+@media (max-width:700px){ .modal-body{ flex-direction:column; } .modal-imagem img{ max-width:180px; } }
+
+@media (max-width:700px){
+    .book-card{ flex: 0 0 180px; }
+    .book-cover{ height: 260px; }
+}

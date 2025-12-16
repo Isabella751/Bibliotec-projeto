@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/reservas.css">
+    <title>Reservas</title>
+    <link rel="shortcut icon" href="./images/Group.svg" type="image/x-icon">
+</head>
+<body>
+    <header class="main-header">
+        <img class="logo-image" src="./images/Group 107.svg" width="15%">
+        <img class="senai-image" src="./images/SENAI_logo 1.png" width="10%">
+    </header>
+
+    <main class="reservas-page">
+        <section class="user-section">
+            <h2>Minhas Reservas</h2>
+            <div class="user-card">
+                <div class="user-details">
+                    <div class="user-field"><strong>Nome:</strong> <span id="userName">—</span></div>
+                    <div class="user-field"><strong>E-mail:</strong> <span id="userEmail">—</span></div>
+                    <div class="user-field"><strong>Curso:</strong> <span id="userCurso">—</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="res-section">
+            <h2>Livros Reservados</h2>
+            <div class="carousel-wrapper">
+                <div id="reservasCarousel" class="reservas-carousel">
+                    <!-- cards serão inseridos aqui via JS -->
+                </div>
+            </div>
+            <p id="noReservations" class="no-reservations" style="display:none;">Você não tem reservas.</p>
+        </section>
+    </main>
+
+    <!-- Modal de detalhes da reserva -->
+    <div id="modalReserva" class="modal-container">
+        <div class="modal-content">
+            <span class="fechar-modal">&times;</span>
+            <div class="modal-body">
+                <div class="modal-imagem">
+                    <img id="rCapa" src="" alt="Capa do Livro">
+                    <p id="rStatus" class="status-badge">Status</p>
+                </div>
+                <div class="modal-info">
+                    <h2 id="rTitulo">Título</h2>
+                    <h3 id="rAutor">Autor</h3>
+
+                    <div class="modal-meta">
+                        <p><strong>Data da Reserva:</strong> <span id="rDataReserva">--</span></p>
+                        <p><strong>Data de Retirada (prevista):</strong> <span id="rDataRetirada">--</span></p>
+                        <p><strong>Data de Devolução (prevista):</strong> <span id="rDataDevolucao">--</span></p>
+                        <p><strong>Status:</strong> <span id="rStatusText">--</span></p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/scriptReservas.js"></script>
+</body>
+</html>

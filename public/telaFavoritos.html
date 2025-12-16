@@ -3,16 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="./css/telaFavoritos.css">
     <title>Favoritos</title>
     <link rel="shortcut icon" href="./images/Group.svg" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 </head>
 <body>
     <header class="main-header">
-        <img class="logo-perfil" src="./images/Group 107.svg" width="15%">
+        <img class="logo-image" src="./images/Group 107.svg" width="15%">
 
-        <img class="senai-image-perfil" src="./images/SENAI_logo 1.png" width="10%">
-    </header> 
+        <img class="senai-image" src="./images/SENAI_logo 1.png" width="10%">
+    </header>
+
+    <main class="favorites-page">
+        <section class="user-section">
+            <h2>Dados do Usuário</h2>
+            <div class="user-card">
+                <div class="user-details">
+                    <div class="user-field"><strong>Nome:</strong> <span id="userName">—</span></div>
+                    <div class="user-field"><strong>E-mail:</strong> <span id="userEmail">—</span></div>
+                    
+                    <div class="user-field"><strong>Curso:</strong> <span id="userCurso">—</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="fav-section">
+            <h2>Meus Favoritos</h2>
+            <div class="carousel-wrapper">
+                <div id="favoritesCarousel" class="favorites-carousel">
+                    <!-- cards serão inseridos aqui via JS -->
+                </div>
+            </div>
+            <p id="noFavorites" class="no-favorites" style="display:none;">Você não tem favoritos ainda.</p>
+        </section>
+    </main>
+
+    <!-- Modal de detalhes do livro -->
+    <div id="modalLivroFav" class="modal-container">
+        <div class="modal-content">
+            <span class="fechar-modal">&times;</span>
+            <div class="modal-body">
+                <div class="modal-imagem">
+                    <img id="mCapaFav" src="" alt="Capa do Livro">
+                    <p id="mStatusFav" class="status-badge">Disponível</p>
+                </div>
+                <div class="modal-info">
+                    <h2 id="mTituloFav">Título</h2>
+                    <h3 id="mAutorFav">Autor</h3>
+                    <div class="modal-meta">
+                        <p><strong>Gênero:</strong> <span id="mGeneroFav">--</span></p>
+                        <p><strong>Ano:</strong> <span id="mAnoFav">--</span></p>
+                        <p><strong>Editora:</strong> <span id="mEditoraFav">--</span></p>
+                        <p><strong>ISBN:</strong> <span id="mIsbnFav">--</span></p>
+                    </div>
+                    <div class="modal-sinopse">
+                        <h4>Sinopse</h4>
+                        <p id="mSinopseFav">Descrição...</p>
+                    </div>
+
+                    <button id="btnDesfavoritarFav" class="btn-desfavoritar">Desfavoritar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/scriptTelaFavoritos.js"></script>
 </body>
 </html>

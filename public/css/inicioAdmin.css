@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
@@ -9,7 +9,7 @@
     --verdeAgua: #2fd6cb;
     --roxoAzulado: #4a67df;
     --azulEscuro: #26333d;
-    --cinza:#e6e6e6;
+    --cinza: #e6e6e6;
 }
 
 @font-face {
@@ -35,6 +35,9 @@ body {
     animation: fadeIn 0.8s ease forwards;
     font-family: "Montserrat-Regular", sans-serif;
     padding-top: 120px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 @keyframes fadeIn {
@@ -65,6 +68,7 @@ header {
     backdrop-filter: blur(6px);
 }
 
+
 .main-header .logo-image {
     width: 15vw;
     margin: 5px;
@@ -73,7 +77,7 @@ header {
     justify-content: flex-start;
 }
 
-.main-header .senai-image{
+.main-header .senai-image {
     width: 9vw;
     height: 5vh;
     margin: 10px;
@@ -87,17 +91,17 @@ header {
     top: 0;
     width: 100%;
     z-index: 999;
-    background-color: var(--branco); 
+    background-color: var(--branco);
     transition: box-shadow 0.3s ease;
     border-bottom-left-radius: 14px;
     border-bottom-right-radius: 14px;
 }
 
 .main-header.scrolled {
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.busca input[type="search"]{
+.busca input[type="search"] {
     width: 67vw;
     padding: 7px;
     font-size: 1.1rem;
@@ -105,7 +109,7 @@ header {
     border: 1px solid var(--cinza);
     margin: 13px 0;
     margin-right: 0;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -116,7 +120,7 @@ header {
 }
 
 .busca input:focus {
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
     transition: border-color 0.3s ease;
 }
 
@@ -131,7 +135,7 @@ header {
     transition: border-color 0.3s ease;
 }
 
-.busca label{
+.busca label {
     width: 47vw;
     display: flex;
     justify-content: center;
@@ -140,7 +144,7 @@ header {
 
 .buscarLivro {
     position: relative;
-    width: 67vw; 
+    width: 67vw;
     transition: border-color 0.3s ease;
 }
 
@@ -150,12 +154,12 @@ header {
     font-size: 1.1rem;
     border-radius: 25px;
     border: 1px solid var(--branco);
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
     transition: border-color 0.3s ease;
     outline: none;
 }
 
-.buscarLivro input:focus{
+.buscarLivro input:focus {
     border-color: var(--roxoAzulado);
 }
 
@@ -170,7 +174,7 @@ header {
     margin-top: 60px;
 }
 
-#destaques{
+#destaques {
     width: 57vw;
     display: flex;
     justify-content: flex-start;
@@ -181,47 +185,21 @@ header {
 }
 
 .h2_degrade {
-    font-size: 2.3rem;
+    font-size: 4.0rem;
     font-weight: bold;
     background: linear-gradient(90deg, var(--roxoAzulado), var(--verdeAgua));
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-} 
-
-.livro_1, .livro_2, .livro_3, .livro_4, .livro_5, .livro_6, .livro_7, .livro_8, .livro_9, .livro_10,
-.livro_11, .livro_12, .livro_13, .livro_14, .livro_15, .livro_16, .livro_17, .livro_18, .livro_19,
-.livro_20, .livro_21, .livro_22, .livro_23, .livro_24 {
-    position: relative;
+    margin-bottom: 40px;
 }
 
-.livro_1 .capa1, .livro_2 .capa2, .livro_3 .capa3, .livro_4 .capa4, .livro_5 .capa5, .livro_6 .capa6, .livro_7 .capa7, .livro_8 .capa8, .livro_9 .capa9, .livro_10 .capa10,
-.livro_11 .capa11, .livro_12 .capa12, .livro_13 .capa13, .livro_14 .capa14, .livro_15 .capa15, .livro_16 .capa16, .livro_17 .capa17, .livro_18 .capa18, .livro_19 .capa19, 
-.livro_20 .capa20, .livro_21 .capa21, .livro_22 .capa22, .livro_23 .capa23, .livro_24 .capa24 {
-    margin-top: 30px;
-    width: 6vw;   
-    height: 180px;     
-    border-radius: 12px;
-    display: flex;
-    justify-content: space-between;
-    color: var(--azulEscuro);
-    font-family: "Montserrat-Regular", sans-serif; 
-    transition: transform 0.2s ease;
-}
-
-.livro_1:hover .capa1:hover, .livro_2:hover .capa2:hover, .livro_3:hover .capa3:hover, .livro_4:hover .capa4:hover, .livro_5:hover .capa5:hover, .livro_6:hover .capa6:hover, 
-.livro_7:hover .capa7:hover, .livro_8:hover .capa8:hover, .livro_9:hover .capa9:hover, .livro_10:hover .capa10:hover, .livro_11:hover .capa11:hover, .livro_12:hover .capa12:hover, 
-.livro_13:hover .capa13:hover, .livro_14:hover .capa14:hover, .livro_15:hover .capa15:hover, .livro_16:hover .capa16:hover, .livro_17:hover .capa17:hover,
-.livro_18:hover .capa18:hover, .livro_19:hover .capa19:hover, .livro_20:hover .capa20:hover, .livro_21:hover .capa21:hover, .livro_22:hover .capa22:hover,
-.livro_23:hover .capa23:hover, .livro_24:hover .capa24:hover {
-    transform: scale(1.03);
-}
-
-.faceDestaques{
+.faceDestaques {
     margin-top: 65px;
 }
 
-#livros{
+#livros {
+    height: 100%;
     width: 57vw;
     display: flex;
     align-items: center;
@@ -241,25 +219,21 @@ header {
     gap: 33px;
     z-index: 999;
 }
- 
-.left-icons .addUser-icon{
-    width: 47px;
-}
 
-.left-icons .exit-icon{
+.left-icons .exit-icon {
     width: 57px;
 }
 
-.left-icons .filter-icon{
-    margin-bottom: 636px;
+.left-icons .filter1-icon {
+    margin-top: 120px;
     width: 44px;
     margin-left: 14px;
 }
 
 .right-icons {
     position: fixed;
-    bottom: 20px;  
-    right: 20px;  
+    bottom: 20px;
+    right: 20px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -268,45 +242,45 @@ header {
     z-index: 999;
 }
 
-.right-icons .config-icon{
+.right-icons .config-icon {
     width: 44px;
 }
 
-.right-icons .ficha-icon{
+.right-icons .ficha-icon {
     width: 44px;
 }
 
-.right-icons .resLivro-icon{
-    margin-bottom: 320px;
+.right-icons .resLivro-icon {
+    margin-bottom: 415px;
     width: 43px;
 }
 
-.right-icons .lidosLivros-icon{
+.right-icons .lidosLivros-icon {
     width: 44px;
 }
 
-.right-icons .favLivros-icon{
+.right-icons .favLivros-icon {
     width: 44px;
 }
 
-.right-icons .lendoLivros-icon{
+.right-icons .lendoLivros-icon {
     width: 45px;
 }
 
-.linha-right{
+.linha-right {
     position: fixed;
-    bottom: 20px;  
-    right: 80px;  
+    bottom: 20px;
+    right: 80px;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
     z-index: 999;
-    height: 760px;
+    height: 875px;
 }
 
 .category-box {
     position: fixed;
-    top: 187px;  
+    top: 187px;
     left: 100px;
     z-index: 9999;
     display: flex;
@@ -317,14 +291,14 @@ header {
 }
 
 .category-header {
-    display: inline-flex; 
+    display: inline-flex;
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    width: fit-content;  
+    width: fit-content;
 }
 
-.category-header .h2{
+.category-header .h2 {
     width: 64px;
 }
 
@@ -340,7 +314,7 @@ header {
     gap: 5px;
     background: var(--branco);
     border-radius: 8px;
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
     opacity: 0;
     max-height: 0;
     overflow: hidden;
@@ -359,7 +333,7 @@ header {
 }
 
 .category-header h2 {
-    font-size: 1.2rem;   
+    font-size: 1.2rem;
 }
 
 .category-list p {
@@ -382,16 +356,19 @@ footer {
     margin-top: 50px;
     height: 50px;
     background-color: var(--azulEscuro);
-    padding:16px 22px;
-    display:flex;
+    padding: 16px 22px;
+    display: flex;
     justify-content: space-between;
-    align-items:center;
+    align-items: center;
 }
 
-#ajuda, #termos, #contato {
-    border:none;
-    color:var(--azulEscuro);
-    cursor:pointer;
+
+#ajuda,
+#termos,
+#contato {
+    border: none;
+    color: var(--azulEscuro);
+    cursor: pointer;
     border-radius: 8px;
     background-color: #75ebe3;
     width: 110px;
@@ -406,7 +383,7 @@ footer.footer-home-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 -4px 18px rgba(0,0,0,0.15);
+    box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.15);
 }
 
 .footer-copy {
@@ -436,7 +413,7 @@ footer.footer-home-container {
 .footer-buttons button:hover {
     background-color: var(--verdeAgua);
     transform: translateY(-2px);
-    box-shadow: 0px 3px 10px rgba(0,0,0,0.25);
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25);
 }
 
 .left-icons,
@@ -460,7 +437,8 @@ footer.footer-home-container {
 }
 
 .hide-category {
-    transform: translateX(-240px);  /* ajustável */
+    transform: translateX(-240px);
+    /* ajustável */
 }
 
 /* ====== ANIMAÇÃO PARA A LINHA-RIGHT ====== */
@@ -469,7 +447,8 @@ footer.footer-home-container {
 }
 
 .hide-line {
-    transform: translateX(190px); /* ajustável */
+    transform: translateX(190px);
+    /* ajustável */
 }
 
 .fav {
@@ -491,14 +470,401 @@ footer.footer-home-container {
     transform: scale(1.25);
 }
 
-/* ============================
-   PADRONIZAÇÃO DAS CAPAS
-============================ */
-#livros div img {
-    width: 100%;           /* Largura total do card */
-    height: 300px;         /* ALTURA FIXA (Mude para 250px ou 350px se preferir) */
-    object-fit: cover;     /* A MÁGICA: Corta o excesso sem esticar/deformar */
-    object-position: top;  /* Prioriza mostrar o topo da capa (título) */
-    border-radius: 5px;    /* Cantos arredondados */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3); /* Sombra suave */
+
+.sem-livros,
+.erro-livros {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-size: 1.2rem;
 }
+
+.erro-livros button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.erro-livros button:hover {
+    background-color: #0056b3;
+}
+
+.badge-views {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    z-index: 10;
+}
+
+
+/* ============================
+   ESTILO DO MODAL
+============================ */
+
+#livros {
+    display: grid;
+    /* Isso aqui é a mágica: cria colunas que têm no mínimo 200px e no máximo o que der (1fr) */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    /* Espaço entre os livros */
+    width: 100%;
+    padding: 20px;
+}
+
+#livros {
+    display: grid;
+    /* O comando abaixo cria EXATAMENTE 3 colunas */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    /* Aumentei o espaço entre eles para ficar mais bonito */
+    width: 100%;
+    padding: 20px;
+
+    /* Opcional: limita a largura total para não ficar gigante em monitores ultrawide */
+    max-width: 1200px;
+    margin: 0 auto;
+    /* Centraliza o grid na tela */
+}
+
+.livro:hover {
+    transform: translateY(-5px);
+    /* Sobe um pouquinho quando passa o mouse */
+}
+
+.livro img {
+    width: 100%;
+    /* Aumente aqui para o tamanho que você quer. 400px ou 450px fica bem grande. */
+    height: 100%;
+    object-fit: cover;
+    /* Garante que a imagem não estique/deforme */
+    border-radius: 10px 10px 0 0;
+    /* Arredonda só em cima */
+}
+
+.modal-container {
+    display: none;
+    /* Começa escondido */
+    position: fixed;
+    z-index: 1000;
+    /* Fica na frente de tudo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Fundo preto transparente */
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+    /* Efeito de desfoque no fundo */
+}
+
+/* 🛑 CORREÇÃO PRINCIPAL: Permite Rolagem e Altura Dinâmica */
+.modal-content {
+    background-color: #fff;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    animation: aparecer 0.3s ease-out;
+
+    /* Permite que o conteúdo verticalmente */
+    max-height: 90vh;
+    /* Limita a altura máxima para 90% da tela */
+    overflow-y: auto;
+    /* Adiciona barra de rolagem se o conteúdo ultrapassar 90vh */
+
+    /* Garante que o conteúdo (body e formulário) fiquem em coluna */
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---------------------------------------------------- */
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fechar-modal {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.fechar-modal:hover {
+    color: #e74c3c;
+}
+
+.modal-body {
+    display: flex;
+    gap: 30px;
+    margin-top: 10px;
+    /* Adicionado para garantir que o body não empurre a seção de reserva */
+    width: 100%;
+}
+
+/* Responsivo para celular: Um embaixo do outro */
+@media (max-width: 700px) {
+    .modal-body {
+        flex-direction: column;
+    }
+
+    .modal-imagem {
+        text-align: center;
+    }
+
+    .modal-imagem img {
+        max-width: 150px;
+    }
+}
+
+.modal-imagem {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-imagem img {
+    width: 100%;
+    max-width: 250px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.status-badge {
+    margin-top: 10px;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: #27ae60;
+    /* Verde */
+}
+
+.modal-info {
+    flex: 2;
+    color: #333;
+    /* Texto escuro para leitura */
+}
+
+.modal-info h2 {
+    margin-top: 0;
+    color: #2c3e50;
+    font-size: 24px;
+}
+
+.modal-info h3 {
+    margin-top: 5px;
+    color: #7f8c8d;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.modal-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 20px 0;
+    font-size: 14px;
+    background: #e9ecef;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.modal-sinopse h4 {
+    margin-bottom: 5px;
+    color: #34495e;
+}
+
+.modal-sinopse p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #555;
+    max-height: 150px;
+    overflow-y: auto;
+    /* Rolagem se o texto for grande */
+}
+
+.btn-reservar {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-reservar:hover {
+    background-color: #2980b9;
+}
+
+/* ==================================== */
+/* ESTILOS PARA O MODAL DE RESERVA */
+/* ==================================== */
+
+/* Estilo para o botão de reserva que abre o formulário */
+#btnAbrirReserva {
+    background-color: #2ecc71;
+    /* Verde */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#btnAbrirReserva:hover {
+    background-color: #27ae60;
+    /* Verde mais escuro no hover */
+}
+
+/* Container do formulário para destaque */
+.modal-reserva-form {
+    /* 🛑 CORREÇÃO: Garante 100% de largura dentro do modal-content flex-column */
+    width: 100%;
+    border-top: 2px solid #ccc;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    box-sizing: border-box;
+    /* Adicionado para incluir padding no cálculo da largura */
+}
+
+.modal-reserva-form h4 {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    color: #34495e;
+    /* Azul escuro */
+}
+
+/* Estilo para o botão de confirmação dentro do formulário */
+.btn-confirmar-reserva {
+    background-color: #007bff !important;
+    /* Azul Principal */
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-confirmar-reserva:hover {
+    background-color: #0056b3 !important;
+}
+
+/* Estilo para inputs de data e email */
+.modal-reserva-form input[type="date"],
+.modal-reserva-form input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    /* Garante que padding não estoure a largura */
+}
+
+/* No final do arquivo css/inicio.css */
+@media (max-width: 768px) {
+    #livros {
+        /* No celular, muda para 1 coluna só */
+        grid-template-columns: 1fr;
+    }
+
+    .livro img {
+        /* No celular a imagem pode ser um pouco menor */
+        height: 350px;
+    }
+}
+
+
+
+/* RESPONSIVIDADE */
+@media (max-width: 1200px) {
+    #livros {
+        grid-template-columns: 1fr 1fr !important;
+        /* 2 colunas */
+        max-width: 1000px !important;
+    }
+
+    .livro img {
+        height: 500px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    #livros {
+        grid-template-columns: 1fr !important;
+        /* 1 coluna */
+        padding: 0 20px !important;
+        gap: 20px !important;
+    }
+
+    .livro img {
+        height: 400px !important;
+    }
+}
+
+.capa-container {
+    position: relative;
+    width: 70%;
+    margin: 0 auto;
+    height: 50%;
+}
+
+.livro img {
+    height: 400px !important;
+}
+
+#catalogo {
+    width: 57vw;
+    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    justify-content: flex-start;
+    gap: 58px;
+    margin-top: 80px;
+    flex-wrap: wrap;
+    margin: 0 auto;
+}
+

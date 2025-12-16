@@ -78,7 +78,7 @@ body::before {
 /* CARD CENTRAL */
 .intro-container {
     left: 50px;
-    margin-top: 120px;
+    margin-top: 220px;
 }
 
 .card {
@@ -175,7 +175,7 @@ body::before {
     flex-direction: column;
     gap: 13px;
     z-index: 2;
-    margin-top: 365px;
+    margin-top: 470px;
 }
 
 .botoes .cta {

@@ -16,12 +16,10 @@
         <img class="logo-image" src="./images/Group 107.svg" width="15%">
 
         <form class="busca" method="get">
-
             <label class="buscarLivro">
                 <input type="search" placeholder="Buscar" name="busca" id="busca">
                 <span class="lupa material-symbols-outlined">search</span>
             </label>
-
         </form>
 
         <img class="senai-image" src="./images/SENAI_logo 1.png" width="10%">
@@ -40,23 +38,26 @@
             <p>Infantil</p>
             <p>Educacional</p>
             <p>Fantasia</p>
+            <p>Ficção</p>
+            <p>Autobiografia</p>
+            <p>Ciências Sociais</p>
         </div>
     </div>
 
     <div class="faceDestaques">
-        <div id="destaques">
-            <h2 class="h2_degrade">Livros em Destaque</h2>
-        </div>
+    <div id="destaques">
+        <h2 class="h2_degrade">Livros em Destaque</h2>
+    </div>
+    <div id="livros"></div>
+</div>
+
 
         <div id="livros">
-            <!-- Livros carregados automaticamente -->
-        </div>
-
-    </div>
+            </div>
     </div>
 
     <div class="left-icons">
-        <img class="filter-icon" src="./images/filtroCategoria.png" alt="Filter">
+        <!-- <img class="filter1-icon" src="./images/filtroCategoria.png" alt="Filter"> -->
         <a href="cadastro.html">
             <img class="addUser-icon" src="./images/adUsuario.png" alt="addUser"> </a>
         <a href="bibliotec.html">
@@ -75,7 +76,6 @@
     </div>
 
     <footer class="footer-home-container">
-
         <div class="footer-copy">
             Bibliotec • © 2025
         </div>
@@ -87,8 +87,64 @@
             </a>
             <button type="button" id="contato">Contato</button>
         </div>
-
     </footer>
+
+    <div id="modalLivro" class="modal-container">
+        <div class="modal-content">
+            <span class="fechar-modal">&times;</span>
+
+            <div class="modal-body">
+                <div class="modal-imagem">
+                    <img id="mCapa" src="" alt="Capa do Livro">
+                    <p id="mStatus" class="status-badge">Disponível</p>
+                </div>
+
+                <div class="modal-info">
+                    <h2 id="mTitulo">Título do Livro</h2>
+                    <h3 id="mAutor">Autor do Livro</h3>
+
+                    <div class="modal-meta">
+                        <p><strong>Gênero:</strong> <span id="mGenero">--</span></p>
+                        <p><strong>Ano:</strong> <span id="mAno">--</span></p>
+                        <p><strong>Editora:</strong> <span id="mEditora">--</span></p>
+                        <p><strong>ISBN:</strong> <span id="mIsbn">--</span></p>
+                        <p><strong>Formato:</strong> <span id="mFormato">--</span></p>
+                    </div>
+
+                    <div class="modal-sinopse">
+                        <h4>Sinopse</h4>
+                        <p id="mSinopse">Descrição do livro...</p>
+                    </div>
+
+                    <button class="btn-reservar" id="btnAbrirReserva">Reservar Livro</button>
+                    <button class="btn-favoritar" id="btnFavorito" style="margin-top: 10px; background-color: #007bff; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer;">❤️ Favoritar</button>
+                </div>
+            </div>
+
+            <div class="modal-reserva-form" id="reservaFormContainer" style="display:none;">
+                <h4 style="color: #333; margin-top: 0;">Confirmação de Retirada</h4>
+                <form id="formReserva" style="display: grid; gap: 10px;">
+                    
+                    <label for="dataRetirada" style="font-weight: bold; color: #555;">Data de Retirada Desejada:</label>
+                    <input type="date" id="dataRetirada" required 
+                        style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;">
+                    
+                    <label for="emailConfirma" style="font-weight: bold; color: #555;">Confirme seu E-mail:</label>
+                    <input type="email" id="emailConfirma" placeholder="Seu e-mail cadastrado" required 
+                        style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;">
+                    
+                    <button type="submit" class="btn-confirmar-reserva" 
+                            style="margin-top: 15px; background-color: #007bff; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
+                        Confirmar Reserva
+                    </button>
+                    
+                </form>
+                <p style="font-size: 11px; margin-top: 10px; color: #777; text-align: center;">* Devolução prevista: 14 dias após a retirada.</p>
+                <p id="msgReserva" style="margin-top: 10px; text-align: center; font-weight: bold;"></p>
+            </div>
+            
+        </div>
+    </div>
 
     <script src="./js/scriptHome.js"></script>
 
